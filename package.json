@@ -1,0 +1,41 @@
+{
+  "name": "hoth",
+  "version": "1.0.0",
+  "description": "A Node.js framework based on fastify.",
+  "main": "index.js",
+  "repository": "https://github.com/cxtom/hoth.git",
+  "author": "cxtom <chenxiao07@baidu.com>",
+  "license": "MIT",
+  "private": true,
+  "bin": {
+    "hoth": "dist/cli.js"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "build": "etsc",
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "@fastify-resty/core": "^0.3.0",
+    "commist": "^1.1.0",
+    "fastify": "^3.11.0",
+    "help-me": "^2.0.0",
+    "make-promises-safe": "^5.1.0",
+    "pino": "^6.11.0",
+    "tslib": "^2.1.0",
+    "v8-compile-cache": "^2.2.0",
+    "yargs-parser": "^20.2.4"
+  },
+  "devDependencies": {
+    "@babel/eslint-plugin": "^7.12.13",
+    "@ecomfe/eslint-config": "^7.0.0",
+    "@types/node": "^14.14.22",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "esbuild": "^0.8.39",
+    "esbuild-node-tsc": "^1.2.0",
+    "eslint": "^7.19.0",
+    "nodemon": "^2.0.7",
+    "typescript": "^4.1.3"
+  }
+}

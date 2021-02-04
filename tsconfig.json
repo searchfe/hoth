@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "target": "es2019",
+        "module": "commonjs",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "outDir": "./dist",
+        "importHelpers": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true
+    },
+    "include": ["src/*"]
+}

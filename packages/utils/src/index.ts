@@ -3,8 +3,6 @@
  * @author cxtom
  */
 
-import path from 'path';
-import fs from 'fs';
 import resolveFrom from 'resolve-from';
 import {pathToFileURL} from 'url';
 

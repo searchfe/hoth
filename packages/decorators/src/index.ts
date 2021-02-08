@@ -1,0 +1,26 @@
+
+
+export {
+    bootstrap,
+    BootstrapConfig,
+    Controller,
+    ControllerType,
+    ControllerConfig,
+    RouteConfig,
+    Service,
+    Inject,
+    Initializer,
+    Destructor,
+    Hook,
+    ErrorHandler,
+    getInstanceByToken,
+    ALL,
+    DELETE,
+    GET,
+    HEAD,
+    OPTIONS,
+    PATCH,
+    POST,
+    PUT,
+    FastifyInstanceToken,
+} from 'fastify-decorators';

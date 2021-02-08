@@ -1,0 +1,40 @@
+Usage: hoth start [opts] <file> [--] [<plugin-options>]
+
+OPTS
+
+  -p, --port
+  [env: HOTH_PORT or PORT]
+      Port to listen on (default to 8025)
+
+  -a, --address
+  [env: HOTH_ADDRESS]
+      Address to listen on
+
+  -s, --socket
+  [env: HOTH_SOCKET]
+      Socket to listen on
+
+  --app-dir
+      app dir (default to 'app')
+
+  --app-prefix
+      root prefix for all apps (default to '/')
+
+  --app-name
+      app name for single app mode (default to 'hoth')
+
+  -T, --plugin-timeout
+      The maximum amount of time that a plugin can take to load (default to 10 seconds).
+
+  -h, --help
+      Show this help message
+
+Examples:
+
+  start on port 8080
+
+    hoth start -p 8080
+
+  start plugin.js passing custom options to it
+
+    hoth start -- --custom-plugin-option-1 --custom-plugin-option-2

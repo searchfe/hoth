@@ -2,6 +2,6 @@
     "watch": ["src"],
     "ignore": ["src/**/*.test.ts"],
     "ext": "ts,mjs,js,json,graphql",
-    "exec": "etsc",
+    "exec": "yarn run build && yarn run hoth start --app-dir='example/hoth-quickstart/dist'",
     "legacyWatch": true
 }

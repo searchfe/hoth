@@ -10,21 +10,27 @@ interface Args {
     '--': any[];
     port: number | string;
     debug: boolean;
+    help: boolean;
     debugPort: number;
     debugHost: string;
     address: string;
     socket: string;
-    pluginOptions: object;
+    pluginOptions: {
+        [key: string]: any;
+    };
+    appDir: string;
+    appPrefix: string;
+    appName: string;
 }
 
 export default function (args): Args {
     const parsedArgs = yargsParser(args, {
         configuration: {
-            'populate--': true
+            'populate--': true,
         },
         number: ['port', 'debug-port', 'plugin-timeout'],
-        boolean: ['debug'],
-        string: ['address', 'socket', 'debug-host'],
+        boolean: ['debug', 'help'],
+        string: ['address', 'socket', 'debug-host', 'app-dir', 'app-prefix', 'app-name'],
         envPrefix: 'HOTH_',
         alias: {
             port: ['p'],
@@ -33,17 +39,19 @@ export default function (args): Args {
             address: ['a'],
             debug: ['d'],
             'debug-port': ['I'],
-            'plugin-timeout': ['T'],
         },
         default: {
+            port: 8250,
             debug: false,
             debugPort: 9320,
-            'plugin-timeout': 10 * 1000, // everything should load in 10 seconds
-        }
+            appDir: 'app',
+            appPrefix: '/',
+            appName: 'hoth',
+        },
     });
 
-    const additionalArgs = parsedArgs['--'] || []
-    const { _, ...pluginOptions } = yargsParser(additionalArgs);
+    const additionalArgs = parsedArgs['--'] || [];
+    const {_, ...pluginOptions} = yargsParser(additionalArgs);
 
     return {
         _: parsedArgs._,
@@ -54,6 +62,10 @@ export default function (args): Args {
         debugHost: parsedArgs.debugHost,
         address: parsedArgs.address,
         socket: parsedArgs.socket,
+        help: parsedArgs.help,
+        appDir: parsedArgs.appDir,
+        appPrefix: parsedArgs.appPrefix,
+        appName: parsedArgs.appName,
         pluginOptions,
     };
 }

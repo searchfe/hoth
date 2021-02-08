@@ -8,7 +8,7 @@
 import path from 'path';
 import commist from 'commist';
 import helpMe from 'help-me';
-import pkg from '../package.json';
+import {cli as startCli} from './start';
 
 const commander = commist();
 const help = helpMe({
@@ -17,10 +17,11 @@ const help = helpMe({
 
 commander.register('help', help.toStdout);
 commander.register('version', function () {
-    console.log(pkg.version);
+    console.log(require('../package.json').version); // eslint-disable-line
 });
+commander.register('start', startCli);
 
-const res = commist.parse(process.argv.splice(2));
+const res = commander.parse(process.argv.splice(2));
 
 if (res) {
     help.toStdout(res);

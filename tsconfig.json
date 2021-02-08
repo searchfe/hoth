@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
-        "baseUrl": "src",
         "target": "es2019",
         "module": "commonjs",
+        "moduleResolution": "Node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "outDir": "./dist",
         "importHelpers": true,
         "esModuleInterop": true,
-        "resolveJsonModule": true
-    },
-    "include": ["src/*"]
+        "sourceMap": true,
+        "declaration": true,
+        "composite": true
+    }
 }

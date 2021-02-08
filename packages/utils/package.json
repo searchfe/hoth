@@ -1,0 +1,29 @@
+{
+  "name": "@hoth/utils",
+  "version": "1.0.0",
+  "description": "utils plugin for hoth framework",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --build tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cxtom/hoth.git"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "author": "cxtom (cxtom2008@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cxtom/hoth/issues"
+  },
+  "homepage": "https://github.com/cxtom/hoth#readme",
+  "dependencies": {
+    "resolve-from": "^5.0.0",
+    "tslib": "^2.1.0"
+  },
+  "files": [
+    "dist"
+  ]
+}

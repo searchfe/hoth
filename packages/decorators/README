@@ -1,0 +1,5 @@
+# @hoth/decorators
+
+decorators for hoth framework
+
+> Just a wrapper of [fastify-decorators](https://github.com/L2jLiga/fastify-decorators) right now.

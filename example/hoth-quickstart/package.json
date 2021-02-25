@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "description": "Fastify Resty quickstart API application",
-  "author": "Demidovich Daniil <demidovich.daniil@gmail.com>",
+  "author": "cxtom <cxtom2008@gmail.com>",
   "license": "MIT",
   "main": "src/app.ts",
   "scripts": {

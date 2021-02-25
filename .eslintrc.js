@@ -9,6 +9,7 @@ module.exports = {
         '@ecomfe/eslint-config/typescript',
     ],
     rules: {
-        'no-console': 'off'
+        'no-console': 'off',
+        'spaced-comment': ["error", "always", { "markers": ["/"] }]
     },
 };

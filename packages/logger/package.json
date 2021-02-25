@@ -1,7 +1,7 @@
 {
-  "name": "@hoth/app-autoload",
+  "name": "@hoth/logger",
   "version": "1.0.0",
-  "description": "app-autoload plugin for hoth framework",
+  "description": "logger plugin for hoth framework",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc --build tsconfig.json"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/cxtom/hoth.git"
   },
   "keywords": [
-    "app-autoload"
+    "logger"
   ],
   "author": "cxtom (cxtom2008@gmail.com)",
   "license": "MIT",
@@ -20,11 +20,7 @@
   },
   "homepage": "https://github.com/cxtom/hoth#readme",
   "dependencies": {
-    "@hoth/decorators": "^1.0.0",
-    "@hoth/utils": "^1.0.0",
-    "config": "^3.3.3",
-    "fastify-autoload": "^3.4.2",
-    "fastify-plugin": "^3.0.0",
+    "resolve-from": "^5.0.0",
     "tslib": "^2.1.0"
   },
   "files": [

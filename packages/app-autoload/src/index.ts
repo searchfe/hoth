@@ -3,6 +3,9 @@
  * @author cxtom
  */
 
+process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
+
+import Config from 'config';
 import {resolve, join, isAbsolute} from 'path';
 import autoload from 'fastify-autoload';
 import {existsSync, readdirSync} from 'fs';
@@ -22,6 +25,7 @@ interface AppConfig {
     dir: string;
     prefix: string;
     name: string;
+    rootPath: string;
 }
 
 interface PluginAppConfig extends AppConfig {
@@ -34,11 +38,14 @@ interface PluginAppConfig extends AppConfig {
 
 declare module 'fastify' {
     interface FastifyInstance {
-        readonly appConfig: PluginAppConfig;
+        readonly appConfig: {
+            get: (property: string) => any;
+            has: (property: string) => boolean;
+        };
     }
 }
 
-async function loadSingleApp(appConfig: AppConfig, childInstance: FastifyInstance) {
+async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
 
     const pluginAppConfig: PluginAppConfig = {
         ...appConfig,
@@ -48,13 +55,28 @@ async function loadSingleApp(appConfig: AppConfig, childInstance: FastifyInstanc
         entryPath: join(appConfig.dir, 'app.js'),
     };
 
-    childInstance.decorate('appConfig', appConfig);
-
     // load config
     if (!existsSync(pluginAppConfig.configPath)) {
         exit(`Did not find \`config\` dir in ${appConfig.dir}`);
         return;
     }
+
+    const config = Config.util.loadFileConfigs(pluginAppConfig.configPath);
+    Config.util.setModuleDefaults(appConfig.name, {
+        ...config,
+        ...appConfig,
+    });
+
+    childInstance.decorate('appConfig', {
+        get(property: string | string[]) {
+            const props = Array.isArray(property)
+                ? [appConfig.name, ...property]
+                : `${appConfig.name}.${property}`;
+            if (Config.has(props)) {
+                return Config.get(props);
+            }
+        },
+    });
 
     // load controllers
     if (!existsSync(pluginAppConfig.controllerPath)) {
@@ -63,7 +85,8 @@ async function loadSingleApp(appConfig: AppConfig, childInstance: FastifyInstanc
     }
     await childInstance.register(bootstrap, {
         directory: pluginAppConfig.controllerPath,
-        mask: /\.controller\./,
+        mask: /\.controller\.js$/,
+        appName: appConfig.name,
     });
 
     // register app plugins
@@ -110,6 +133,7 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload) 
             dir: appRoot,
             prefix,
             name: name || (prefix === '/' ? 'root' : prefix.slice(1)),
+            rootPath,
         }];
     }
     else {
@@ -121,6 +145,7 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload) 
                     dir: dirPath,
                     prefix: `${prefix}${prefix === '/' ? '' : '/'}${dir}`,
                     name: dir.name,
+                    rootPath,
                 });
             }
         }
@@ -132,7 +157,7 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload) 
     }
 
     for await (const appConfig of apps) {
-        await instance.register(loadSingleApp.bind(null, appConfig), {
+        await instance.register(load.bind(null, appConfig), {
             prefix: appConfig.prefix,
         });
     }

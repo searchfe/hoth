@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/cxtom/hoth.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "logger"
   ],
@@ -30,5 +33,6 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "gitHead": "0735cada835eabb2ac787ca1c5f2ff4bb8310fe2"
 }

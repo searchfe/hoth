@@ -1,6 +1,6 @@
 {
   "name": "@hoth/app-autoload",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.0",
   "description": "app-autoload plugin for hoth framework",
   "main": "dist/index.js",
   "scripts": {
@@ -20,8 +20,8 @@
   },
   "homepage": "https://github.com/cxtom/hoth#readme",
   "dependencies": {
-    "@hoth/decorators": "^1.0.0",
-    "@hoth/utils": "^1.0.0",
+    "@hoth/decorators": "^1.0.1-alpha.0",
+    "@hoth/utils": "^1.0.1-alpha.0",
     "config": "^3.3.3",
     "fastify-autoload": "^3.4.2",
     "fastify-plugin": "^3.0.0",

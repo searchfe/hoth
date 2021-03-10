@@ -46,7 +46,6 @@ export default function (args): Args {
             debugPort: 9320,
             appDir: 'app',
             appPrefix: '/',
-            appName: 'hoth',
         },
     });
 

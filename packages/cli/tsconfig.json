@@ -6,6 +6,7 @@
     },
     "references": [
         { "path": "../utils" },
-        { "path": "../app-autoload" }
+        { "path": "../app-autoload" },
+        { "path": "../logger" }
     ],
 }

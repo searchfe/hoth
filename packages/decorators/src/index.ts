@@ -42,3 +42,15 @@ export async function bootstrap(fastify: FastifyInstance, config: BootstrapConfi
     appFastifyInstanceTokenMap.set(appName, fastify);
     return await bootstrapInner(fastify, config);
 }
+
+declare module 'fastify' {
+    interface FastifyRequest {
+        readonly $appConfig: {
+            get: (property: string) => any;
+        };
+        module?: string;
+        logid?: string;
+        product?: string;
+    }
+}
+

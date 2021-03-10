@@ -7,7 +7,8 @@ import Fastify from 'fastify';
 import isDocker from 'is-docker';
 import parseArgs from './parseArgs';
 import {exit, requireFastifyForModule} from '@hoth/utils';
-import appAutoload from '@hoth/app-autoload';
+import appAutoload, {getApps} from '@hoth/app-autoload';
+import createLogger from '@hoth/logger';
 import {showHelpForCommand} from './util';
 
 const listenAddressDocker = '0.0.0.0';
@@ -41,17 +42,25 @@ async function runFastify(opts) {
         }
     }
 
+    const rootPath = process.env.ROOT_PATH || process.cwd();
+    const apps = await getApps({
+        dir: opts.appDir,
+        prefix: opts.appPrefix,
+        name: opts.appName,
+        rootPath,
+    });
+
     const fastifyInstance = fastify({
-        logger: false,
+        logger: createLogger({
+            apps,
+            rootPath,
+        }),
         disableRequestLogging: true,
         pluginTimeout: 60 * 1000,
     });
 
     await fastifyInstance.register(appAutoload, {
-        dir: opts.appDir,
-        prefix: opts.appPrefix,
-        name: opts.appName,
-        rootPath: process.env.ROOT_PATH || process.cwd(),
+        apps,
     });
 
     let address;

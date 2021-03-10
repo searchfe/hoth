@@ -11,8 +11,11 @@ import autoload from 'fastify-autoload';
 import {existsSync, readdirSync} from 'fs';
 import {FastifyInstance, FastifyPluginAsync} from 'fastify';
 import fp from 'fastify-plugin';
+import resolveFrom from 'resolve-from';
 import {bootstrap} from '@hoth/decorators';
 import {exit, loadModule} from '@hoth/utils';
+import onResponse from './hook/onResponse';
+import preHandlerFactory from './hook/preHandlerFactory';
 
 interface AppAutoload {
     dir: string;
@@ -26,23 +29,19 @@ interface AppConfig {
     prefix: string;
     name: string;
     rootPath: string;
+    pluginConfig: {
+        [name: string]: any;
+    };
 }
-
+interface AppsLoaded {
+    apps: AppConfig[];
+}
 interface PluginAppConfig extends AppConfig {
     [key: string]: any;
     controllerPath: string;
     configPath: string;
     pluginPath: string;
     entryPath: string;
-}
-
-declare module 'fastify' {
-    interface FastifyInstance {
-        readonly appConfig: {
-            get: (property: string) => any;
-            has: (property: string) => boolean;
-        };
-    }
 }
 
 async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
@@ -67,7 +66,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         ...appConfig,
     });
 
-    childInstance.decorate('appConfig', {
+    childInstance.decorateRequest('$appConfig', {
         get(property: string | string[]) {
             const props = Array.isArray(property)
                 ? [appConfig.name, ...property]
@@ -77,6 +76,35 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
             }
         },
     });
+
+    // load module plugins
+    if (appConfig.pluginConfig) {
+        for await (const [name, config] of Object.entries(appConfig.pluginConfig)) {
+            if (name === '@hoth/app-autoload') {
+                continue;
+            }
+            let mod: any = resolveFrom.silent(appConfig.dir, name);
+            mod = mod.__esModule ? mod.default : mod;
+            if (mod) {
+                await childInstance.register(mod, config);
+            }
+        }
+    }
+
+    // register app plugins
+    const appEntryModule: FastifyPluginAsync = await loadModule(pluginAppConfig.entryPath);
+    await childInstance.register(appEntryModule, {...appConfig});
+    if (existsSync(pluginAppConfig.pluginPath)) {
+        await childInstance.register(autoload, {
+            dir: pluginAppConfig.pluginPath,
+            dirNameRoutePrefix: false,
+            ignorePattern: /.*(test|spec).js/,
+            maxDepth: 2,
+            options: {
+                ...appConfig,
+            },
+        });
+    }
 
     // load controllers
     if (!existsSync(pluginAppConfig.controllerPath)) {
@@ -89,26 +117,23 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         appName: appConfig.name,
     });
 
-    // register app plugins
-    const appEntryModule: FastifyPluginAsync = await loadModule(pluginAppConfig.entryPath);
-    await childInstance.register(appEntryModule, {...appConfig});
-    if (existsSync(pluginAppConfig.pluginPath)) {
-        childInstance.register(autoload, {
-            dir: pluginAppConfig.pluginPath,
-            dirNameRoutePrefix: false,
-            ignorePattern: /.*(test|spec).js/,
-            maxDepth: 2,
-            options: {
-                ...appConfig,
-            },
-        });
-    }
+    childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
+    childInstance.addHook('onResponse', onResponse);
 
     return childInstance;
 }
 
-export default fp(async function (instance: FastifyInstance, opts: AppAutoload) {
+async function loadPluginConfig(appRoot: string) {
+    try {
+        const result = await loadModule(join(appRoot, 'config/plugin'));
+        return result;
+    }
+    catch (e) {
+        return null;
+    }
+}
 
+export async function getApps(opts: AppAutoload) {
     const {
         dir,
         rootPath,
@@ -129,11 +154,13 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload) 
     let apps: AppConfig[] = [];
 
     if (existsSync(join(appRoot, 'app.js'))) {
+        const pluginConfig = await loadPluginConfig(appRoot);
         apps = [{
             dir: appRoot,
             prefix,
             name: name || (prefix === '/' ? 'root' : prefix.slice(1)),
             rootPath,
+            pluginConfig,
         }];
     }
     else {
@@ -141,11 +168,13 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload) 
         for (const dir of dirs) {
             const dirPath = resolve(appRoot, dir.name);
             if (dir.isDirectory() && existsSync(join(dirPath, 'app.js'))) {
+                const pluginConfig = await loadPluginConfig(dirPath);
                 apps.push({
                     dir: dirPath,
                     prefix: `${prefix}${prefix === '/' ? '' : '/'}${dir}`,
                     name: dir.name,
                     rootPath,
+                    pluginConfig,
                 });
             }
         }
@@ -156,13 +185,24 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload) 
         return;
     }
 
+    return apps;
+}
+
+export default fp(async function (instance: FastifyInstance, opts: AppAutoload | AppsLoaded) {
+
+    let apps: AppConfig[];
+    if ((opts as AppsLoaded).apps) {
+        apps = (opts as AppsLoaded).apps;
+    }
+    else {
+        apps = await getApps(opts as AppAutoload);
+    }
+
     for await (const appConfig of apps) {
         await instance.register(load.bind(null, appConfig), {
             prefix: appConfig.prefix,
         });
     }
-
-    console.log(apps);
 
     return;
 

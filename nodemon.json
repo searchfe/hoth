@@ -1,7 +1,8 @@
 {
-    "watch": ["packages/*/src", "example/*/src"],
-    "ignore": ["*.test.ts"],
+    "watch": ["*.ts"],
+    "ignore": ["*.test.ts", "node_modules/*", "*.d.ts"],
     "ext": "ts,js",
-    "exec": "yarn run build && yarn run hoth start --app-dir='example/hoth-quickstart/dist'",
-    "legacyWatch": true
+    "exec": "yarn run build && NODE_ENV=development yarn run hoth start --app-dir='example/hoth-quickstart/dist' --app-name='quickstart'",
+    "legacyWatch": true,
+    "require": ["source-map-support/register"]
 }

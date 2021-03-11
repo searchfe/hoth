@@ -1,6 +1,6 @@
 {
   "name": "@hoth/cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "cli plugin for hoth framework",
   "main": "dist/index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/cxtom/hoth#readme",
   "dependencies": {
-    "@hoth/app-autoload": "^1.0.1",
+    "@hoth/app-autoload": "^1.0.2",
     "@hoth/logger": "^1.0.1",
     "@hoth/utils": "^1.0.1",
     "commist": "^1.1.0",

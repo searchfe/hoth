@@ -43,7 +43,6 @@ export async function bootstrap(fastify: FastifyInstance, config: BootstrapConfi
     return await bootstrapInner(fastify, config);
 }
 
-
 declare module 'fastify' {
     interface FastifyRequest {
         readonly $appConfig: {

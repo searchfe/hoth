@@ -62,12 +62,9 @@ export default function (options: LoggerOptions) {
                 return {
                     method: request.method,
                     url: request.url,
-                    path: request.path,
                     parameters: request.parameters,
                     headers: request.headers,
-                    ip: request.headers['x-forwarded-for']
-                        || request.connection.remoteAddress
-                        || request.headers['x-real-ip'],
+                    ip: request.ip,
                     module: request.product,
                     product: request.product,
                     logid: request.logid,

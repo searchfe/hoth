@@ -1,10 +1,13 @@
-import {Controller, getFastifyInstanceByAppName, GET} from '@hoth/decorators';
+import {Controller, GET, Hook} from '@hoth/decorators';
 import {FastifyReply, FastifyRequest} from 'fastify';
 
 @Controller('/app')
 export default class AppController {
 
-    private readonly service = getFastifyInstanceByAppName('quickstart');
+    @Hook('preHandler')
+    async preHandler() {
+        console.log('in controller');
+    }
 
     @GET()
     getApp(req: FastifyRequest, reply: FastifyReply) {

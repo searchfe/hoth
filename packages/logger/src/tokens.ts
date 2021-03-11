@@ -35,10 +35,14 @@ export default {
         return o.req?.headers.cookie;
     },
     time: function (o) {
-        let date = o._lastDate || new Date(o.time);
-        o._lastDate = date;
-        const parts = date.toISOString().split('T');
-        return `${parts[0]} ${parts[1].split('.')[0]}`;
+        let date = new Date(o.time);
+        const year = date.getFullYear();
+        const month = `${date.getMonth() + 1}`.padStart(2, '0');
+        const day = `${date.getDate()}`.padStart(2, '0');
+        const hour = `${date.getHours()}`.padStart(2, '0');
+        const minute = `${date.getMinutes()}`.padStart(2, '0');
+        const second = `${date.getSeconds()}`.padStart(2, '0');
+        return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     },
     method: function (o) {
         return o.req?.method;

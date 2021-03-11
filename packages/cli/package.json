@@ -32,6 +32,7 @@
     "help-me": "^2.0.0",
     "inspector": "^0.5.0",
     "is-docker": "^2.1.1",
+    "make-promises-safe": "^5.1.0",
     "tslib": "^2.1.0",
     "yargs-parser": "^20.2.4"
   },

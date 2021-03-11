@@ -81,6 +81,11 @@ async function runFastify(opts) {
         pluginTimeout: 60 * 1000,
     });
 
+    // eslint-disable-next-line
+    require('make-promises-safe').logError = function (error) {
+        fastifyInstance.log.fatal(error instanceof Error ? {err: error} : error);
+    };
+
     await fastifyInstance.register(appAutoload, {
         apps,
     });

@@ -14,8 +14,10 @@ import fp from 'fastify-plugin';
 import resolveFrom from 'resolve-from';
 import {bootstrap} from '@hoth/decorators';
 import {exit, loadModule} from '@hoth/utils';
+import onErrorFactory from './hook/onErrorFactory';
 import onResponse from './hook/onResponse';
 import preHandlerFactory from './hook/preHandlerFactory';
+import onRequestFactory from './hook/onRequestFactory';
 
 interface AppAutoload {
     dir: string;
@@ -66,17 +68,6 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         ...appConfig,
     });
 
-    childInstance.decorateRequest('$appConfig', {
-        get(property: string | string[]) {
-            const props = Array.isArray(property)
-                ? [appConfig.name, ...property]
-                : `${appConfig.name}.${property}`;
-            if (Config.has(props)) {
-                return Config.get(props);
-            }
-        },
-    });
-
     // load module plugins
     if (appConfig.pluginConfig) {
         for await (const [name, config] of Object.entries(appConfig.pluginConfig)) {
@@ -117,6 +108,17 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         appName: appConfig.name,
     });
 
+    childInstance.addHook('onRequest', onRequestFactory({
+        get(property: string | string[]) {
+            const props = Array.isArray(property)
+                ? [appConfig.name, ...property]
+                : `${appConfig.name}.${property}`;
+            if (Config.has(props)) {
+                return Config.get(props);
+            }
+        },
+    }, childInstance));
+    childInstance.addHook('onError', onErrorFactory(appConfig.name));
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('onResponse', onResponse);
 
@@ -171,7 +173,7 @@ export async function getApps(opts: AppAutoload) {
                 const pluginConfig = await loadPluginConfig(dirPath);
                 apps.push({
                     dir: dirPath,
-                    prefix: `${prefix}${prefix === '/' ? '' : '/'}${dir}`,
+                    prefix: `${prefix}${prefix === '/' ? '' : '/'}${dir.name}`,
                     name: dir.name,
                     rootPath,
                     pluginConfig,

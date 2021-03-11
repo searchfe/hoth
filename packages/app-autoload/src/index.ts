@@ -62,16 +62,13 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         return;
     }
 
-    const config = Config.util.loadFileConfigs(pluginAppConfig.configPath);
-    Config.util.setModuleDefaults(appConfig.name, {
-        ...config,
-        ...appConfig,
-    });
-
     // load module plugins
     if (appConfig.pluginConfig) {
         for await (const [name, config] of Object.entries(appConfig.pluginConfig)) {
             if (name === '@hoth/app-autoload') {
+                if (config.prefix) {
+                    appConfig.prefix = config.prefix;
+                }
                 continue;
             }
             let mod: any = resolveFrom.silent(appConfig.dir, name);
@@ -81,6 +78,12 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
             }
         }
     }
+
+    const config = Config.util.loadFileConfigs(pluginAppConfig.configPath);
+    Config.util.setModuleDefaults(appConfig.name, {
+        ...config,
+        ...appConfig,
+    });
 
     // register app plugins
     const appEntryModule: FastifyPluginAsync = await loadModule(pluginAppConfig.entryPath);

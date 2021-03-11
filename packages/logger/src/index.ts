@@ -35,6 +35,14 @@ export default function (options: LoggerOptions) {
         ];
         const levels = ['trace', 'notice', 'warn'];
         for (let i = 0; i < files.length; i++) {
+            if (process.env.NODE_ENV === 'development' && name === 'hoth') {
+                streams.push({
+                    app: name,
+                    stream: i > 1 ? process.stderr : process.stdout,
+                    level: levels[i],
+                });
+                continue;
+            }
             const fullpath = path.join(logPath, files[i]);
             if (!fs.existsSync(fullpath)) {
                 fs.ensureFileSync(fullpath);

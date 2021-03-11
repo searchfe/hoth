@@ -29,7 +29,9 @@
     "@hoth/app-autoload": "^1.0.2",
     "@hoth/logger": "^1.0.1",
     "@hoth/utils": "^1.0.1",
+    "chalk": "^4.1.0",
     "commist": "^1.1.0",
+    "generify": "^4.2.0",
     "help-me": "^2.0.0",
     "inspector": "^0.5.0",
     "is-docker": "^2.1.1",
@@ -39,7 +41,8 @@
   },
   "files": [
     "dist",
-    "help"
+    "help",
+    "templates"
   ],
   "gitHead": "0735cada835eabb2ac787ca1c5f2ff4bb8310fe2"
 }

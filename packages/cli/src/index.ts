@@ -9,6 +9,7 @@ import path from 'path';
 import commist from 'commist';
 import helpMe from 'help-me';
 import {cli as startCli} from './start';
+import {cli as generate} from './generate';
 
 const commander = commist();
 const help = helpMe({
@@ -20,6 +21,7 @@ commander.register('version', function () {
     console.log(require('../package.json').version); // eslint-disable-line
 });
 commander.register('start', startCli);
+commander.register('generate', generate);
 
 const res = commander.parse(process.argv.splice(2));
 

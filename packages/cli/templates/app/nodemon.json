@@ -1,0 +1,7 @@
+{
+    "watch": ["*.ts", "*.tpl"],
+    "ignore": ["*.test.ts", "node_modules/*", "*.d.ts"],
+    "ext": "ts,js,tpl",
+    "exec": "npm run build && NODE_ENV=development hoth start --app-dir='dist' --app-name='__appName__' --app-prefix='/__appName__'",
+    "legacyWatch": true
+}

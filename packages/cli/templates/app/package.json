@@ -1,32 +1,21 @@
 {
-  "name": "hoth",
+  "name": "@baidu/__appName__-node-ui",
   "version": "1.0.0",
-  "description": "A Node.js framework based on fastify.",
-  "main": "index.js",
-  "repository": "https://github.com/cxtom/hoth.git",
-  "author": "cxtom <chenxiao07@baidu.com>",
-  "license": "MIT",
+  "description": "node server for __appName__ app",
+  "main": "dist/app.js",
   "private": true,
-  "bin": {
-    "hoth": "dist/cli.js"
-  },
-  "engines": {
-    "node": ">=12",
-    "yarn": "^1.22.0"
-  },
-  "workspaces": [
-    "packages/*",
-    "example/*"
-  ],
   "scripts": {
     "lint-staged": "lint-staged",
     "lint": "eslint src",
-    "build:example": "yarn workspace hoth-quickstart run build ",
-    "build": "lerna run build",
     "dev": "nodemon",
-    "version": "lerna version --conventional-commits --no-git-tag-version",
-    "release": "lerna publish from-package"
+    "build": "tsc && gulp"
   },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@icode.baidu.com:8235/baidu/__appName__-fe/node-ui"
+  },
+  "author": "",
+  "license": "ISC",
   "lint-staged": {
     "**/*.ts": [
       "eslint"
@@ -38,27 +27,30 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "dependencies": {
-    "lint-staged": "^10.5.4",
-    "lodash": "^4.17.20",
-    "sonic-boom": "^1.3.0",
-    "tslib": "^2.1.0"
-  },
   "devDependencies": {
     "@babel/eslint-plugin": "^7.12.13",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@ecomfe/eslint-config": "^7.0.0",
+    "@hoth/cli": "^1.0.2",
+    "@tsconfig/node12": "^1.0.7",
     "@types/node": "^14.14.22",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "eslint": "^7.19.0",
+    "esm": "^3.2.25",
     "fastify": "^3.11.0",
+    "gulp": "^4.0.2",
     "husky": "^4.3.8",
     "lerna": "^3.22.1",
+    "lint-staged": "^10.5.4",
     "nodemon": "^2.0.7",
     "source-map-support": "^0.5.19",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "nunjucks": "^3.2.3",
+    "point-of-view": "^4.14.0"
   }
 }

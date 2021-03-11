@@ -8,7 +8,7 @@ import {pathToFileURL} from 'url';
 
 export function exit(message?: string | Error) {
     if (message instanceof Error) {
-        console.log(message);
+        console.log(message.stack);
         return process.exit(1);
     }
     if (message) {

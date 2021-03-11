@@ -1,6 +1,6 @@
 {
   "name": "@hoth/utils",
-  "version": "1.0.1-alpha.1",
+  "version": "1.0.1",
   "description": "utils plugin for hoth framework",
   "main": "dist/index.js",
   "scripts": {

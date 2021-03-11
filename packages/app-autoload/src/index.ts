@@ -84,7 +84,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
 
     // register app plugins
     const appEntryModule: FastifyPluginAsync = await loadModule(pluginAppConfig.entryPath);
-    await childInstance.register(appEntryModule, {...appConfig});
+    await appEntryModule(childInstance, {...appConfig});
     if (existsSync(pluginAppConfig.pluginPath)) {
         await childInstance.register(autoload, {
             dir: pluginAppConfig.pluginPath,

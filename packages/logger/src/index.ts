@@ -41,17 +41,18 @@ export default function (options: LoggerOptions) {
                     stream: i > 1 ? process.stderr : process.stdout,
                     level: levels[i],
                 });
-                continue;
             }
-            const fullpath = path.join(logPath, files[i]);
-            if (!fs.existsSync(fullpath)) {
-                fs.ensureFileSync(fullpath);
+            else {
+                const fullpath = path.join(logPath, files[i]);
+                if (!fs.existsSync(fullpath)) {
+                    fs.ensureFileSync(fullpath);
+                }
+                streams.push({
+                    app: name,
+                    stream: pino.destination(fullpath),
+                    level: levels[i],
+                });
             }
-            streams.push({
-                app: name,
-                stream: pino.destination(fullpath),
-                level: levels[i],
-            });
         }
     }
 

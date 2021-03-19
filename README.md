@@ -19,7 +19,7 @@ Create a app:
 hoth generate --app-name="myapp" myapp
 ```
 
-> --app-name option is required
+> option `--app-name` is required
 
 Install dependencies:
 

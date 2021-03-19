@@ -121,7 +121,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
             }
         },
     }, childInstance));
-    childInstance.addHook('onError', onErrorFactory(appConfig.name));
+    childInstance.setErrorHandler(onErrorFactory(appConfig.name));
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('onResponse', onResponse);
 

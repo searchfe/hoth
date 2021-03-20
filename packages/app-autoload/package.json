@@ -25,6 +25,7 @@
   "dependencies": {
     "@hoth/decorators": "^1.0.2",
     "@hoth/utils": "^1.0.3",
+    "@hoth/logger": "^1.0.3",
     "config": "^3.3.3",
     "fastify-autoload": "^3.4.2",
     "fastify-plugin": "^3.0.0",

@@ -18,7 +18,7 @@ const normalFormat = ':level: :time [:file::line]'
 const noticeFormat = ':level: :time [:file::line]'
     + ' errno[:errno] status[:status] logId[:logid]'
     + ' uri[:uri] app[:app] product[:product] module[:module]'
-    + ' clientIp[:ip] ua[:ua] refer[:referrer] cookie[:cookie] responseTime[:response-time]';
+    + ' clientIp[:ip] ua[:ua] refer[:referrer] cookie[:cookie] :notices :performance responseTime[:response-time]';
 
 const errorFormat = ':level: :time [:file::line]'
     + ' errno[:errno] status[:status] logId[:logid]'
@@ -45,3 +45,6 @@ export const levelFormats = Object.keys(defaultLevels).reduce((prev, level) => {
         },
     };
 }, {});
+
+export const noticeSym = Symbol.for('hoth.logger.notice');
+export const performanceSym = Symbol.for('hoth.logger.performace');

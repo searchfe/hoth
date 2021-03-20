@@ -14,6 +14,8 @@ export default class AppController {
         reply.log.info(`config test value ${req.$appConfig.get('test')}`);
         reply.log.error({err: new Error('hello1')});
         reply.log.warn('test error');
+        reply.log.addNotice('foo', 'test');
+        reply.log.addPerformance('foo', 1.3322);
         reply.send('ok');
     }
 }

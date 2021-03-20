@@ -18,6 +18,7 @@ import onErrorFactory from './hook/onErrorFactory';
 import onResponse from './hook/onResponse';
 import preHandlerFactory from './hook/preHandlerFactory';
 import onRequestFactory from './hook/onRequestFactory';
+import {preHandler as loggerMiddleware} from '@hoth/logger';
 
 interface AppAutoload {
     dir: string;
@@ -123,6 +124,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     }, childInstance));
     childInstance.setErrorHandler(onErrorFactory(appConfig.name));
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
+    childInstance.addHook('preHandler', loggerMiddleware);
     childInstance.addHook('onResponse', onResponse);
 
     return childInstance;

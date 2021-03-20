@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
-import type {FastifyInstance, FastifyInstance} from 'fastify';
+import type {FastifyInstance} from 'fastify';
 import type {AutoLoadConfig} from 'fastify-decorators/interfaces/bootstrap-config';
 
 import {bootstrap as bootstrapInner} from 'fastify-decorators';
@@ -56,6 +56,7 @@ declare module 'fastify' {
 
     interface FastifyLoggerInstance {
         addNotice: (key: string, value: string) => void;
+        addPerformance: (name: string, value: number) => void;
     }
 }
 

@@ -25,6 +25,7 @@
   "dependencies": {
     "flatstr": "^1.0.12",
     "fs-extra": "^9.1.0",
+    "lodash": "^4.17.21",
     "pino": "^6.11.1",
     "resolve-from": "^5.0.0",
     "secure-json-parse": "^2.3.1",

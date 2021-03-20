@@ -1,8 +1,10 @@
 import fs from 'fs-extra';
 import path from 'path';
 import pino from 'pino';
+import type {FastifyRequest, FastifyReply} from 'fastify';
 
 import stream from './stream';
+import {noticeSym, performanceSym} from './constants';
 
 interface LoggerOptions {
     apps: Array<{name: string}>;
@@ -56,7 +58,7 @@ export default function (options: LoggerOptions) {
         }
     }
 
-    return pino({
+    const logger = pino({
         level: process.env.NODE_ENV === 'development' ? 'trace' : 'info',
         customLevels: {
             notice: 35,
@@ -77,9 +79,47 @@ export default function (options: LoggerOptions) {
                     module: request.product,
                     product: request.product,
                     logid: request.logid,
+                    notices: request[noticeSym],
+                    performance: request[performanceSym],
                 };
             },
             err: pino.stdSerializers.err,
         },
     }, stream(streams));
+
+    return logger;
+}
+
+declare module 'fastify' {
+    interface FastifyRequest {
+        [noticeSym]: {
+            [key: string]: string;
+        };
+        [performanceSym]: {
+            [key: string]: number[];
+        };
+    }
+
+    interface FastifyLoggerInstance {
+        addNotice: (key: string, value: string) => void;
+        addPerformance: (name: string, value: number) => void;
+    }
+}
+
+
+
+export function preHandler(req: FastifyRequest, reply: FastifyReply, done) {
+    req[noticeSym] = {};
+    req[performanceSym] = {};
+    req.log.addNotice = (key: string, value: string) => {
+        req[noticeSym][key] = value;
+    };
+    req.log.addPerformance = (key: string, value: number) => {
+        if (!req[performanceSym][key]) {
+            req[performanceSym][key] = [0, 0];
+        }
+        req[performanceSym][key][0]++;
+        req[performanceSym][key][1] += value;
+    };
+    done();
 }

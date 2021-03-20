@@ -1,4 +1,5 @@
 import uuid from 'uuid-random';
+import {isEmpty} from 'lodash';
 import {levelFormats} from './constants';
 export default {
     id: function (o) {
@@ -73,6 +74,25 @@ export default {
     },
     errmsg: function (o) {
         return o.err?.stack?.replace(/(\n)+|(\r\n)+/g, ' ') || o.msg;
+    },
+    notices(o) {
+        if (isEmpty(o.req?.notices)) {
+            return '';
+        }
+        return Object.keys(o.req.notices).map(key => {
+            const notice = o.req.notices[key];
+            return `${key}[${notice}]`;
+        }).join(' ');
+    },
+    performance(o) {
+        if (isEmpty(o.req?.performance)) {
+            return '';
+        }
+        const perfStr = Object.keys(o.req.performance).map(key => {
+            const pref = o.req.performance[key];
+            return `${key}:${pref[0]}:${pref[1].toFixed(1)}`;
+        }).join(' ');
+        return `tm[${perfStr}]`;
     },
     req: function (o, field) {
         if (!field) {

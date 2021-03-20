@@ -5,7 +5,7 @@
 
 /* eslint-disable @typescript-eslint/await-thenable */
 
-import Fastify from 'fastify';
+import Fastify, {FastifyReply, FastifyRequest} from 'fastify';
 import pino from 'pino';
 import isDocker from 'is-docker';
 import parseArgs from './parseArgs';
@@ -73,6 +73,12 @@ async function runFastify(opts) {
         apps,
     });
 
+    if (opts.healthcheckPath) {
+        fastifyInstance.get(opts.healthcheckPath, async function (req: FastifyRequest, reply: FastifyReply) {
+            reply.send('ok');
+        });
+    }
+
     // use pino.final to create a special logger that
     // guarantees final tick writes
     const handler = pino.final(logger, (err, finalLogger, evt) => {
@@ -111,6 +117,7 @@ async function runFastify(opts) {
 
     // for pm2 graceful start
     if (process.send) {
+        process.send('ready');
         process.send('ready');
     }
 

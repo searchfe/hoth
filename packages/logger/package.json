@@ -1,6 +1,6 @@
 {
   "name": "@hoth/logger",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "logger plugin for hoth framework",
   "main": "dist/index.js",
   "scripts": {

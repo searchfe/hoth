@@ -12,7 +12,7 @@ export default {
         return o.req?.logid || uuid();
     },
     product: function (o) {
-        return o.req?.product || o.req?.url.split('/').filter(a => a && a !== o.app).join('_');
+        return o.req?.product || o.req?.url.split('?')[0].split('/').filter(a => a && a !== o.app).join('_');
     },
     module: function (o) {
         return o.req?.module;

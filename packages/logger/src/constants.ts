@@ -1,4 +1,4 @@
-import {compile} from './util';
+import {compile} from './compile';
 
 export const defaultLevels = {
     fatal: 60,

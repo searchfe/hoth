@@ -12,7 +12,7 @@ interface LoggerOptions {
 }
 
 interface StreamItem {
-    stream: any;
+    fullpath: string;
     level: string;
     app: string;
 }
@@ -37,24 +37,15 @@ export default function (options: LoggerOptions) {
         ];
         const levels = ['trace', 'notice', 'warn'];
         for (let i = 0; i < files.length; i++) {
-            if (process.env.NODE_ENV === 'development' && name === 'hoth') {
-                streams.push({
-                    app: name,
-                    stream: i > 1 ? process.stderr : process.stdout,
-                    level: levels[i],
-                });
-            }
-            else {
-                const fullpath = path.join(logPath, files[i]);
-                if (!fs.existsSync(fullpath)) {
-                    fs.ensureFileSync(fullpath);
-                }
-                streams.push({
-                    app: name,
-                    stream: pino.destination(fullpath),
-                    level: levels[i],
-                });
-            }
+            const fullpath = path.join(logPath, files[i]);
+            // if (!fs.existsSync(fullpath)) {
+            //     fs.ensureFileSync(fullpath);
+            // }
+            streams.push({
+                app: name,
+                fullpath,
+                level: levels[i],
+            });
         }
     }
 

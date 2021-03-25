@@ -1,32 +1,34 @@
 import uuid from 'uuid-random';
 import {isEmpty} from 'lodash';
 import {levelFormats} from './constants';
+import {getTime} from './getTime';
+
 export default {
-    id: function (o) {
+    id(o) {
         return o.req.id;
     },
-    app: function (o) {
+    app(o) {
         return o.app;
     },
     logid(o) {
         return o.req?.logid || uuid();
     },
-    product: function (o) {
+    product(o) {
         return o.req?.product || o.req?.url.split('?')[0].split('/').filter(a => a && a !== o.app).join('_');
     },
-    module: function (o) {
+    module(o) {
         return o.req?.module;
     },
-    pid: function (o) {
+    pid(o) {
         return o.pid;
     },
-    level: function (o) {
+    level(o) {
         return levelFormats[o.level].str;
     },
-    hostname: function (o) {
+    hostname(o) {
         return o.hostname;
     },
-    uri: function (o) {
+    uri(o) {
         return o.req?.url;
     },
     errno() {
@@ -35,44 +37,38 @@ export default {
     cookie(o) {
         return o.req?.headers.cookie;
     },
-    time: function (o) {
-        let date = new Date(o.time);
-        const year = date.getFullYear();
-        const month = `${date.getMonth() + 1}`.padStart(2, '0');
-        const day = `${date.getDate()}`.padStart(2, '0');
-        const hour = `${date.getHours()}`.padStart(2, '0');
-        const minute = `${date.getMinutes()}`.padStart(2, '0');
-        const second = `${date.getSeconds()}`.padStart(2, '0');
+    time(o) {
+        const [year, month, day, hour, minute, second] = getTime(o.time);
         return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     },
-    method: function (o) {
+    method(o) {
         return o.req?.method;
     },
-    'response-time': function (o) {
+    'response-time'(o) {
         return o.responseTime;
     },
-    status: function (o) {
+    status(o) {
         return o.res?.statusCode;
     },
-    referrer: function (o) {
+    referrer(o) {
         return o.req?.headers.referer || o.req?.headers.referrer;
     },
-    ip: function (o) {
+    ip(o) {
         return o.req?.ip;
     },
-    ua: function (o) {
+    ua(o) {
         return o.req?.headers['user-agent'];
     },
-    file: function () {
+    file() {
         return '';
     },
-    line: function () {
+    line() {
         return '';
     },
-    msg: function (o) {
+    msg(o) {
         return o.msg;
     },
-    errmsg: function (o) {
+    errmsg(o) {
         return o.err?.stack?.replace(/(\n)+|(\r\n)+/g, ' ') || o.msg;
     },
     notices(o) {
@@ -94,13 +90,13 @@ export default {
         }).join(' ');
         return perfStr;
     },
-    req: function (o, field) {
+    req(o, field) {
         if (!field) {
             return;
         }
         return o.req?.headers[field.toLowerCase()];
     },
-    res: function (o, field) {
+    res(o, field) {
         if (!field) {
             return;
         }

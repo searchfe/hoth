@@ -3,8 +3,10 @@
  * @author cxtom
  */
 
+import pino from 'pino';
 import format from './format';
 import {defaultLevels} from './constants';
+import {getTime} from './getTime';
 
 const metadata = Symbol.for('pino.metadata');
 
@@ -25,7 +27,9 @@ export default function (streamsArray) {
 
         for (let dest of streams) {
             if (dest.app === info.app && dest.level <= info.level) {
-                stream = dest.stream;
+                const fullpah = dest.fullpath;
+                const [year, month, day, hour] = getTime(Date.now());
+                stream = pino.destination(`${fullpah}.${year}${month}${day}${hour}`);
                 if (stream[metadata]) {
                     const {
                         lastTime,

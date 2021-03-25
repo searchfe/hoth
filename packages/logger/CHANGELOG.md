@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/cxtom/hoth/compare/@hoth/logger@1.0.1...@hoth/logger@1.0.6) (2021-03-25)
+
+
+### Bug Fixes
+
+* logger notice format not valid ([a864b1e](https://github.com/cxtom/hoth/commit/a864b1e9ab56293935b6463642384d77c353a5aa))
+* **logger:** remove querystring in product ([426b3eb](https://github.com/cxtom/hoth/commit/426b3eb783c3f2714ba68e3f89be6a4148ce08dd))
+
+
+### Features
+
+* add log rotate ([de2a9a7](https://github.com/cxtom/hoth/commit/de2a9a7c57544bbee4ab818cf166e6d706a78c35))
+* logger add notice & performace ([f3c73a0](https://github.com/cxtom/hoth/commit/f3c73a0ab5e480bef01476b922e3e319977ef9ff))
+
+
+
+
+
 ## [1.0.5](https://github.com/cxtom/hoth/compare/@hoth/logger@1.0.1...@hoth/logger@1.0.5) (2021-03-24)
 
 

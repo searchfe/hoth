@@ -77,7 +77,7 @@ export default {
     },
     notices(o) {
         if (isEmpty(o.req?.notices)) {
-            return '';
+            return 'request completed';
         }
         return Object.keys(o.req.notices).map(key => {
             const notice = o.req.notices[key];
@@ -92,7 +92,7 @@ export default {
             const pref = o.req.performance[key];
             return `${key}:${pref[0]}:${pref[1].toFixed(1)}`;
         }).join(' ');
-        return `tm[${perfStr}]`;
+        return perfStr;
     },
     req: function (o, field) {
         if (!field) {

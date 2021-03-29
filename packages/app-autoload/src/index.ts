@@ -63,6 +63,8 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         return;
     }
 
+    childInstance.setErrorHandler(onErrorFactory(appConfig.name));
+
     // load module plugins
     if (appConfig.pluginConfig) {
         for await (const [name, config] of Object.entries(appConfig.pluginConfig)) {
@@ -122,7 +124,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
             }
         },
     }, childInstance));
-    childInstance.setErrorHandler(onErrorFactory(appConfig.name));
+
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('preHandler', loggerMiddleware);
     childInstance.addHook('onResponse', onResponse);

@@ -18,5 +18,6 @@ export default function (name: string) {
                 app: name,
             });
         }
+        reply.send(error);
     };
 }

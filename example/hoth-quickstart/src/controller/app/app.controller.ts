@@ -1,6 +1,12 @@
 import {Controller, GET, Hook, Inject} from '@hoth/decorators';
-import {FastifyReply, FastifyRequest} from 'fastify';
+import type {FastifyReply, FastifyRequest, RequestGenericInterface} from 'fastify';
 import Calculator from '../../lib/calculator/index.service';
+
+interface requestGeneric extends RequestGenericInterface {
+    Querystring: {
+        forceError: string;
+    };
+}
 
 @Controller('/app')
 export default class AppController {
@@ -14,13 +20,18 @@ export default class AppController {
     }
 
     @GET()
-    getApp(req: FastifyRequest, reply: FastifyReply) {
+    getApp(req: FastifyRequest<requestGeneric>, reply: FastifyReply) {
         reply.log.info(`config test value ${req.$appConfig.get('test')}`);
         reply.log.error({err: new Error('hello1')});
         reply.log.warn('test error');
         reply.log.addNotice('foo', 'test');
         reply.log.addPerformance('foo', 1.3322);
         console.log(this.service.add(1, 1));
+
+        if (req.query.forceError) {
+            throw new TypeError('force error');
+        }
+
         reply.send('ok');
     }
 }

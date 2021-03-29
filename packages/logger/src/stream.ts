@@ -44,6 +44,7 @@ export default function (streamsArray) {
                     stream.lastObj = lastObj;
                     stream.lastLogger = lastLogger;
                 }
+                dest.stream = stream;
             }
             if (stream) {
                 break;
@@ -59,7 +60,7 @@ export default function (streamsArray) {
 
     function flushSync() {
         for (const {stream} of this.streams) {
-            if (typeof stream.flushSync === 'function') {
+            if (stream && typeof stream.flushSync === 'function') {
                 stream.flushSync();
             }
         }

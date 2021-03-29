@@ -1,8 +1,12 @@
-import {Controller, GET, Hook} from '@hoth/decorators';
+import {Controller, GET, Hook, Inject} from '@hoth/decorators';
 import {FastifyReply, FastifyRequest} from 'fastify';
+import Calculator from '../../lib/calculator/index.service';
 
 @Controller('/app')
 export default class AppController {
+
+    @Inject(Calculator)
+    private readonly service!: Calculator;
 
     @Hook('preHandler')
     async preHandler() {
@@ -16,6 +20,7 @@ export default class AppController {
         reply.log.warn('test error');
         reply.log.addNotice('foo', 'test');
         reply.log.addPerformance('foo', 1.3322);
+        console.log(this.service.add(1, 1));
         reply.send('ok');
     }
 }

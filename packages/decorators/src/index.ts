@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
-import type {FastifyInstance} from 'fastify';
-import type {AutoLoadConfig} from 'fastify-decorators/interfaces/bootstrap-config';
+import 'reflect-metadata';
 
+import type {FastifyInstance} from 'fastify';
+
+import type {AutoLoadConfig} from 'fastify-decorators/interfaces/bootstrap-config';
 import {bootstrap as bootstrapInner} from 'fastify-decorators';
 
 export {

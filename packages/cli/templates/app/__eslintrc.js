@@ -1,6 +1,6 @@
 /**
  * @file eslint config
- * @author cxtom
+ * @author
  */
 
 module.exports = {

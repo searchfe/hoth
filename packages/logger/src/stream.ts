@@ -27,9 +27,18 @@ export default function (streamsArray) {
 
         for (let dest of streams) {
             if (dest.app === info.app && dest.level <= info.level) {
-                const fullpah = dest.fullpath;
+                const fullpath = dest.fullpath;
                 const [year, month, day, hour] = getTime(Date.now());
-                stream = pino.destination(`${fullpah}.${year}${month}${day}${hour}`);
+                const suffix = `${year}${month}${day}${hour}`;
+
+                if (dest.suffix === suffix) {
+                    stream = dest.stream;
+                }
+                else {
+                    stream = dest.stream = pino.destination(`${fullpath}.${year}${month}${day}${hour}`);
+                    dest.suffix = suffix;
+                }
+
                 if (stream[metadata]) {
                     const {
                         lastTime,
@@ -44,7 +53,6 @@ export default function (streamsArray) {
                     stream.lastObj = lastObj;
                     stream.lastLogger = lastLogger;
                 }
-                dest.stream = stream;
             }
             if (stream) {
                 break;

@@ -5,7 +5,7 @@ import 'reflect-metadata';
 import type {FastifyInstance} from 'fastify';
 
 import type {AutoLoadConfig} from 'fastify-decorators/interfaces/bootstrap-config';
-import {bootstrap as bootstrapInner} from 'fastify-decorators';
+import {bootstrap as bootstrapInner, FastifyInstanceToken} from 'fastify-decorators';
 
 export {
     Controller,
@@ -59,6 +59,12 @@ declare module 'fastify' {
     interface FastifyLoggerInstance {
         addNotice: (key: string, value: string) => void;
         addPerformance: (name: string, value: number) => void;
+    }
+
+    interface FastifyInstance {
+        readonly $appConfig: {
+            get: (property: string | string[]) => any;
+        };
     }
 }
 

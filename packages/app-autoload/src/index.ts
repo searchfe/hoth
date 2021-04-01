@@ -88,6 +88,19 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         ...appConfig,
     });
 
+    const configProxy = {
+        get(property: string | string[]) {
+            const props = Array.isArray(property)
+                ? [appConfig.name, ...property]
+                : `${appConfig.name}.${property}`;
+            if (Config.has(props)) {
+                return Config.get(props);
+            }
+        },
+    };
+
+    childInstance.decorate('$appConfig', configProxy);
+
     // register app plugins
     const appEntryModule: FastifyPluginAsync = await loadModule(pluginAppConfig.entryPath);
     await appEntryModule(childInstance, {...appConfig});
@@ -114,16 +127,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         appName: appConfig.name,
     });
 
-    childInstance.addHook('onRequest', onRequestFactory({
-        get(property: string | string[]) {
-            const props = Array.isArray(property)
-                ? [appConfig.name, ...property]
-                : `${appConfig.name}.${property}`;
-            if (Config.has(props)) {
-                return Config.get(props);
-            }
-        },
-    }, childInstance));
+    childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));
 
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('preHandler', loggerMiddleware);

@@ -132,6 +132,9 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('preHandler', loggerMiddleware);
     childInstance.addHook('onResponse', onResponse);
+    childInstance.addHook('onSend', async function (req, reply) {
+        reply.removeHeader('X-Powered-By');
+    });
 
     return childInstance;
 }

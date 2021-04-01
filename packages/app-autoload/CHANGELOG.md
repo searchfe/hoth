@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.10](https://github.com/cxtom/hoth/compare/@hoth/app-autoload@1.0.2...@hoth/app-autoload@1.0.10) (2021-04-01)
+
+
+### Bug Fixes
+
+* use setErrorHandler ([996247f](https://github.com/cxtom/hoth/commit/996247f026754940bcfc415910d4ff89828c8bcd))
+
+
+### Features
+
+* support get fastifyInstance in service ([2367f2b](https://github.com/cxtom/hoth/commit/2367f2b694fe3a50f0bf12af7c459d4e6b97153b))
+* **app-autoload:** support fetch ral logid ([a875c28](https://github.com/cxtom/hoth/commit/a875c28a20f29444d10bae10dcb747bf08e29e5d))
+* logger add notice & performace ([f3c73a0](https://github.com/cxtom/hoth/commit/f3c73a0ab5e480bef01476b922e3e319977ef9ff))
+
+
+
+
+
 ## [1.0.9](https://github.com/cxtom/hoth/compare/@hoth/app-autoload@1.0.2...@hoth/app-autoload@1.0.9) (2021-03-29)
 
 

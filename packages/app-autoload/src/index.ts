@@ -15,7 +15,7 @@ import resolveFrom from 'resolve-from';
 import {bootstrap} from '@hoth/decorators';
 import {exit, loadModule} from '@hoth/utils';
 import onErrorFactory from './hook/onErrorFactory';
-import onResponse from './hook/onResponse';
+import onSend from './hook/onSend';
 import preHandlerFactory from './hook/preHandlerFactory';
 import onRequestFactory from './hook/onRequestFactory';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
@@ -131,10 +131,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
 
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('preHandler', loggerMiddleware);
-    childInstance.addHook('onResponse', onResponse);
-    childInstance.addHook('onSend', async function (req, reply) {
-        reply.removeHeader('X-Powered-By');
-    });
+    childInstance.addHook('onSend', onSend);
 
     return childInstance;
 }

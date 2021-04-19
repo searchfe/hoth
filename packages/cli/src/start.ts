@@ -101,6 +101,17 @@ async function runFastify(opts) {
     for (let i = 0; i < apps.length; i++) {
         const app = apps[i];
         if (app.warmupConfig) {
+
+            // add prefix to all the route
+            if (app.prefix) {
+                const routes = Object.keys(app.warmupConfig.warmupData);
+                const newWarmupData = {};
+                routes.forEach(route => {
+                    newWarmupData[app.prefix + route] = app.warmupConfig.warmupData[route];
+                });
+                app.warmupConfig.warmupData = newWarmupData;
+            }
+
             await fastifyWarmup(fastifyInstance, app.warmupConfig);
         }
     }

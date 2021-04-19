@@ -10,9 +10,29 @@ warmup.ts 中的内容为 [fastify-warmup](https://github.com/searchfe/fastify-w
 import type {WarmupConf} from 'fastify-warmup';
 export default {
     warmupData: {
-        '/myapp/index': 'a.json'
+        '/index': 'a.json'
     },
     maxConcurrent: 3,
     basePath: '/path/to/your/app/warmupData'
 } as WarmupConf;
+```
+
+---
+
+**注意: 配置文件中的路径，不需要增加 prefix，例如 prefix 为 myapp。**
+
+写成这样：
+
+```ts
+warmupData: {
+    '/index': 'a.json'
+}
+```
+
+而不是：
+
+```ts
+warmupData: {
+    '/myapp/index': 'a.json'
+}
 ```

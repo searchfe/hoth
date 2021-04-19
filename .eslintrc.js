@@ -10,6 +10,7 @@ module.exports = {
     ],
     rules: {
         'no-console': 'off',
-        'spaced-comment': ["error", "always", { "markers": ["/"] }]
+        'spaced-comment': ["error", "always", { "markers": ["/"] }],
+        '@typescript-eslint/prefer-for-of': 'off'
     },
 };

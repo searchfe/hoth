@@ -19,6 +19,8 @@ import onResponse from './hook/onResponse';
 import preHandlerFactory from './hook/preHandlerFactory';
 import onRequestFactory from './hook/onRequestFactory';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
+import {loadConfig} from './configLoader';
+import type {WarmupConf} from 'fastify-warmup';
 
 interface AppAutoload {
     dir: string;
@@ -35,6 +37,7 @@ interface AppConfig {
     pluginConfig: {
         [name: string]: any;
     };
+    warmupConfig: WarmupConf;
 }
 interface AppsLoaded {
     apps: AppConfig[];
@@ -136,16 +139,6 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     return childInstance;
 }
 
-async function loadPluginConfig(appRoot: string) {
-    try {
-        const result = await loadModule(join(appRoot, 'config/plugin'));
-        return result;
-    }
-    catch (e) {
-        return null;
-    }
-}
-
 export async function getApps(opts: AppAutoload) {
     const {
         dir,
@@ -167,13 +160,13 @@ export async function getApps(opts: AppAutoload) {
     let apps: AppConfig[] = [];
 
     if (existsSync(join(appRoot, 'app.js'))) {
-        const pluginConfig = await loadPluginConfig(appRoot);
+        const configs = await loadConfig(appRoot);
         apps = [{
             dir: appRoot,
             prefix,
             name: name || (prefix === '/' ? 'root' : prefix.slice(1)),
             rootPath,
-            pluginConfig,
+            ...configs,
         }];
     }
     else {
@@ -181,13 +174,13 @@ export async function getApps(opts: AppAutoload) {
         for (const dir of dirs) {
             const dirPath = resolve(appRoot, dir.name);
             if (dir.isDirectory() && existsSync(join(dirPath, 'app.js'))) {
-                const pluginConfig = await loadPluginConfig(dirPath);
+                const configs = await loadConfig(dirPath);
                 apps.push({
                     dir: dirPath,
                     prefix: `${prefix}${prefix === '/' ? '' : '/'}${dir.name}`,
                     name: dir.name,
                     rootPath,
-                    pluginConfig,
+                    ...configs,
                 });
             }
         }

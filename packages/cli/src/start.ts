@@ -13,7 +13,7 @@ import {exit, requireFastifyForModule} from '@hoth/utils';
 import appAutoload, {getApps} from '@hoth/app-autoload';
 import createLogger from '@hoth/logger';
 import {showHelpForCommand} from './util';
-import {fastifyWarmup} from 'fastify-warmup';
+import {warmup} from './start/warmup';
 
 const listenAddressDocker = '0.0.0.0';
 
@@ -98,22 +98,14 @@ async function runFastify(opts) {
     process.on('SIGTERM', () => handler(null, 'SIGTERM'));
 
     // warmup
-    for (let i = 0; i < apps.length; i++) {
-        const app = apps[i];
-        if (app.warmupConfig) {
-
-            // add prefix to all the route
-            if (app.prefix) {
-                const routes = Object.keys(app.warmupConfig.warmupData);
-                const newWarmupData = {};
-                routes.forEach(route => {
-                    newWarmupData[app.prefix + route] = app.warmupConfig.warmupData[route];
-                });
-                app.warmupConfig.warmupData = newWarmupData;
-            }
-
-            await fastifyWarmup(fastifyInstance, app.warmupConfig);
-        }
+    try {
+        warmup(apps, fastifyInstance);
+    }
+    catch (e) {
+        const errorMessage = (e && e.message) || '';
+        console.error('worker init error: ' + errorMessage);
+        logger.fatal('worker init error: ' + errorMessage);
+        process.exit(-1);
     }
 
     let address;

@@ -11,6 +11,7 @@ module.exports = {
     rules: {
         'no-console': 'off',
         'spaced-comment': ["error", "always", { "markers": ["/"] }],
-        '@typescript-eslint/prefer-for-of': 'off'
+        '@typescript-eslint/prefer-for-of': 'off',
+        '@typescript-eslint/no-require-imports': 'off'
     },
 };

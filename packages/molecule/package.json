@@ -4,7 +4,7 @@
   "description": "molecule plugin for hoth framework",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc --build tsconfig.json",
+    "build": "tsc --build tsconfig.json"
   },
   "repository": {
     "type": "git",

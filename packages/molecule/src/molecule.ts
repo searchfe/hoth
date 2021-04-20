@@ -22,7 +22,7 @@ interface MoleculeOption {
      */
     logger: FastifyLoggerInstance;
     /**
-     * 渲染的根路径
+     * 渲染的根路径，绝对路径
      */
     root: string;
     /**
@@ -52,6 +52,13 @@ function getOrSetCache<T>(appName: string, ctrlPath: string, option?: Controller
     return null;
 }
 
+/**
+ *
+ * @param ctrlPath molecule controller 的路径
+ * @param data controller 渲染所需数据
+ * @param option MoleculeOption
+ * @returns 返回 controller.render 的返回值 或 null
+ */
 export async function molecule<T = string>(ctrlPath: string, data: any, option: MoleculeOption) {
     let ctrlInfo = getOrSetCache<T>(option.appName, ctrlPath);
     let ctrl: IController<T>;

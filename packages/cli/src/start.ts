@@ -13,6 +13,7 @@ import {exit, requireFastifyForModule} from '@hoth/utils';
 import appAutoload, {getApps} from '@hoth/app-autoload';
 import createLogger from '@hoth/logger';
 import {showHelpForCommand} from './util';
+import {warmup} from './start/warmup';
 
 const listenAddressDocker = '0.0.0.0';
 
@@ -96,8 +97,18 @@ async function runFastify(opts) {
     process.on('SIGQUIT', () => handler(null, 'SIGQUIT'));
     process.on('SIGTERM', () => handler(null, 'SIGTERM'));
 
-    let address;
+    // warmup
+    try {
+        warmup(apps, fastifyInstance);
+    }
+    catch (e) {
+        const errorMessage = (e && e.message) || '';
+        console.error('worker init error: ' + errorMessage);
+        logger.fatal('worker init error: ' + errorMessage);
+        process.exit(-1);
+    }
 
+    let address;
     if (opts.address) {
         // eslint-disable-next-line
         address = await fastifyInstance.listen(opts.port, opts.address);

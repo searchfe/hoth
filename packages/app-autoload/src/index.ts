@@ -9,7 +9,7 @@ import Config from 'config';
 import {resolve, join, isAbsolute} from 'path';
 import autoload from 'fastify-autoload';
 import {existsSync, readdirSync} from 'fs';
-import {FastifyInstance, FastifyPluginAsync, FastifyRequest} from 'fastify';
+import {FastifyInstance, FastifyPluginAsync} from 'fastify';
 import fp from 'fastify-plugin';
 import resolveFrom from 'resolve-from';
 import {bootstrap} from '@hoth/decorators';
@@ -20,7 +20,9 @@ import preHandlerFactory from './hook/preHandlerFactory';
 import onRequestFactory from './hook/onRequestFactory';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
 import {molecule} from '@hoth/molecule';
-
+import {loadConfig} from './configLoader';
+import type {WarmupConf} from 'fastify-warmup';
+import {loadMoleculeApp} from './loadMoleculeApp';
 interface AppAutoload {
     dir: string;
     rootPath: string;
@@ -36,6 +38,7 @@ interface AppConfig {
     pluginConfig: {
         [name: string]: any;
     };
+    warmupConfig: WarmupConf;
 }
 interface AppsLoaded {
     apps: AppConfig[];
@@ -46,66 +49,6 @@ interface PluginAppConfig extends AppConfig {
     configPath: string;
     pluginPath: string;
     entryPath: string;
-}
-interface MoleculeController {
-    ctrlPath: string;
-    name: string;
-    httpType: string;
-    json?: boolean;
-}
-
-interface MoleculeConfig {
-    controllers: MoleculeController[];
-}
-
-/**
- * 加载 molecule app
- */
-async function loadMoleculeApp(appConfig: AppConfig, instance: FastifyInstance) {
-    const moleculeConfPath = join(appConfig.dir, 'config/molecule.json');
-    if (!existsSync(moleculeConfPath)) {
-        return;
-    }
-    const {controllers} =  await loadModule(moleculeConfPath) as MoleculeConfig;
-
-    controllers.forEach(item => {
-        let httpType = item.httpType;
-        let ctrlName = item.name;
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        instance[httpType](`/${ctrlName}`, async (request: FastifyRequest, reply) => {
-            let data = {} as any;
-
-            if (httpType === 'post') {
-                data = request.body || request.query || {};
-            }
-            else if (httpType === 'get') {
-                data = request.query;
-            }
-            // 本地 mock 数据
-            if (process.env.DATA_MOCK) {
-                data = await loadModule(join(appConfig.dir, `mock/${ctrlName}.json`));
-            }
-
-            // @ts-ignore
-            let ret = await instance.molecule(item.ctrlPath, data, {
-                root: appConfig.dir,
-                appName: appConfig.name,
-                name: ctrlName,
-                logger: instance.log,
-            });
-            if (item.json) {
-                return ret ? {
-                    statusCode: 200,
-                    data: ret,
-                } : {
-                    statusCode: 500,
-                    message: 'render error',
-                };
-            }
-            return ret;
-        });
-    });
 }
 
 async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
@@ -187,7 +130,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         });
     }
     // load molecule
-    loadMoleculeApp(appConfig, childInstance);
+    await loadMoleculeApp(appConfig, childInstance);
 
     childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
@@ -195,16 +138,6 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     childInstance.addHook('onResponse', onResponse);
 
     return childInstance;
-}
-
-async function loadPluginConfig(appRoot: string) {
-    try {
-        const result = await loadModule(join(appRoot, 'config/plugin'));
-        return result;
-    }
-    catch (e) {
-        return null;
-    }
 }
 
 export async function getApps(opts: AppAutoload) {
@@ -228,13 +161,13 @@ export async function getApps(opts: AppAutoload) {
     let apps: AppConfig[] = [];
 
     if (existsSync(join(appRoot, 'app.js'))) {
-        const pluginConfig = await loadPluginConfig(appRoot);
+        const configs = await loadConfig(appRoot);
         apps = [{
             dir: appRoot,
             prefix,
             name: name || (prefix === '/' ? 'root' : prefix.slice(1)),
             rootPath,
-            pluginConfig,
+            ...configs,
         }];
     }
     else {
@@ -242,13 +175,13 @@ export async function getApps(opts: AppAutoload) {
         for (const dir of dirs) {
             const dirPath = resolve(appRoot, dir.name);
             if (dir.isDirectory() && existsSync(join(dirPath, 'app.js'))) {
-                const pluginConfig = await loadPluginConfig(dirPath);
+                const configs = await loadConfig(dirPath);
                 apps.push({
                     dir: dirPath,
                     prefix: `${prefix}${prefix === '/' ? '' : '/'}${dir.name}`,
                     name: dir.name,
                     rootPath,
-                    pluginConfig,
+                    ...configs,
                 });
             }
         }

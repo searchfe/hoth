@@ -34,6 +34,9 @@
     "tslib": "^2.1.0",
     "uuid-random": "^1.3.2"
   },
+  "devDependencies": {
+    "fastify-warmup": "0.0.8"
+  },
   "files": [
     "dist"
   ],

@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es2019",
+        "module": "commonjs",
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "rootDir": "./",
+        "outDir": "../dist",
+        "declaration": false,
+        "composite": false
+    }
+}

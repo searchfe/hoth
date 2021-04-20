@@ -22,6 +22,7 @@ interface Args {
     appPrefix: string;
     appName: string;
     healthcheckPath: string;
+    appType: string;
 }
 
 export default function (args): Args {
@@ -31,7 +32,8 @@ export default function (args): Args {
         },
         number: ['port', 'debug-port', 'plugin-timeout'],
         boolean: ['debug', 'help'],
-        string: ['address', 'socket', 'debug-host', 'app-dir', 'app-prefix', 'app-name', 'healthcheck-path'],
+        string: ['address', 'socket', 'debug-host', 'app-dir', 'app-prefix', 'app-name', 'healthcheck-path',
+            'app-type'],
         envPrefix: 'HOTH_',
         alias: {
             port: ['p'],
@@ -67,6 +69,7 @@ export default function (args): Args {
         appPrefix: parsedArgs.appPrefix,
         appName: parsedArgs.appName,
         healthcheckPath: parsedArgs.healthcheckPath,
+        appType: parsedArgs.appType,
         pluginOptions,
     };
 }

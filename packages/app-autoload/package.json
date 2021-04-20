@@ -26,15 +26,14 @@
     "@hoth/decorators": "^1.0.8",
     "@hoth/logger": "^1.0.8",
     "@hoth/utils": "^1.0.9",
+    "@hoth/molecule": "^1.0.0",
     "config": "^3.3.3",
     "fastify-autoload": "^3.4.2",
     "fastify-plugin": "^3.0.0",
+    "fastify-warmup": "0.0.8",
     "resolve-from": "^5.0.0",
     "tslib": "^2.1.0",
     "uuid-random": "^1.3.2"
-  },
-  "devDependencies": {
-    "fastify-warmup": "0.0.7"
   },
   "files": [
     "dist"

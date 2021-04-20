@@ -33,18 +33,18 @@ async function runFastify(opts) {
 
     loadFastify();
 
-    if (opts.debug) {
-        if (process.version.match(/v[0-6]\..*/g)) {
-            exit('Debug mode not compatible with Node.js version < 6');
-        }
-        else {
-            // eslint-disable-next-line
-            require('inspector').open(
-                opts.debugPort,
-                opts.debugHost || isDocker() ? listenAddressDocker : undefined
-            );
-        }
-    }
+    // if (opts.debug) {
+    //     if (process.version.match(/v[0-6]\..*/g)) {
+    //         exit('Debug mode not compatible with Node.js version < 6');
+    //     }
+    //     else {
+    //         // eslint-disable-next-line
+    //         require('inspector').open(
+    //             opts.debugPort,
+    //             opts.debugHost || isDocker() ? listenAddressDocker : undefined
+    //         );
+    //     }
+    // }
 
     const rootPath = process.env.ROOT_PATH || process.cwd();
     const apps = await getApps({

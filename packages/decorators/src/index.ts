@@ -5,7 +5,7 @@ import 'reflect-metadata';
 import type {FastifyInstance} from 'fastify';
 
 import type {AutoLoadConfig} from 'fastify-decorators/interfaces/bootstrap-config';
-import {bootstrap as bootstrapInner, FastifyInstanceToken} from 'fastify-decorators';
+import {bootstrap as bootstrapInner} from 'fastify-decorators';
 
 export {
     Controller,

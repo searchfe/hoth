@@ -1,5 +1,6 @@
-import {Controller, GET, Hook, Inject} from '@hoth/decorators';
+
 import type {FastifyReply, FastifyRequest, RequestGenericInterface} from 'fastify';
+import {Controller, GET, Hook, Inject} from '@hoth/decorators';
 import Calculator from '../../lib/calculator/index.service';
 
 interface requestGeneric extends RequestGenericInterface {

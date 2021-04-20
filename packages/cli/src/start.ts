@@ -99,7 +99,7 @@ async function runFastify(opts) {
 
     // warmup
     try {
-        warmup(apps, fastifyInstance);
+        await warmup(apps, fastifyInstance);
     }
     catch (e) {
         const errorMessage = (e && e.message) || '';

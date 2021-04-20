@@ -70,7 +70,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
 
     // load module plugins
     if (appConfig.pluginConfig) {
-        for await (const [name, config] of Object.entries(appConfig.pluginConfig)) {
+        for (const [name, config] of Object.entries(appConfig.pluginConfig)) {
             if (name === '@hoth/app-autoload') {
                 if (config.prefix) {
                     appConfig.prefix = config.prefix;
@@ -78,9 +78,10 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
                 continue;
             }
             let mod: any = resolveFrom.silent(appConfig.dir, name);
-            mod = mod.__esModule ? mod.default : mod;
             if (mod) {
-                await childInstance.register(mod, config);
+                mod = require(mod);
+                mod = mod.__esModule ? mod.default : mod;
+                childInstance.register(mod, config);
             }
         }
     }

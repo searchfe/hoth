@@ -19,9 +19,10 @@ import onResponse from './hook/onResponse';
 import preHandlerFactory from './hook/preHandlerFactory';
 import onRequestFactory from './hook/onRequestFactory';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
+import {molecule} from '@hoth/molecule';
 import {loadConfig} from './configLoader';
 import type {WarmupConf} from 'fastify-warmup';
-
+import {loadMoleculeApp} from './loadMoleculeApp';
 interface AppAutoload {
     dir: string;
     rootPath: string;
@@ -51,7 +52,6 @@ interface PluginAppConfig extends AppConfig {
 }
 
 async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
-
     const pluginAppConfig: PluginAppConfig = {
         ...appConfig,
         controllerPath: join(appConfig.dir, 'controller'),
@@ -103,10 +103,12 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     };
 
     childInstance.decorate('$appConfig', configProxy);
+    childInstance.decorate('molecule', molecule);
 
     // register app plugins
     const appEntryModule: FastifyPluginAsync = await loadModule(pluginAppConfig.entryPath);
     await appEntryModule(childInstance, {...appConfig});
+
     if (existsSync(pluginAppConfig.pluginPath)) {
         await childInstance.register(autoload, {
             dir: pluginAppConfig.pluginPath,
@@ -120,18 +122,17 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     }
 
     // load controllers
-    if (!existsSync(pluginAppConfig.controllerPath)) {
-        exit(`Did not find \`controller\` dir in ${appConfig.dir}`);
-        return;
+    if (existsSync(pluginAppConfig.controllerPath)) {
+        await childInstance.register(bootstrap, {
+            directory: pluginAppConfig.controllerPath,
+            mask: /\.controller\.js$/,
+            appName: appConfig.name,
+        });
     }
-    await childInstance.register(bootstrap, {
-        directory: pluginAppConfig.controllerPath,
-        mask: /\.controller\.js$/,
-        appName: appConfig.name,
-    });
+    // load molecule
+    await loadMoleculeApp(appConfig, childInstance);
 
     childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));
-
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('preHandler', loggerMiddleware);
     childInstance.addHook('onResponse', onResponse);

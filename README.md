@@ -19,6 +19,11 @@ Create a app:
 hoth generate --app-name="myapp" myapp
 ```
 
+Create a molecule app:
+```sh
+hoth generate --app-name="myapp" --app-type="molecule" myapp
+```
+
 > option `--app-name` is required
 
 Install dependencies:

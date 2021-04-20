@@ -26,6 +26,7 @@
     "@hoth/decorators": "^1.0.7",
     "@hoth/logger": "^1.0.7",
     "@hoth/utils": "^1.0.8",
+    "@hoth/molecule": "^1.0.0",
     "config": "^3.3.3",
     "fastify-autoload": "^3.4.2",
     "fastify-plugin": "^3.0.0",

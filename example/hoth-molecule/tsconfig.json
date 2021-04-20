@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "esModuleInterop": true,
+        "sourceMap": false,
+        "declaration": false,
+        "rootDir": "./",
+        "composite": false
+    }
+}

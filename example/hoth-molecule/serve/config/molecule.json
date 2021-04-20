@@ -1,0 +1,14 @@
+{
+    "controllers": [
+        {
+            "name": "index",
+            "ctrlPath": "view/main/index",
+            "httptype": "get"
+        },
+        {
+            "name": "test",
+            "ctrlPath": "view/main/index",
+            "httptype": "post"
+        }
+    ]
+}

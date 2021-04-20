@@ -6,6 +6,7 @@
     },
     "references": [
         { "path": "../utils" },
-        { "path": "../decorators" }
-    ],
+        { "path": "../decorators" },
+        { "path": "../molecule" }
+    ]
 }

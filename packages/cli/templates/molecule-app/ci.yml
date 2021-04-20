@@ -1,0 +1,31 @@
+Global:
+  version: 2.0
+Default:
+  profile: [buildProduction]
+Profiles:
+  - profile:
+    name: buildProduction
+    mode: AGENT
+    environment:
+      image: DECK_CENTOS6U3_K3
+    build:
+      command: export USER='ferry' && sh scripts/build.sh "production"
+      cache:
+        enable: true
+        paths:
+          - .npm
+    artifacts:
+      release: true
+  - profile:
+    name: buildDevelopment
+    mode: AGENT
+    environment:
+      image: DECK_CENTOS6U3_K3
+    build:
+      command: export USER='ferry' && sh scripts/build.sh "development"
+      cache:
+        enable: true
+        paths:
+          - .npm
+    artifacts:
+      release: true

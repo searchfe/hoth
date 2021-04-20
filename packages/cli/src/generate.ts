@@ -5,17 +5,19 @@ import generify from 'generify';
 import parseArgs from './parseArgs';
 import chalk from 'chalk';
 
-const template = {
-    dir: 'app',
-    logInstructions: function () {
-        console.log('debug', 'saved package.json');
-        console.log('info', 'project generated successfully');
-        console.log('debug', `run '${chalk.bold('npm install')}' to install the dependencies`);
-        console.log('debug', `run '${chalk.bold('npm build')}' to compile the application`);
-        console.log('debug', `run '${chalk.bold('npm run dev')}' to start the application`);
-        console.log('debug', `run '${chalk.bold('npm test')}' to execute the unit tests`);
-    },
-};
+function getTemplate(type?: string) {
+    return {
+        dir: (type === 'molecule') ? 'molecule-app' : 'app',
+        logInstructions: function () {
+            console.log('debug', 'saved package.json');
+            console.log('info', 'project generated successfully');
+            console.log('debug', `run '${chalk.bold('npm install')}' to install the dependencies`);
+            console.log('debug', `run '${chalk.bold('npm build')}' to compile the application`);
+            console.log('debug', `run '${chalk.bold('npm run dev')}' to start the application`);
+            console.log('debug', `run '${chalk.bold('npm test')}' to execute the unit tests`);
+        },
+    };
+}
 
 function generate(dir, template, data) {
     return new Promise((resolve, reject) => {
@@ -51,7 +53,7 @@ export function cli(args) {
     if (existsSync(join(dir, 'package.json'))) {
         exit('a package.json file already exists in target directory');
     }
-
+    let template = getTemplate(opts.appType);
     generate(dir, template, opts).catch(function (err) {
         if (err) {
             console.error(err.message);

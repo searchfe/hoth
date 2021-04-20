@@ -9,5 +9,5 @@
         { "path": "../app-autoload" },
         { "path": "../logger" }
     ],
-    "exclude": ["./templates/*/src/**/*.ts", "dist/*"]
+    "exclude": ["./templates/**/*.ts", "dist/*"]
 }

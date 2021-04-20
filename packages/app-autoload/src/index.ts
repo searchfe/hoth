@@ -9,7 +9,7 @@ import Config from 'config';
 import {resolve, join, isAbsolute} from 'path';
 import autoload from 'fastify-autoload';
 import {existsSync, readdirSync} from 'fs';
-import {FastifyInstance, FastifyPluginAsync} from 'fastify';
+import {FastifyInstance, FastifyPluginAsync, FastifyRequest} from 'fastify';
 import fp from 'fastify-plugin';
 import resolveFrom from 'resolve-from';
 import {bootstrap} from '@hoth/decorators';
@@ -19,6 +19,7 @@ import onResponse from './hook/onResponse';
 import preHandlerFactory from './hook/preHandlerFactory';
 import onRequestFactory from './hook/onRequestFactory';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
+import {molecule} from '@hoth/molecule';
 
 interface AppAutoload {
     dir: string;
@@ -46,9 +47,68 @@ interface PluginAppConfig extends AppConfig {
     pluginPath: string;
     entryPath: string;
 }
+interface MoleculeController {
+    ctrlPath: string;
+    name: string;
+    httpType: string;
+    json?: boolean;
+}
+
+interface MoleculeConfig {
+    controllers: MoleculeController[];
+}
+
+/**
+ * 加载 molecule app
+ */
+async function loadMoleculeApp(appConfig: AppConfig, instance: FastifyInstance) {
+    const moleculeConfPath = join(appConfig.dir, 'config/molecule.json');
+    if (!existsSync(moleculeConfPath)) {
+        return;
+    }
+    const {controllers} =  await loadModule(moleculeConfPath) as MoleculeConfig;
+
+    controllers.forEach(item => {
+        let httpType = item.httpType;
+        let ctrlName = item.name;
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        instance[httpType](`/${ctrlName}`, async (request: FastifyRequest, reply) => {
+            let data = {} as any;
+
+            if (httpType === 'post') {
+                data = request.body || request.query || {};
+            }
+            else if (httpType === 'get') {
+                data = request.query;
+            }
+            // 本地 mock 数据
+            if (process.env.DATA_MOCK) {
+                data = await loadModule(join(appConfig.dir, `mock/${ctrlName}.json`));
+            }
+
+            // @ts-ignore
+            let ret = await instance.molecule(item.ctrlPath, data, {
+                root: appConfig.dir,
+                appName: appConfig.name,
+                name: ctrlName,
+                logger: instance.log,
+            });
+            if (item.json) {
+                return ret ? {
+                    statusCode: 200,
+                    data: ret,
+                } : {
+                    statusCode: 500,
+                    message: 'render error',
+                };
+            }
+            return ret;
+        });
+    });
+}
 
 async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
-
     const pluginAppConfig: PluginAppConfig = {
         ...appConfig,
         controllerPath: join(appConfig.dir, 'controller'),
@@ -100,10 +160,12 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     };
 
     childInstance.decorate('$appConfig', configProxy);
+    childInstance.decorate('molecule', molecule);
 
     // register app plugins
     const appEntryModule: FastifyPluginAsync = await loadModule(pluginAppConfig.entryPath);
     await appEntryModule(childInstance, {...appConfig});
+
     if (existsSync(pluginAppConfig.pluginPath)) {
         await childInstance.register(autoload, {
             dir: pluginAppConfig.pluginPath,
@@ -117,18 +179,17 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     }
 
     // load controllers
-    if (!existsSync(pluginAppConfig.controllerPath)) {
-        exit(`Did not find \`controller\` dir in ${appConfig.dir}`);
-        return;
+    if (existsSync(pluginAppConfig.controllerPath)) {
+        await childInstance.register(bootstrap, {
+            directory: pluginAppConfig.controllerPath,
+            mask: /\.controller\.js$/,
+            appName: appConfig.name,
+        });
     }
-    await childInstance.register(bootstrap, {
-        directory: pluginAppConfig.controllerPath,
-        mask: /\.controller\.js$/,
-        appName: appConfig.name,
-    });
+    // load molecule
+    loadMoleculeApp(appConfig, childInstance);
 
     childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));
-
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('preHandler', loggerMiddleware);
     childInstance.addHook('onResponse', onResponse);

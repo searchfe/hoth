@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@assemblyscript/loader@^0.10.1":
+  version "0.10.1"
+  resolved "http://registry.npm.baidu-int.com/@assemblyscript%2floader/-/loader-0.10.1.tgz#70e45678f06c72fa2e350e8553ec4a4d72b92e06"
+  integrity sha1-cORWePBscvouNQ6FU+xKTXK5LgY=
+
 "@babel/code-frame@7.12.11":
   version "7.12.11"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.11.tgz#f4ad435aa263db935b8f10f2c552d23fb716a63f"
@@ -1700,6 +1705,11 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
+base64-js@^1.2.0:
+  version "1.5.1"
+  resolved "http://registry.npm.baidu-int.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
+  integrity sha1-GxtEAWClv3rUC2UPCVljSBkDkwo=
+
 base@^0.11.1:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/base/-/base-0.11.2.tgz#7bde5ced145b6d551a90db87f83c558b4eb48a8f"
@@ -3057,6 +3067,11 @@ esutils@^2.0.2:
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
 
+eventemitter-asyncresource@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.baidu-int.com/eventemitter-asyncresource/-/eventemitter-asyncresource-1.0.0.tgz#734ff2e44bf448e627f7748f905d6bdd57bdb65b"
+  integrity sha1-c0/y5Ev0SOYn93SPkF1r3Ve9tls=
+
 eventemitter3@^3.1.0:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
@@ -4070,6 +4085,20 @@ hashlru@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/hashlru/-/hashlru-2.3.0.tgz#5dc15928b3f6961a2056416bb3a4910216fdfb51"
   integrity sha512-0cMsjjIC8I+D3M44pOQdsy0OHXGLVz6Z0beRuufhKa0KfaD2wGwAev6jILzXsd3/vpnNQJmWyZtIILqM1N+n5A==
+
+hdr-histogram-js@^2.0.1:
+  version "2.0.1"
+  resolved "http://registry.npm.baidu-int.com/hdr-histogram-js/-/hdr-histogram-js-2.0.1.tgz#ecb1ff2bcb6181c3e93ff4af9472c28c7e97284e"
+  integrity sha1-7LH/K8thgcPpP/SvlHLCjH6XKE4=
+  dependencies:
+    "@assemblyscript/loader" "^0.10.1"
+    base64-js "^1.2.0"
+    pako "^1.0.3"
+
+hdr-histogram-percentiles-obj@^3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.baidu-int.com/hdr-histogram-percentiles-obj/-/hdr-histogram-percentiles-obj-3.0.0.tgz#9409f4de0c2dda78e61de2d9d78b1e9f3cba283c"
+  integrity sha1-lAn03gwt2njmHeLZ14senzy6KDw=
 
 help-me@^2.0.0:
   version "2.0.0"
@@ -5571,10 +5600,23 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
+nice-napi@^1.0.2:
+  version "1.0.2"
+  resolved "http://registry.npm.baidu-int.com/nice-napi/-/nice-napi-1.0.2.tgz#dc0ab5a1eac20ce548802fc5686eaa6bc654927b"
+  integrity sha1-3Aq1oerCDOVIgC/FaG6qa8ZUkns=
+  dependencies:
+    node-addon-api "^3.0.0"
+    node-gyp-build "^4.2.2"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
+
+node-addon-api@^3.0.0:
+  version "3.1.0"
+  resolved "http://registry.npm.baidu-int.com/node-addon-api/-/node-addon-api-3.1.0.tgz#98b21931557466c6729e51cb77cd39c965f42239"
+  integrity sha1-mLIZMVV0ZsZynlHLd805yWX0Ijk=
 
 node-fetch-npm@^2.0.2:
   version "2.0.4"
@@ -5589,6 +5631,11 @@ node-fetch@^2.5.0, node-fetch@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
+
+node-gyp-build@^4.2.2:
+  version "4.2.3"
+  resolved "http://registry.npm.baidu-int.com/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
+  integrity sha1-zmJ3+FODX3GIKe+0fbIPPk2cRzk=
 
 node-gyp@^5.0.2:
   version "5.1.1"
@@ -6077,6 +6124,11 @@ package-json@^6.3.0:
     registry-url "^5.0.0"
     semver "^6.2.0"
 
+pako@^1.0.3:
+  version "1.0.11"
+  resolved "http://registry.npm.baidu-int.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
+  integrity sha1-bJWZ00DVTf05RjgCUqNXBaa5kr8=
+
 parallel-transform@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/parallel-transform/-/parallel-transform-1.2.0.tgz#9049ca37d6cb2182c3b1d2c720be94d14a5814fc"
@@ -6295,6 +6347,17 @@ pino@^6.11.1, pino@^6.2.1:
     pino-std-serializers "^3.1.0"
     quick-format-unescaped "4.0.1"
     sonic-boom "^1.0.2"
+
+piscina@^2.2.0:
+  version "2.2.0"
+  resolved "http://registry.npm.baidu-int.com/piscina/-/piscina-2.2.0.tgz#8fd5236f07aaa9676c4100a3e4d90b6b7aaabf4c"
+  integrity sha1-j9UjbweqqWdsQQCj5NkLa3qqv0w=
+  dependencies:
+    eventemitter-asyncresource "^1.0.0"
+    hdr-histogram-js "^2.0.1"
+    hdr-histogram-percentiles-obj "^3.0.0"
+  optionalDependencies:
+    nice-napi "^1.0.2"
 
 pkg-dir@^3.0.0:
   version "3.0.0"

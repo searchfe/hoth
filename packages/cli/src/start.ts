@@ -103,8 +103,8 @@ async function runFastify(opts) {
     }
     catch (e) {
         const errorMessage = (e && e.message) || '';
-        console.error('worker init error: ' + errorMessage);
-        logger.fatal('worker init error: ' + errorMessage);
+        console.error('warmup error: ' + errorMessage);
+        logger.fatal('warmup error: ' + errorMessage);
         process.exit(-1);
     }
 

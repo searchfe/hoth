@@ -19,6 +19,11 @@ const listenAddressDocker = '0.0.0.0';
 
 let fastify: typeof Fastify;
 
+// 初始化全局变量
+if (!process.env.ROOT_PATH) {
+    process.env.ROOT_PATH = process.cwd();
+}
+
 function loadFastify() {
     try {
         const {module: fastifyModule} = requireFastifyForModule();

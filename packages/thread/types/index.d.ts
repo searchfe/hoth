@@ -3,12 +3,15 @@ import type Piscina from 'piscina';
 type PiscinaOptions = ConstructorParameters<typeof Piscina>['0'];
 
 export interface PluginOptions {
-    threadsNumber: number;
+    logConfig: {
+        appName: string;
+    };
     warmupConfig?: {
         warmupData: string[];
         maxConcurrent: number;
         basePath: string;
     };
+    threadsNumber: number;
     
     filename: PiscinaOptions['filename'];
     concurrentTasksPerWorker?: PiscinaOptions['concurrentTasksPerWorker'];

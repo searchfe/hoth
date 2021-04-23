@@ -1,3 +1,3 @@
-export default {
+export = {
     workerData: '' as any
 };

@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/searchfe/hoth#readme",
   "dependencies": {
+    "fastify-warmup": "0.1.0",
     "piscina": "^2.2.0"
   },
   "files": [

@@ -17,6 +17,7 @@ async function threadPlugin(fastify: FastifyInstance, options: PluginOptions) {
     // 吧 workerData 包一层，传给子线程
     const workerData = {
         warmupConfig: options.warmupConfig,
+        logConfig: options.logConfig,
         userData: options.workerData
     };
 
@@ -36,18 +37,22 @@ async function threadPlugin(fastify: FastifyInstance, options: PluginOptions) {
         trackUnmanagedFds: options.trackUnmanagedFds
     });
 
-    const warmupTask = [];
-    let threadsCount = options.threadsNumber;
-    while (threadsCount--) {
-        warmupTask.push(pool.runTask({__isWarmup: true}));
+    // 确保预热完毕
+    if (options.warmupConfig) {
+        const warmupTask = [];
+        let threadsCount = options.threadsNumber;
+        while (threadsCount--) {
+            warmupTask.push(pool.runTask({__isWarmup: true}));
+        }
+        await Promise.all(warmupTask);
     }
-    await Promise.all(warmupTask);
 
     fastify.decorate('piscina', pool);
-    fastify.decorate('runTask', pool.runTask);
+    // @ts-ignore
+    fastify.decorate('runTask', (...args) => pool.runTask(...args));
 }
 
-export default fp(threadPlugin, {
+export = fp(threadPlugin, {
     fastify: '>=1.0.0',
     name: '@hoth/thread'
 });

@@ -2,7 +2,7 @@
   "name": "@hoth/thread",
   "version": "1.0.0",
   "description": "thread pool plugin for hoth framework",
-  "main": "dist/index.js",
+  "main": "dist/worker/data.js",
   "scripts": {
     "build": "tsc --build tsconfig.json"
   },
@@ -28,5 +28,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  }
 }

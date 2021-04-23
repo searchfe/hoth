@@ -12,7 +12,7 @@ export interface PluginOptions {
         basePath: string;
     };
     threadsNumber: number;
-    
+
     filename: PiscinaOptions['filename'];
     concurrentTasksPerWorker?: PiscinaOptions['concurrentTasksPerWorker'];
     argv?: PiscinaOptions['argv'];
@@ -22,4 +22,10 @@ export interface PluginOptions {
     taskQueue?: PiscinaOptions['taskQueue'];
     niceIncrement?: PiscinaOptions['niceIncrement'];
     trackUnmanagedFds?: PiscinaOptions['trackUnmanagedFds'];
+}
+
+export interface InitWorkerData {
+    userData: any;
+    warmupConfig: PluginOptions['warmupConfig'];
+    logConfig: PluginOptions['logConfig'];
 }

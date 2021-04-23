@@ -1,15 +1,15 @@
 /**
  * 这个文件会在子线程中加载，不要引入非必要模块。
  */
-import hothThread from './index';
+import hothThread from './data';
 import Piscina from 'piscina';
 import createLogger from '@hoth/logger';
 import {fastifyWarmup} from 'fastify-warmup';
-import type {PluginOptions} from '../types/index';
+import type {PluginOptions} from '../../types/index';
 
 const {
     warmupConfig,
-    logConfig
+    logConfig,
 } = getWorkerDataAndInitHothThread();
 const logger = createLogger({
     apps: [{name: logConfig.appName}],
@@ -50,7 +50,7 @@ function getWorkerDataAndInitHothThread() {
     return {
         warmupConfig,
         logConfig
-    }
+    };
 }
 
 export = async function workerWrapper(fn: (hoth: typeof hothUtils, data: any) => any) {
@@ -61,5 +61,5 @@ export = async function workerWrapper(fn: (hoth: typeof hothUtils, data: any) =>
             return 'done';
         }
         return fn(hothUtils, data);
-    }
-}
+    };
+};

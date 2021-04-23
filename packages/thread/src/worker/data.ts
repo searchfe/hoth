@@ -1,0 +1,3 @@
+export = {
+    workerData: '' as any,
+};

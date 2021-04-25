@@ -1,37 +1,62 @@
 # @hoth/thread
 
+thread worker pool based on piscina.
+
 ## 使用方式
 
 ### main
 
-该插件会在 fastify 实例上新增两个属性：
+- fastify 插件
 
-* `fastify.piscina` {`Piscina`} Piscina 实例
-* `fastify.runTask()` {`Function`} Piscina runTask 函数
+    该插件会在 fastify 实例上新增两个属性，内部使用 fastify-plugin 来包裹，因此会在全局实例上增加：
 
-```ts
-import thread from '@hoth/thread/plugin';
-import fastify from 'fastify';
-import path from 'path';
+    * `fastify.piscina` {`Piscina`} Piscina 实例
+    * `fastify.runTask()` {`Function`} Piscina runTask 函数
 
-const app = fastify();
+    ```ts
+    import {threadPlugin} from '@hoth/thread';
+    import fastify from 'fastify';
+    import path from 'path';
 
-app.register(thread, {
-    threadsNumber: 10,
-    filename: path.resolve(__dirname, 'worker.js')
-})
+    const app = fastify();
 
-app.get('/', async (request, reply) => {
-  reply.send({ hello: `world [${await app.runTask({ a: 1, b: 2 })}]` });
-});
-```
+    app.register(threadPlugin, {
+        threadsNumber: 10,
+        filename: path.resolve(__dirname, 'worker.js')
+    })
+
+    app.get('/', async (request, reply) => {
+    reply.send({ hello: `world [${await app.runTask({ a: 1, b: 2 })}]` });
+    });
+    ```
+
+- initThread
+
+    如果不想在全局实例上增加属性，可以单独调用 initThread 方法：
+
+    ```ts
+    import {initThread} from '@hoth/thread';
+    const pool = await initThread({
+        threadsNumber: 10,
+        filename: path.resolve(__dirname, 'worker.js')
+    });
+
+    // 自己处理 pool 的使用方式
+    fastify.decorate('piscina', pool);
+    fastify.decorate('runTask', (...args) => pool.runTask(...args));
+    ```
+
 
 ### worker
 
 ```ts
-import worker from '@hoth/thread/worker';
+import {
+    workerWrapper,
+    workerData
+} from '@hoth/thread';
 
-export default worker(function (args) {
+export default workerWrapper(function (args) {
+    // use workerData
     // some task
 });
 ```
@@ -61,6 +86,20 @@ app.register(thread, {
 });
 try {
     await app.listen(3000);
+}
+catch (e) {
+    // do something
+}
+```
+
+initThread 时
+
+```ts
+try {
+    const pool = await initThread({
+        threadsNumber: 10,
+        filename: path.resolve(__dirname, 'worker.js')
+    });
 }
 catch (e) {
     // do something

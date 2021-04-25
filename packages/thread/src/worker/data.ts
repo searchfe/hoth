@@ -1,3 +1,0 @@
-export = {
-    workerData: '' as any,
-};

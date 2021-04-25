@@ -24,6 +24,8 @@ export interface PluginOptions {
     trackUnmanagedFds?: PiscinaOptions['trackUnmanagedFds'];
 }
 
+export type HothThreadConf = Exclude<PluginOptions, 'logConfig'>;
+
 export interface InitWorkerData {
     userData: any;
     warmupConfig: PluginOptions['warmupConfig'];

@@ -19,4 +19,7 @@ export const threadPlugin = fp(threadPluginInner, {
 
 export {initThread} from './initThread';
 
-export type {PluginOptions} from '../../types';
+export type {
+    PluginOptions,
+    HothThreadConf
+} from '../../types';

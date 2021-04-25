@@ -29,7 +29,5 @@
   "files": [
     "dist"
   ],
-  "devDependencies": {
-    "typescript": "^4.2.4"
-  }
+  "devDependencies": {}
 }

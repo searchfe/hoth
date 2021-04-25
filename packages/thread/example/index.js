@@ -1,5 +1,5 @@
 const fastify = require('fastify');
-const thread = require('../dist/plugin');
+const {threadPlugin} = require('../index');
 const path = require('path');
 
 process.env.ROOT_PATH = __dirname;
@@ -8,7 +8,7 @@ const app = fastify({
     logger: true
 });
 
-app.register(thread, {
+app.register(threadPlugin, {
     threadsNumber: 1,
     filename: path.resolve(__dirname, './worker.js'),
     logConfig: {

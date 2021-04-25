@@ -3,8 +3,8 @@
 const {isMainThread} = require('worker_threads');
 
 if (isMainThread) {
-    module.exports = require('./main');
+    module.exports = require('./dist/main');
 }
 else {
-    module.exports = require('./worker');
+    module.exports = require('./dist/worker');
 }

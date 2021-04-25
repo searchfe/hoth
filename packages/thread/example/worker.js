@@ -1,6 +1,6 @@
-const worker = require('../dist/worker');
+const {workerWrapper} = require('../index');
 
-module.exports = worker(async function (hoth, a) {
+module.exports = workerWrapper(async function (hoth, a) {
     // console.log(hoth.logger);
     hoth.logger.info('meixg');
     console.log('worker input: ' + JSON.stringify(a));

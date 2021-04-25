@@ -12,6 +12,8 @@ export async function initThread(options: PluginOptions) {
         options.env.ROOT_PATH = process.env.ROOT_PATH;
     }
 
+    options.filename.replace(/.ts$/, '.js');
+
     // 吧 workerData 包一层，传给子线程
     const workerData = {
         warmupConfig: options.warmupConfig,

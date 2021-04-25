@@ -6,7 +6,7 @@
 
 ## 配置项
 
-在 src/config 目录下新增 thread.ts 文件可以开启预热功能。
+在 src/config 目录下新增 thread.ts 文件可以开启子线程功能。
 
 ```ts
 import path from 'path';

@@ -41,3 +41,17 @@ export default class AppController {
     }
 }
 ```
+
+## worker.ts
+
+子线程需要使用 `workerWrapper` 来进行封装。
+
+第一个参数是 hothUtils，其中提供了 logger。
+
+```ts
+import {workerWrapper} from '@hoth/thread';
+
+export default workerWrapper(async ({logger}, data) => {
+    // do something
+});
+```

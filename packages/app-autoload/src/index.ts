@@ -21,8 +21,10 @@ import onRequestFactory from './hook/onRequestFactory';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
 import {molecule} from '@hoth/molecule';
 import {loadConfig} from './configLoader';
-import type {WarmupConf} from 'fastify-warmup';
 import {loadMoleculeApp} from './loadMoleculeApp';
+import {initThread} from '@hoth/thread';
+import type {WarmupConf} from 'fastify-warmup';
+import type {HothThreadConf} from '@hoth/thread';
 interface AppAutoload {
     dir: string;
     rootPath: string;
@@ -39,6 +41,7 @@ interface AppConfig {
         [name: string]: any;
     };
     warmupConfig: WarmupConf;
+    threadConfig: HothThreadConf;
 }
 interface AppsLoaded {
     apps: AppConfig[];
@@ -67,6 +70,21 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     }
 
     childInstance.setErrorHandler(onErrorFactory(appConfig.name));
+
+    // load thread worker
+    // service 的依赖注入可能会需要这个，所以需要提前创建 thread
+    if (appConfig.threadConfig) {
+        const pool = await initThread({
+            logConfig: {
+                appName: appConfig.name
+            },
+            ...appConfig.threadConfig
+        });
+
+        childInstance.decorate('piscina', pool);
+        // @ts-ignore
+        childInstance.decorate('runTask', (...args) => pool.runTask(...args));
+    }
 
     // load module plugins
     if (appConfig.pluginConfig) {

@@ -6,3 +6,38 @@
 
 ## 配置项
 
+在 src/config 目录下新增 thread.ts 文件可以开启预热功能。
+
+```ts
+import path from 'path';
+import type {HothThreadConf} from '@hoth/thread';
+
+export default {
+    threadsNumber: 10,
+    filename: path.resolve(__dirname, '../worker/index.js'),
+    warmupConfig: {
+        warmupData: [''],
+        basePath: path.resolve(__dirname, '../worker/warmupData'),
+        maxConcurrent: 10
+    }
+} as HothThreadConf;
+```
+
+## 在 controller 中使用
+
+```ts
+import {Controller, GET, Inject, getFastifyInstanceByAppName} from '@hoth/decorators';
+import {FastifyReply, FastifyRequest} from 'fastify';
+
+@Controller('/index')
+export default class AppController {
+    private readonly runTask = getFastifyInstanceByAppName('myapp').runTask;
+
+    @GET()
+    async getHandler(req: FastifyRequest, reply: FastifyReply) {
+        const res = await this.runTask('xxx');
+
+        // 其他逻辑
+    }
+}
+```

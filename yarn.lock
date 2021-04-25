@@ -3289,10 +3289,10 @@ fastify-error@^0.3.0:
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-3.0.0.tgz#cf1b8c8098e3b5a7c8c30e6aeb06903370c054ca"
   integrity sha512-ZdCvKEEd92DNLps5n0v231Bha8bkz1DjnPP/aEz37rz/q42Z5JVLmgnqR4DYuNn3NXAO3IDCPyRvgvxtJ4Ym4w==
 
-fastify-warmup@0.1.0:
-  version "0.1.0"
-  resolved "http://registry.npm.baidu-int.com/fastify-warmup/-/fastify-warmup-0.1.0.tgz#b51f08ab9c9431af105bd962d26a35091da8551c"
-  integrity sha1-tR8Iq5yUMa8QW9li0mo1CR2oVRw=
+fastify-warmup@0.1.1:
+  version "0.1.1"
+  resolved "http://registry.npm.baidu-int.com/fastify-warmup/-/fastify-warmup-0.1.1.tgz#bec205b6ae494c67454b959043aec76c686d4cc9"
+  integrity sha1-vsIFtq5JTGdFS5WQQ67HbGhtTMk=
   dependencies:
     await-timeout "^1.1.1"
 

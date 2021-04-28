@@ -1,4 +1,5 @@
 import {fastifyWarmup} from 'fastify-warmup';
+import {join} from 'path';
 import type {getApps} from '@hoth/app-autoload';
 import type {FastifyInstance} from 'fastify';
 
@@ -8,6 +9,10 @@ export async function warmup(apps: UnPackReturnType<typeof getApps>, fastifyInst
     for (let i = 0; i < apps.length; i++) {
         const app = apps[i];
         if (app.warmupConfig) {
+
+            if (!app.warmupConfig.basePath) {
+                app.warmupConfig.basePath = join(app.dir, 'warmupData');
+            }
 
             // add prefix to all the route
             if (app.prefix) {

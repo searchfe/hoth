@@ -11,17 +11,17 @@ export const defaultLevels = {
 };
 
 const normalFormat = ':level: :time [:file::line]'
-    + ' errno[:errno] logId[:logid]'
+    + ' errno[:errno] logId[:logid] pid[:pid]'
     + ' uri[:uri] app[:app] product[:product] module[:module]'
     + ' clientIp[:ip] ua[:ua] refer[:referrer] cookie[:cookie] :msg';
 
 const noticeFormat = ':level: :time [:file::line]'
-    + ' errno[:errno] status[:status] logId[:logid]'
+    + ' errno[:errno] status[:status] logId[:logid] pid[:pid]'
     + ' uri[:uri] app[:app] product[:product] module[:module]'
     + ' clientIp[:ip] ua[:ua] refer[:referrer] cookie[:cookie] :notices tm[:performance] responseTime[:response-time]';
 
 const errorFormat = ':level: :time [:file::line]'
-    + ' errno[:errno] status[:status] logId[:logid]'
+    + ' errno[:errno] status[:status] logId[:logid] pid[:pid]'
     + ' uri[:uri] app[:app] product[:product] module[:module]'
     + ' clientIp[:ip] ua[:ua] refer[:referrer] cookie[:cookie] :errmsg';
 

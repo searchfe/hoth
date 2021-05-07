@@ -67,7 +67,7 @@ export default function (options: LoggerOptions) {
                     parameters: request.parameters,
                     headers: request.headers,
                     ip: request.ip,
-                    module: request.product,
+                    module: request.module,
                     product: request.product,
                     logid: request.logid,
                     notices: request[noticeSym],

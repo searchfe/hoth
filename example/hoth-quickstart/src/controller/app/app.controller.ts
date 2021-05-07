@@ -16,7 +16,8 @@ export default class AppController {
     private readonly service!: Calculator;
 
     @Hook('preHandler')
-    async preHandler() {
+    async preHandler(req: FastifyRequest<requestGeneric>) {
+        req.module = 'test';
         console.log('in controller');
     }
 

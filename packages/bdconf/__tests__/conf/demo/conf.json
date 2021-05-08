@@ -1,0 +1,19 @@
+{
+    "dicts": [
+      {
+        "dictname": "dict1",
+        "filename": "dict1.dict",
+        "autoload": true
+      }, {
+        "dictname": "dict2",
+        "pathname": "",
+        "filename": "dict2.conf",
+        "autoload": true
+      }, {
+        "dictname": "dict3",
+        "pathname": "",
+        "filename": "dict3.json",
+        "autoload": true
+      }
+    ]
+}

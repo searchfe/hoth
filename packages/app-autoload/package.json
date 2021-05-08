@@ -23,10 +23,12 @@
   },
   "homepage": "https://github.com/cxtom/hoth#readme",
   "dependencies": {
+    "@hoth/bdconf": "^1.0.0",
     "@hoth/decorators": "^1.0.9",
     "@hoth/logger": "^1.0.9",
     "@hoth/molecule": "^1.0.1",
     "@hoth/utils": "^1.0.10",
+    "@pm2/io": "^5.0.0",
     "config": "^3.3.3",
     "fastify-autoload": "^3.4.2",
     "fastify-plugin": "^3.0.0",

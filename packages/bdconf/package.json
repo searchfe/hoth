@@ -1,0 +1,39 @@
+{
+  "name": "@hoth/bdconf",
+  "version": "1.0.0",
+  "description": "bdconf plugin for hoth framework",
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "lint": "eslint src",
+    "lint-fix": "eslint src --fix",
+    "test": "jest"
+  },
+  "keywords": [
+    "bdconf"
+  ],
+  "author": "xueran <yuanxueran@gmail.com>",
+  "homepage": "https://github.com/searchfe/hoth#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/searchfe/hoth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/searchfe/hoth/issues"
+  },
+  "dependencies": {
+    "@baidu/configure": "1.0.5",
+    "@baidu/shmdict": "^1.0.3"
+  }
+}

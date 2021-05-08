@@ -23,6 +23,7 @@ import {molecule} from '@hoth/molecule';
 import {loadConfig} from './configLoader';
 import type {WarmupConf} from 'fastify-warmup';
 import {loadMoleculeApp} from './loadMoleculeApp';
+import {loadConfData} from './confDataLoader';
 interface AppAutoload {
     dir: string;
     rootPath: string;
@@ -67,6 +68,9 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     }
 
     childInstance.setErrorHandler(onErrorFactory(appConfig.name));
+
+    // load conf
+    loadConfData(appConfig, childInstance);
 
     // load module plugins
     if (appConfig.pluginConfig) {

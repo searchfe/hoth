@@ -9,7 +9,7 @@ import parseArgs from './parseArgs';
 
 function getTemplate(type?: string) {
     return {
-        dir: `${type}-app`,
+        dir: type,
         logInstructions() {
             console.log('debug', 'saved package.json');
             console.log('info', 'project generated successfully');
@@ -57,7 +57,7 @@ export async function cli(args) {
     const inputs = [{
         type: 'input',
         name: 'appName',
-        message: `What's your app name?`,
+        message: `What's your product name?`,
         default: function () {
             return opts.appName;
         },
@@ -67,7 +67,7 @@ export async function cli(args) {
             if (pass) {
                 return true;
             }
-            return 'Please enter a valid app name.';
+            return 'Please enter a valid product name.';
         },
     }, {
         type: 'list',

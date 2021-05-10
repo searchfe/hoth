@@ -7,17 +7,20 @@ export default {
     id(o) {
         return o.req.id;
     },
+    cluster() {
+        return process.env.HOTH_CLUSTER
+    },
+    idc() {
+        return process.env.HOTH_IDC
+    },
     app(o) {
         return o.app;
     },
     logid(o) {
         return o.req?.logid || uuid();
     },
-    product(o) {
-        return o.req?.product || o.req?.url.split('?')[0].split('/').filter(a => a && a !== o.app).join('_');
-    },
     module(o) {
-        return o.req?.module;
+        return o.req?.module || o.req?.url.split('?')[0].split('/').filter(a => a && a !== o.app).join('_');
     },
     pid(o) {
         return o.pid;

@@ -13,10 +13,10 @@ npm install @hoth/cli --global
 
 ### Quick start
 
-Create a app:
+Create a project:
 
 ```sh
-hoth generate myapp
+hoth generate myproj
 ```
 #### project types
 
@@ -29,7 +29,7 @@ Install dependencies:
 npm install
 ```
 
-To start the app in dev mode:
+To start the service in dev mode:
 
 ```sh
 npm run dev

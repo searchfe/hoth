@@ -18,6 +18,7 @@ import onErrorFactory from './hook/onErrorFactory';
 import onSend from './hook/onSend';
 import preHandlerFactory from './hook/preHandlerFactory';
 import onRequestFactory from './hook/onRequestFactory';
+import preValidation from './hook/preValidation';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
 import {molecule} from '@hoth/molecule';
 import {loadConfig} from './configLoader';
@@ -137,9 +138,10 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     // load molecule
     await loadMoleculeApp(appConfig, childInstance);
 
+    childInstance.addHook('preValidation', preValidation);
     childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));
-    childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('preHandler', loggerMiddleware);
+    childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
     childInstance.addHook('onSend', onSend);
 
     return childInstance;

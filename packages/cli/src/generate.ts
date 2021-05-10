@@ -2,13 +2,15 @@ import {exit} from '@hoth/utils';
 import {existsSync} from 'fs';
 import {join} from 'path';
 import generify from 'generify';
-import parseArgs from './parseArgs';
 import chalk from 'chalk';
+import inquirer from 'inquirer';
+
+import parseArgs from './parseArgs';
 
 function getTemplate(type?: string) {
     return {
-        dir: (type === 'molecule') ? 'molecule-app' : 'app',
-        logInstructions: function () {
+        dir: `${type}-app`,
+        logInstructions() {
             console.log('debug', 'saved package.json');
             console.log('info', 'project generated successfully');
             console.log('debug', `run '${chalk.bold('npm install')}' to install the dependencies`);
@@ -34,26 +36,56 @@ function generate(dir, template, data) {
 }
 
 
-export function cli(args) {
+export async function cli(args) {
     const opts = parseArgs(args);
     const dir = opts._[0];
-
-    if (!opts.appName) {
-        exit('--app-name option is required');
-    }
 
     if (dir && existsSync(dir)) {
         if (dir !== '.' && dir !== './') {
             exit(`directory ${opts._[0]} already exists`);
         }
     }
+
     if (dir === undefined) {
         exit('must specify a directory to \'fastify generate\'');
     }
+
     if (existsSync(join(dir, 'package.json'))) {
         exit('a package.json file already exists in target directory');
     }
-    let template = getTemplate(opts.appType);
+
+    const inputs = [{
+        type: 'input',
+        name: 'appName',
+        message: `What's your app name?`,
+        default: function () {
+            return opts.appName;
+        },
+        // @ts-ignore
+        validate(value) {
+            const pass = value.match(/^[a-z\-]+$/i);
+            if (pass) {
+                return true;
+            }
+            return 'Please enter a valid app name.';
+        },
+    }, {
+        type: 'list',
+        name: 'appType',
+        message: 'Select a project type that you want to create.',
+        choices: [
+            'Normal',
+            'Molecule',
+        ],
+        filter(val) {
+            return val.toLowerCase();
+        },
+    }]
+
+    const {appType, appName} = await inquirer.prompt(inputs);
+    opts.appName = appName;
+
+    let template = getTemplate(appType);
     generate(dir, template, opts).catch(function (err) {
         if (err) {
             console.error(err.message);

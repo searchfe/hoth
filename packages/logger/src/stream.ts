@@ -9,6 +9,7 @@ import {defaultLevels} from './constants';
 import {getTime} from './getTime';
 
 const metadata = Symbol.for('pino.metadata');
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 export default function (streamsArray) {
     let counter = 0;
@@ -61,6 +62,10 @@ export default function (streamsArray) {
 
         if (!stream) {
             stream = info.level >= 40 ? process.stderr : process.stdout;
+        }
+
+        if (isDevelopment) {
+            console.log(info.result);
         }
 
         stream.write(info.result);

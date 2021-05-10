@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Node.js framework based on fastify.",
   "main": "index.js",
-  "repository": "https://github.com/cxtom/hoth.git",
+  "repository": "https://github.com/searchfe/hoth.git",
   "author": "cxtom <chenxiao07@baidu.com>",
   "license": "MIT",
   "private": true,

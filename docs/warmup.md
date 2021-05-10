@@ -4,6 +4,8 @@
 
 warmup.ts 中的内容为 [fastify-warmup](https://github.com/searchfe/fastify-warmup) 的配置项。
 
+> 其中 `basePath` 默认为 ${appDir}/warmup-data
+
 例如：
 
 ```ts
@@ -12,8 +14,7 @@ export default {
     warmupData: {
         '/index': 'a.json'
     },
-    maxConcurrent: 3,
-    basePath: '/path/to/your/app/warmupData'
+    maxConcurrent: 3
 } as WarmupConf;
 ```
 

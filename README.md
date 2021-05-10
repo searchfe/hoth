@@ -16,15 +16,12 @@ npm install @hoth/cli --global
 Create a app:
 
 ```sh
-hoth generate --app-name="myapp" myapp
+hoth generate myapp
 ```
+#### project types
 
-Create a molecule app:
-```sh
-hoth generate --app-name="myapp" --app-type="molecule" myapp
-```
-
-> option `--app-name` is required
+- `Normal`(with [fastify-decorators](https://github.com/L2jLiga/fastify-decorators)): [example](https://github.com/searchfe/hoth/tree/main/example/hoth-quickstart)
+- `Molecue` (ssr only): [example](https://github.com/searchfe/hoth/tree/main/example/hoth-molecule)
 
 Install dependencies:
 

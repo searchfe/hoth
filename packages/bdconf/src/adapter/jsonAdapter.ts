@@ -3,14 +3,14 @@
   */
 
 import {IAdapter} from './adapter';
-
+import fs from 'fs';
 export class JsonAdapter implements IAdapter {
     static readonly dataType = 'json';
 
     loadSync(filePath: string): Record<string, any> {
         try {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const data = require(filePath);
+            const content = fs.readFileSync(filePath).toString();
+            const data = JSON.parse(content);
             return data;
         }
         catch (err) {
@@ -20,14 +20,18 @@ export class JsonAdapter implements IAdapter {
 
     async loadAsync(filePath: string): Promise<Record<string, any>> {
         return new Promise((resolve, reject) => {
-            try {
-                // eslint-disable-next-line @typescript-eslint/no-var-requires
-                const data = require(filePath);
-                resolve(data);
-            }
-            catch (err) {
-                reject(err);
-            }
+            fs.readFile(filePath, (err, content) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    try {
+                        const data = JSON.parse(content.toString());
+                        resolve(data);
+                    } catch (err) {
+                        reject(err);
+                    }
+                }
+            });
         });
     }
 }

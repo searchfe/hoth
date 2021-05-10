@@ -33,6 +33,10 @@ interface MoleculeOption {
      * 路由名字
      */
     name: string;
+    /**
+     * conf 数据
+     */
+    appConfData?: Record<string, any>;
 }
 
 let controllerCache: Map<string, ControllerInfo<any>> = new Map();
@@ -74,6 +78,7 @@ export async function molecule<T = string>(ctrlPath: string, data: any, option: 
             ctrl = new CtrlClass({
                 logger: option.logger,
                 root: option.root,
+                appConfData: option.appConfData,
             });
             getOrSetCache(option.appName, ctrlPath, {
                 ctrlPath,

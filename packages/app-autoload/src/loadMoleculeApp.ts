@@ -57,6 +57,8 @@ export async function loadMoleculeApp(appConfig: AppConfig, instance: FastifyIns
                 appName: appConfig.name,
                 name: ctrlName,
                 logger: instance.log,
+                // @ts-ignore
+                appConfData: instance.$appConfData,
             });
             if (item.json) {
                 return ret ? {

@@ -98,7 +98,6 @@ export class Resource {
 
             this.data = await this.adapter.loadAsync(this.fullname);
             this.lastModified = mtimeMs;
-
             this.avail = true;
             return true;
         }

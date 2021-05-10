@@ -51,6 +51,9 @@ describe('ResourceManager', () => {
         await manager.registerResourceFromConfig();
         let ret = await manager.reload();
         expect(ret).toBe(true);
+
+        let ret2 = await manager.reload(['dict2', 'xxx']);
+        expect(ret2).toBe(true);
     });
 
     test('exception of registerResource', async () => {

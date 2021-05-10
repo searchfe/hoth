@@ -40,11 +40,21 @@ export class ResourceManager {
     /**
      * 重新加载
      */
-    async reload(): Promise<boolean> {
+    async reload(nameList?: string[]): Promise<boolean> {
         const promiseList: Array<Promise<boolean>> = [];
-        this.resourceList.forEach(resource => {
-            promiseList.push(resource.reload());
-        });
+        if (nameList && nameList.length) {
+            nameList.forEach(key => {
+                let resource = this.resourceList.get(key);
+                if (resource) {
+                    promiseList.push(resource.reload());
+                }
+            });
+        } else {
+            this.resourceList.forEach(resource => {
+                promiseList.push(resource.reload());
+            });
+        }
+
         await Promise.all(promiseList);
         return true;
     }
@@ -74,7 +84,7 @@ export class ResourceManager {
         this.resourceList.forEach((resource, key) => {
             data.set(key, resource.fetchData());
         });
-        return Object.freeze(data);
+        return data;
     }
 
     /**

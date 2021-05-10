@@ -27,5 +27,9 @@ describe('JsonAdapter', () => {
         let filePath = path.resolve(pathname, 'tt.json');
         return expect(jsonAdapter.loadAsync(filePath)).rejects.toThrow();
     });
+    test('JsonAdapter loadAsync parse error', () => {
+        let filePath = path.resolve(pathname, 'errormock.json');
+        return expect(jsonAdapter.loadAsync(filePath)).rejects.toThrow();
+    });
 });
 

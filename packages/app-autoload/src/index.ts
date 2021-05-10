@@ -70,7 +70,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     childInstance.setErrorHandler(onErrorFactory(appConfig.name));
 
     // load conf
-    loadConfData(appConfig, childInstance);
+    await loadConfData(appConfig, childInstance);
 
     // load module plugins
     if (appConfig.pluginConfig) {

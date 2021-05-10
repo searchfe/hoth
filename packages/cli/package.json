@@ -1,6 +1,6 @@
 {
   "name": "@hoth/cli",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "cli plugin for hoth framework",
   "main": "dist/index.js",
   "scripts": {
@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/cxtom/hoth#readme",
   "dependencies": {
-    "@hoth/app-autoload": "^1.1.1",
-    "@hoth/logger": "^1.1.1",
-    "@hoth/utils": "^1.1.1",
+    "@hoth/app-autoload": "^1.1.2",
+    "@hoth/logger": "^1.1.2",
+    "@hoth/utils": "^1.1.2",
     "chalk": "^4.1.0",
     "commist": "^1.1.0",
     "fastify-warmup": "0.0.8",

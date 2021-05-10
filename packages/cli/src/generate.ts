@@ -40,10 +40,6 @@ export async function cli(args) {
     const opts = parseArgs(args);
     const dir = opts._[0];
 
-    if (!opts.appName) {
-        exit('--app-name option is required');
-    }
-
     if (dir && existsSync(dir)) {
         if (dir !== '.' && dir !== './') {
             exit(`directory ${opts._[0]} already exists`);
@@ -58,7 +54,22 @@ export async function cli(args) {
         exit('a package.json file already exists in target directory');
     }
 
-    const {appType} = await inquirer.prompt([{
+    const inputs = [{
+        type: 'input',
+        name: 'appName',
+        message: `What's your app name?`,
+        default: function () {
+            return opts.appName;
+        },
+        // @ts-ignore
+        validate(value) {
+            const pass = value.match(/^[a-z\-]+$/i);
+            if (pass) {
+                return true;
+            }
+            return 'Please enter a valid app name.';
+        },
+    }, {
         type: 'list',
         name: 'appType',
         message: 'Select a project type that you want to create.',
@@ -69,9 +80,10 @@ export async function cli(args) {
         filter(val) {
             return val.toLowerCase();
         },
-    }]);
+    }]
 
-    console.log(appType);
+    const {appType, appName} = await inquirer.prompt(inputs);
+    opts.appName = appName;
 
     let template = getTemplate(appType);
     generate(dir, template, opts).catch(function (err) {

@@ -11,7 +11,7 @@ export async function warmup(apps: UnPackReturnType<typeof getApps>, fastifyInst
         if (app.warmupConfig) {
 
             if (!app.warmupConfig.basePath) {
-                app.warmupConfig.basePath = join(app.dir, 'warmupData');
+                app.warmupConfig.basePath = join(app.dir, 'warmup-data');
             }
 
             // add prefix to all the route

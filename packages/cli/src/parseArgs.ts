@@ -22,7 +22,6 @@ interface Args {
     appPrefix: string;
     appName: string;
     healthcheckPath: string;
-    appType: string;
 }
 
 export default function (args): Args {
@@ -69,7 +68,6 @@ export default function (args): Args {
         appPrefix: parsedArgs.appPrefix,
         appName: parsedArgs.appName,
         healthcheckPath: parsedArgs.healthcheckPath,
-        appType: parsedArgs.appType,
         pluginOptions,
     };
 }

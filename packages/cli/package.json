@@ -34,6 +34,7 @@
     "fastify-warmup": "0.0.8",
     "generify": "^4.2.0",
     "help-me": "^2.0.0",
+    "inquirer": "^8.0.0",
     "is-docker": "^2.1.1",
     "make-promises-safe": "^5.1.0",
     "tslib": "^2.1.0",

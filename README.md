@@ -19,12 +19,12 @@ Create a app:
 hoth generate --app-name="myapp" myapp
 ```
 
-Create a molecule app:
-```sh
-hoth generate --app-name="myapp" --app-type="molecule" myapp
-```
-
 > option `--app-name` is required
+
+#### project types
+
+- `Normal`(with [fastify-decorators](https://github.com/L2jLiga/fastify-decorators)): [example](https://github.com/searchfe/hoth/tree/main/example/hoth-quickstart)
+- `Molecue` (ssr only): [example](https://github.com/searchfe/hoth/tree/main/example/hoth-molecule)
 
 Install dependencies:
 

@@ -2,13 +2,15 @@ import {exit} from '@hoth/utils';
 import {existsSync} from 'fs';
 import {join} from 'path';
 import generify from 'generify';
-import parseArgs from './parseArgs';
 import chalk from 'chalk';
+import inquirer from 'inquirer';
+
+import parseArgs from './parseArgs';
 
 function getTemplate(type?: string) {
     return {
-        dir: (type === 'molecule') ? 'molecule-app' : 'app',
-        logInstructions: function () {
+        dir: `${type}-app`,
+        logInstructions() {
             console.log('debug', 'saved package.json');
             console.log('info', 'project generated successfully');
             console.log('debug', `run '${chalk.bold('npm install')}' to install the dependencies`);
@@ -34,7 +36,7 @@ function generate(dir, template, data) {
 }
 
 
-export function cli(args) {
+export async function cli(args) {
     const opts = parseArgs(args);
     const dir = opts._[0];
 
@@ -47,13 +49,31 @@ export function cli(args) {
             exit(`directory ${opts._[0]} already exists`);
         }
     }
+
     if (dir === undefined) {
         exit('must specify a directory to \'fastify generate\'');
     }
+
     if (existsSync(join(dir, 'package.json'))) {
         exit('a package.json file already exists in target directory');
     }
-    let template = getTemplate(opts.appType);
+
+    const {appType} = await inquirer.prompt([{
+        type: 'list',
+        name: 'appType',
+        message: 'Select a project type that you want to create.',
+        choices: [
+            'Normal',
+            'Molecule',
+        ],
+        filter(val) {
+            return val.toLowerCase();
+        },
+    }]);
+
+    console.log(appType);
+
+    let template = getTemplate(appType);
     generate(dir, template, opts).catch(function (err) {
         if (err) {
             console.error(err.message);

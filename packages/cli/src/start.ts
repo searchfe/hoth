@@ -8,8 +8,10 @@
 import Fastify, {FastifyReply, FastifyRequest} from 'fastify';
 import pino from 'pino';
 import isDocker from 'is-docker';
+import {existsSync} from 'fs';
+import {join} from 'path';
 import parseArgs from './parseArgs';
-import {exit, requireFastifyForModule} from '@hoth/utils';
+import {exit, loadModule, requireFastifyForModule} from '@hoth/utils';
 import appAutoload, {getApps} from '@hoth/app-autoload';
 import createLogger from '@hoth/logger';
 import {showHelpForCommand} from './util';
@@ -96,6 +98,14 @@ async function runFastify(opts) {
     process.on('SIGINT', () => handler(null, 'SIGINT'));
     process.on('SIGQUIT', () => handler(null, 'SIGQUIT'));
     process.on('SIGTERM', () => handler(null, 'SIGTERM'));
+
+    const rootEntryPath = join(rootPath, 'main.js');
+    if (existsSync(rootEntryPath)) {
+        fastifyInstance.register(loadModule(rootEntryPath), {
+            apps,
+            rootPath
+        });
+    }
 
     // warmup
     try {

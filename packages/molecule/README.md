@@ -15,6 +15,8 @@ export class Controller implements IController {
     constructor(options: Option) {
         this.logger = options.logger;
         this.root = options.root;
+        // conf 数据
+        this.confData = options.appConfData;
     }
 
     render(data: Data) {

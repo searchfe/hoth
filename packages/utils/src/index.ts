@@ -21,7 +21,7 @@ export function exit(message?: string | Error) {
 
 export function requireFastifyForModule() {
     try {
-        const basedir = process.cwd() || process.env.ROOT_PATH;
+        const basedir = process.env.ROOT_PATH || process.cwd();
         // eslint-disable-next-line
         const module = require(resolveFrom.silent(basedir, 'fastify') || 'fastify');
         return {module};

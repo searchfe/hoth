@@ -4,3 +4,7 @@
  */
 
 declare module 'yargs-parser';
+declare module 'commist';
+declare module 'help-me';
+declare module 'generify';
+

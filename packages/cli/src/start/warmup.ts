@@ -17,12 +17,13 @@ export async function warmup(apps: UnPackReturnType<typeof getApps>, fastifyInst
             // add prefix to all the route
             if (app.prefix) {
                 const routes = Object.keys(app.warmupConfig.warmupData);
-                const newWarmupData = {};
+                const newWarmupData: Record<string, string | string[]> = {};
                 routes.forEach(route => {
                     newWarmupData[app.prefix + route] = app.warmupConfig.warmupData[route];
                 });
                 app.warmupConfig.warmupData = newWarmupData;
             }
+
             await fastifyWarmup(fastifyInstance, app.warmupConfig);
         }
     }

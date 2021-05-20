@@ -1,7 +1,7 @@
 import {FastifyReply, FastifyRequest} from 'fastify';
 
 export default function (name: string) {
-    return function (error, req: FastifyRequest, reply: FastifyReply) {
+    return function (error: Error, req: FastifyRequest, reply: FastifyReply) {
         if (reply.statusCode < 400) {
             reply.log.info({
                 req,

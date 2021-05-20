@@ -143,7 +143,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     return childInstance;
 }
 
-export async function getApps(opts: AppAutoload) {
+export async function getApps(opts: AppAutoload): Promise<AppConfig[]> {
     const {
         dir,
         rootPath,
@@ -158,7 +158,6 @@ export async function getApps(opts: AppAutoload) {
 
     if (!existsSync(appRoot)) {
         exit(`app root "${dir}" not exists!`);
-        return;
     }
 
     let apps: AppConfig[] = [];
@@ -192,7 +191,6 @@ export async function getApps(opts: AppAutoload) {
 
     if (apps.length <= 0) {
         exit(`app entry not found in ${dir}`);
-        return;
     }
 
     return apps;
@@ -205,7 +203,7 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload |
         apps = (opts as AppsLoaded).apps;
     }
     else {
-        apps = await getApps(opts as AppAutoload);
+        apps = (await getApps(opts as AppAutoload))!;
     }
 
     for await (const appConfig of apps) {

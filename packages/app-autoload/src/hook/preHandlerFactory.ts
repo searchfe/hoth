@@ -12,7 +12,7 @@ declare module 'fastify' {
 }
 
 export default function (app: string) {
-    return function (req: FastifyRequest, reply: FastifyReply, done) {
+    return async function (req: FastifyRequest, reply: FastifyReply) {
         req.logid = req.logid
             || (req.headers.x_bd_logid as string)
             || (req.headers.logid as string)
@@ -20,6 +20,5 @@ export default function (app: string) {
         req.log = reply.log = reply.log.child({req, app});
         req.log.addNotice('parseTime', (req[validateStartTimeSym] - req[parseStartTimeSym]).toFixed(1));
         req.log.addNotice('validationTime', (performance.now() - req[validateStartTimeSym]).toFixed(1));
-        done();
     };
 }

@@ -5,7 +5,7 @@
 
 import yargsParser from 'yargs-parser';
 
-interface Args {
+export interface Args {
     _: any[];
     '--': any[];
     port: number | string;
@@ -24,7 +24,7 @@ interface Args {
     healthcheckPath: string;
 }
 
-export default function (args): Args {
+export default function (args: string[]): Args {
     const parsedArgs = yargsParser(args, {
         configuration: {
             'populate--': true,

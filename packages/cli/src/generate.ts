@@ -5,9 +5,9 @@ import generify from 'generify';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 
-import parseArgs from './parseArgs';
+import parseArgs, {Args} from './parseArgs';
 
-function getTemplate(type?: string) {
+function getTemplate(type: string) {
     return {
         dir: type,
         logInstructions() {
@@ -21,11 +21,11 @@ function getTemplate(type?: string) {
     };
 }
 
-function generate(dir, template, data) {
+function generate(dir: string, template: ReturnType<typeof getTemplate>, data: Args) {
     return new Promise((resolve, reject) => {
-        generify(join(__dirname, '../templates', template.dir), dir, data, function (file) {
+        generify(join(__dirname, '../templates', template.dir), dir, data, function (file: string) {
             console.log(`generated ${file}`);
-        }, function (err) {
+        }, function (err: Error) {
             if (err) {
                 return reject(err);
             }
@@ -36,7 +36,7 @@ function generate(dir, template, data) {
 }
 
 
-export async function cli(args) {
+export async function cli(args: string[]) {
     const opts = parseArgs(args);
     const dir = opts._[0];
 
@@ -77,7 +77,7 @@ export async function cli(args) {
             'Normal',
             'Molecule',
         ],
-        filter(val) {
+        filter(val: string) {
             return val.toLowerCase();
         },
     }]

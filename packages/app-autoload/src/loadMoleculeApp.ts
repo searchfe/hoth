@@ -16,7 +16,7 @@ interface AppConfig {
 interface MoleculeController {
     ctrlPath: string;
     name: string;
-    httpType: string;
+    httpType: "get" | "post" | "patch" | "delete";
     json?: boolean;
 }
 

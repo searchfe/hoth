@@ -47,10 +47,10 @@ export async function bootstrap(fastify: FastifyInstance, config: BootstrapConfi
 
 declare module 'fastify' {
     interface FastifyRequest {
-        readonly $appConfig: {
+        $appConfig: {
             get: (property: string | string[]) => any;
         };
-        readonly $service: FastifyInstance;
+        $service: FastifyInstance;
         module?: string;
         logid?: string;
         product?: string;

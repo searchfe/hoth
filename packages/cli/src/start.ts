@@ -6,11 +6,11 @@
 /* eslint-disable @typescript-eslint/await-thenable */
 
 import Fastify, {FastifyReply, FastifyRequest} from 'fastify';
-import pino from 'pino';
+import pino, {Logger} from 'pino';
 import isDocker from 'is-docker';
 import {existsSync} from 'fs';
 import {join} from 'path';
-import parseArgs from './parseArgs';
+import parseArgs, {Args} from './parseArgs';
 import {exit, loadModule, requireFastifyForModule} from '@hoth/utils';
 import appAutoload, {getApps} from '@hoth/app-autoload';
 import createLogger from '@hoth/logger';
@@ -23,7 +23,7 @@ let fastify: typeof Fastify;
 
 function loadFastify() {
     try {
-        const {module: fastifyModule} = requireFastifyForModule();
+        const {module: fastifyModule} = requireFastifyForModule()!;
         fastify = fastifyModule;
     }
     catch (e) {
@@ -31,30 +31,38 @@ function loadFastify() {
     }
 }
 
-async function runFastify(opts) {
+function initFinalLogger(logger: Logger) {
+    // use pino.final to create a special logger that
+    // guarantees final tick writes
+    const handler = pino.final(logger, (err, finalLogger, evt) => {
+        if (err) {
+            finalLogger.fatal({err}, evt + ' caused exit');
+        }
+        else {
+            finalLogger.info(`${evt} caught`);
+        }
+        process.exit(err ? 1 : 0);
+    });
+    // catch all the ways node might exit
+    process.on('beforeExit', () => handler(null, 'beforeExit'));
+    process.on('exit', () => handler(null, 'exit'));
+    process.on('uncaughtException', err => handler(err, 'uncaughtException'));
+    process.on('SIGINT', () => handler(null, 'SIGINT'));
+    process.on('SIGQUIT', () => handler(null, 'SIGQUIT'));
+    process.on('SIGTERM', () => handler(null, 'SIGTERM'));
+}
+
+async function runFastify(opts: Args) {
 
     loadFastify();
 
-    // if (opts.debug) {
-    //     if (process.version.match(/v[0-6]\..*/g)) {
-    //         exit('Debug mode not compatible with Node.js version < 6');
-    //     }
-    //     else {
-    //         // eslint-disable-next-line
-    //         require('inspector').open(
-    //             opts.debugPort,
-    //             opts.debugHost || isDocker() ? listenAddressDocker : undefined
-    //         );
-    //     }
-    // }
-
     const rootPath = process.env.ROOT_PATH || process.cwd();
-    const apps = await getApps({
+    const apps = (await getApps({
         dir: opts.appDir,
         prefix: opts.appPrefix,
         name: opts.appName,
         rootPath,
-    });
+    }))!;
 
     const logger = createLogger({
         apps,
@@ -68,7 +76,7 @@ async function runFastify(opts) {
     });
 
     // eslint-disable-next-line
-    require('make-promises-safe').logError = function (error) {
+    require('make-promises-safe').logError = function (error: Error | string) {
         fastifyInstance.log.fatal(error instanceof Error ? {err: error} : error);
     };
 
@@ -82,22 +90,7 @@ async function runFastify(opts) {
         });
     }
 
-    // use pino.final to create a special logger that
-    // guarantees final tick writes
-    const handler = pino.final(logger, (err, finalLogger, evt) => {
-        finalLogger.error(`${evt} caught`);
-        if (err) {
-            finalLogger.fatal({err}, 'error caused exit');
-        }
-        process.exit(err ? 1 : 0);
-    });
-    // catch all the ways node might exit
-    process.on('beforeExit', () => handler(null, 'beforeExit'));
-    process.on('exit', () => handler(null, 'exit'));
-    process.on('uncaughtException', err => handler(err, 'uncaughtException'));
-    process.on('SIGINT', () => handler(null, 'SIGINT'));
-    process.on('SIGQUIT', () => handler(null, 'SIGQUIT'));
-    process.on('SIGTERM', () => handler(null, 'SIGTERM'));
+    initFinalLogger(logger);
 
     const rootEntryPath = join(rootPath, 'main.js');
     if (existsSync(rootEntryPath)) {
@@ -146,7 +139,7 @@ async function runFastify(opts) {
 }
 
 
-async function start(args) {
+async function start(args: string[]) {
     const opts = parseArgs(args);
 
     if (opts.help) {
@@ -156,7 +149,7 @@ async function start(args) {
     return runFastify(opts);
 }
 
-export function cli(args) {
+export function cli(args: string[]) {
     start(args);
 }
 

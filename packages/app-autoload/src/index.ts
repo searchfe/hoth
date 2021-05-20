@@ -31,7 +31,7 @@ interface AppAutoload {
     name: string;
 }
 
-interface AppConfig {
+export interface AppConfig {
     dir: string;
     prefix: string;
     name: string;

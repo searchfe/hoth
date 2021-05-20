@@ -1,5 +1,5 @@
 import {Controller, GET, Inject} from '@hoth/decorators';
-import {FastifyReply, FastifyRequest} from 'fastify';
+import type {FastifyReply, FastifyRequest} from 'fastify';
 import Calculator from '../../lib/calc/index.service'
 
 @Controller('/index')

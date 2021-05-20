@@ -3,7 +3,7 @@
  * @author
  */
 
-import {FastifyInstance} from 'fastify';
+import type {FastifyInstance} from 'fastify';
 
 export default function (fastify: FastifyInstance, opts: any, next: any) {
     console.log('foo plugin options', opts);

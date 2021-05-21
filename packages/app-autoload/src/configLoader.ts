@@ -14,17 +14,14 @@ async function loadConfigModule(appRoot: string, subPath: string) {
 export async function loadConfig(appRoot: string) {
     const [
         pluginConfig,
-        warmupConfig,
-        threadConfig
+        warmupConfig
     ] = await Promise.all([
         loadConfigModule(appRoot, 'plugin'),
-        loadConfigModule(appRoot, 'warmup'),
-        loadConfigModule(appRoot, 'thread')
+        loadConfigModule(appRoot, 'warmup')
     ]);
 
     return {
         pluginConfig,
-        warmupConfig,
-        threadConfig
+        warmupConfig
     };
 }

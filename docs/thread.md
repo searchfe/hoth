@@ -1,26 +1,33 @@
 # 子线程
 
+使用 `@hoth/thread` 来引入子进程能力。
+
 不支持弹性伸缩，需设定子线程数量。
 
-初始化时（调用 fastify.register）会创建固定数量的子线程，不会主动销毁。
+初始化时会创建固定数量的子线程，不会主动销毁。
 
-## 配置项
+## 通过 initThread 来使用
 
-在 src/config 目录下新增 thread.ts 文件可以开启子线程功能。
+在 app.ts 中使用 initThread 来创建子线程。
 
 ```ts
+import {initThread} from '@hoth/thread';
 import path from 'path';
-import type {HothThreadConf} from '@hoth/thread';
+import {FastifyInstance} from 'fastify';
+export default async function main(fastify: FastifyInstance, config) {
+    const pool = await initThread({
+        logConfig: {
+            appName: config.name
+        },
+        threadsNumber: 10,
+        filename: path.resolve(__dirname, 'worker.js')
+    });
 
-export default {
-    threadsNumber: 10,
-    filename: path.resolve(__dirname, '../worker/index.js'),
-    warmupConfig: {
-        warmupData: [''],
-        basePath: path.resolve(__dirname, '../worker/warmupData'),
-        maxConcurrent: 10
-    }
-} as HothThreadConf;
+    // 自己处理 pool 的使用方式
+    fastify.decorate('piscina', pool);
+    fastify.decorate('runTask', (...args) => pool.runTask(...args));
+    return fastify;
+}
 ```
 
 ## 在 controller 中使用
@@ -54,4 +61,23 @@ import {workerWrapper} from '@hoth/thread';
 export default workerWrapper(async ({logger}, data) => {
     // do something
 });
+```
+
+## 线程预热
+
+`warmupConfig` 配置项可以用来配置子线程预热。
+
+```ts
+import path from 'path';
+import type {HothThreadConf} from '@hoth/thread';
+
+const conf = {
+    threadsNumber: 10,
+    filename: path.resolve(__dirname, '../worker/index.js'),
+    warmupConfig: {
+        warmupData: [''],
+        basePath: path.resolve(__dirname, '../worker/warmupData'),
+        maxConcurrent: 10
+    }
+} as HothThreadConf;
 ```

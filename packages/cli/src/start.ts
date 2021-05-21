@@ -21,6 +21,11 @@ const listenAddressDocker = '0.0.0.0';
 
 let fastify: typeof Fastify;
 
+// 初始化全局变量
+if (!process.env.ROOT_PATH) {
+    process.env.ROOT_PATH = process.cwd();
+}
+
 function loadFastify() {
     try {
         const {module: fastifyModule} = requireFastifyForModule()!;
@@ -106,8 +111,8 @@ async function runFastify(opts: Args) {
     }
     catch (e) {
         const errorMessage = (e && e.message) || '';
-        console.error('worker init error: ' + errorMessage);
-        logger.fatal('worker init error: ' + errorMessage);
+        console.error('warmup error: ' + errorMessage);
+        logger.fatal('warmup error: ' + errorMessage);
         process.exit(-1);
     }
 

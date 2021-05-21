@@ -22,8 +22,8 @@ import preValidation from './hook/preValidation';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
 import {molecule} from '@hoth/molecule';
 import {loadConfig} from './configLoader';
-import type {WarmupConf} from 'fastify-warmup';
 import {loadMoleculeApp} from './loadMoleculeApp';
+import type {WarmupConf} from 'fastify-warmup';
 interface AppAutoload {
     dir: string;
     rootPath: string;

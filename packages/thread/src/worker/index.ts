@@ -18,7 +18,7 @@ const {
 } = getWorkerDataAndInitHothThread();
 const logger = createLogger({
     apps: [{name: logConfig.appName}],
-    rootPath: process.env.ROOT_PATH
+    rootPath: process.env.ROOT_PATH as string
 });
 const hothUtils = {
     logger
@@ -27,15 +27,17 @@ const hothUtils = {
 /**
  * 使用 fastify-warmup 进行预热
  */
-async function warmup(fn) {
+async function warmup(fn: Function) {
     const fakeFastifyApp = {
         log: logger,
-        async inject(data) {
+        async inject(data: any) {
             await fn(hothUtils, data);
         }
     };
 
-    await fastifyWarmup(fakeFastifyApp, warmupConfig);
+    if (warmupConfig) {
+        await fastifyWarmup(fakeFastifyApp, warmupConfig);
+    }
 
     return;
 }

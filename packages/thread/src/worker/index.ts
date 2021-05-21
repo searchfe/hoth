@@ -29,7 +29,7 @@ const hothUtils = {
  */
 async function warmup(fn: Function) {
     const fakeFastifyApp = {
-        log: logger,
+        log: logger as any,
         async inject(data: any) {
             await fn(hothUtils, data);
         }

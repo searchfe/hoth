@@ -34,7 +34,8 @@
     "postversionup:major": "npm run commit-version",
     "commit-version": "git add . && git commit -m \"chore(release): bump version\"",
     "release": "lerna publish from-package",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "test": "jest"
   },
   "lint-staged": {
     "**/*.ts": [
@@ -56,18 +57,24 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@ecomfe/eslint-config": "^7.0.0",
+    "@lerna/project": "^4.0.0",
     "@searchfe/tsconfig": "^1.1.0",
     "@types/inquirer": "^7.3.1",
+    "@types/jest": "^26.0.23",
     "@types/node": "^14.14.22",
     "@types/pino": "^6.3.8",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "eslint": "^7.19.0",
     "fastify": "^3.11.0",
+    "jest": "^26.6.3",
     "lerna": "^3.22.1",
+    "lerna-jest": "^0.5.4",
     "nodemon": "^2.0.7",
     "pre-commit": "^1.2.2",
     "source-map-support": "^0.5.19",
+    "swig": "1.4.0",
+    "ts-jest": "^26.5.6",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }

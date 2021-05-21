@@ -6,6 +6,6 @@ export default class Calculator {
     private service = getFastifyInstanceByAppName('quickstart');
 
     add(a: number, b: number) {
-        return a + b + this.service.$appConfig.get('test');
+        return a + b + this.service!.$appConfig.get('test');
     }
 }

@@ -2,10 +2,10 @@
  * @file default plugin
  * @author
  */
+import type {FastifyInstance} from 'fastify';
 
-export default function (fastify, opts, next) {
+export default async function (fastify: FastifyInstance, opts: typeof autoConfig) {
     console.log('foo plugin options', opts);
-    next();
 }
 
 export const autoConfig = {

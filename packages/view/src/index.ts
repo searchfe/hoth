@@ -1,5 +1,7 @@
+
 import type {FastifyInstance, FastifyReply} from 'fastify';
 import type {Swig, SwigOptions} from 'swig';
+import '@hoth/decorators';
 import {join, resolve} from 'path';
 import fp from 'fastify-plugin';
 import LRU from 'lru-cache';
@@ -30,8 +32,7 @@ export interface HothViewOptions {
     options?: NunjunksOptions | wrapSwigOptions;
     maxCacheAge?: number;
     maxCache?: number;
-    propertyName?: string;
-    rootPath?: string;
+    templatesDir?: string;
     viewExt?: string;
 }
 
@@ -54,12 +55,18 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
 
     const engine = opts.engine[type];
     const options = opts.options || ({} as HothViewOptions['options'])!;
-    const propertyName = opts.propertyName || 'render';
-    const templatesDir = opts.rootPath || resolve('./');
     const viewExt = opts.viewExt || '';
     const maxCacheAge = opts.maxCacheAge || 1000 * 60 * 60;
     const maxCache = opts.maxCache || 20 * 1024 * 1024;
     const defaultCtx = {};
+
+    let templatesDir = opts.templatesDir;
+    if (!templatesDir && fastify.$appConfig) {
+        templatesDir = join(fastify.$appConfig.get('dir'), 'view');
+    }
+    else if (!templatesDir) {
+        templatesDir = resolve('./view');
+    }
 
     const renderCaches = new LRU({
         max: maxCache,
@@ -98,7 +105,7 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
 
     const renderer = renders[type];
 
-    fastify.decorateReply(propertyName, function (this: FastifyReply, page: string, data: object) {
+    fastify.decorateReply('render', function (this: FastifyReply, page: string, data: object) {
         renderer.apply(this, [page, data]);
         return this;
     });
@@ -134,7 +141,7 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
         }
 
         data = Object.assign({}, defaultCtx, data);
-        swig.renderFile(join(templatesDir, getPage(page)), data, (error: Error, html: string) => {
+        swig.renderFile(join(templatesDir!, getPage(page)), data, (error: Error, html: string) => {
             if (error) {
                 return this.send(error);
             }
@@ -155,7 +162,7 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
         }
         data = Object.assign({}, defaultCtx, data);
         page = getPage(page);
-        env.render(join(templatesDir, page), data, (err: Error, html: string) => {
+        env.render(join(templatesDir!, page), data, (err: Error, html: string) => {
             if (err) {
                 return this.send(err);
             }

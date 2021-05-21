@@ -69,24 +69,6 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
 
     childInstance.setErrorHandler(onErrorFactory(appConfig.name));
 
-    // load module plugins
-    if (appConfig.pluginConfig) {
-        for (const [name, config] of Object.entries(appConfig.pluginConfig)) {
-            if (name === '@hoth/app-autoload') {
-                if (config.prefix) {
-                    appConfig.prefix = config.prefix;
-                }
-                continue;
-            }
-            let mod: any = resolveFrom.silent(appConfig.dir, name);
-            if (mod) {
-                mod = require(mod);
-                mod = mod.__esModule ? mod.default : mod;
-                childInstance.register(mod, config);
-            }
-        }
-    }
-
     const config = Config.util.loadFileConfigs(pluginAppConfig.configPath);
     Config.util.setModuleDefaults(appConfig.name, {
         ...config,
@@ -106,6 +88,24 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
 
     childInstance.decorate('$appConfig', configProxy);
     childInstance.decorate('molecule', molecule);
+
+    // load module plugins
+    if (appConfig.pluginConfig) {
+        for (const [name, config] of Object.entries(appConfig.pluginConfig)) {
+            if (name === '@hoth/app-autoload') {
+                if (config.prefix) {
+                    appConfig.prefix = config.prefix;
+                }
+                continue;
+            }
+            let mod: any = resolveFrom.silent(appConfig.dir, name);
+            if (mod) {
+                mod = require(mod);
+                mod = mod.__esModule ? mod.default : mod;
+                childInstance.register(mod, config);
+            }
+        }
+    }
 
     // register app plugins
     const appEntryModule: FastifyPluginAsync = await loadModule(pluginAppConfig.entryPath);

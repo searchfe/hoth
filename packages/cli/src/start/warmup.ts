@@ -1,11 +1,9 @@
 import {fastifyWarmup} from 'fastify-warmup';
 import {join} from 'path';
-import type {getApps} from '@hoth/app-autoload';
+import type {AppConfig} from '@hoth/app-autoload';
 import type {FastifyInstance} from 'fastify';
 
-type UnPackReturnType<T> = T extends (...args: any[]) => Promise<infer U> ? U : T;
-
-export async function warmup(apps: UnPackReturnType<typeof getApps>, fastifyInstance: FastifyInstance) {
+export async function warmup(apps: AppConfig[], fastifyInstance: FastifyInstance) {
     for (let i = 0; i < apps.length; i++) {
         const app = apps[i];
         if (app.warmupConfig) {
@@ -19,7 +17,7 @@ export async function warmup(apps: UnPackReturnType<typeof getApps>, fastifyInst
                 const routes = Object.keys(app.warmupConfig.warmupData);
                 const newWarmupData: Record<string, string | string[]> = {};
                 routes.forEach(route => {
-                    newWarmupData[app.prefix + route] = app.warmupConfig.warmupData[route];
+                    newWarmupData[app.prefix + route] = (app.warmupConfig.warmupData as Record<string, string | string[]>)[route];
                 });
                 app.warmupConfig.warmupData = newWarmupData;
             }

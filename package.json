@@ -15,8 +15,7 @@
     "yarn": "^1.22.0"
   },
   "workspaces": [
-    "packages/*",
-    "example/*"
+    "packages/*"
   ],
   "scripts": {
     "lint-staged": "lint-staged",

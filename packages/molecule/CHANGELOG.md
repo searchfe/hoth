@@ -1,3 +1,10 @@
+# @hoth/molecule-v1.0.0 (2021-05-24)
+
+
+### Features
+
+* support molecule app ([876dc3b](https://github.com/cxtom/hoth/commit/876dc3babb068a64a3b7e89f8faa75ef1e2ffd2f))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

@@ -75,8 +75,6 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         ...appConfig,
     });
 
-    console.log(config);
-
     const configProxy = {
         get(property: string | string[]) {
             const props = Array.isArray(property)

@@ -34,7 +34,7 @@
     "commit-version": "git add . && git commit -m \"chore(release): bump version\"",
     "release": "lerna publish from-package",
     "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release",
-    "commitlint": "commitlint --edit",
+    "commitlint": "commitlint --from=HEAD^1",
     "test": "jest"
   },
   "lint-staged": {

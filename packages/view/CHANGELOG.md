@@ -1,3 +1,10 @@
+# [@hoth/view-v1.1.2](https://github.com/searchfe/hoth/compare/@hoth/view-v1.1.1...@hoth/view-v1.1.2) (2021-05-24)
+
+
+### Reverts
+
+* Revert "chore(ci): "npmPublish": false" ([5368438](https://github.com/searchfe/hoth/commit/5368438918d0db2c819c32fd0f60e1c01ae7123b))
+
 # @hoth/view-v1.0.0 (2021-05-24)
 
 

@@ -24,7 +24,8 @@
   "homepage": "https://github.com/searchfe/hoth#readme",
   "dependencies": {
     "fastify-warmup": "0.1.1",
-    "piscina": "^2.2.0"
+    "piscina": "^2.2.0",
+    "@hoth/logger": "^1.1.2"
   },
   "files": [
     "dist"

@@ -1,6 +1,6 @@
 {
     "watch": ["*.ts"],
-    "ignore": ["*.test.ts", "node_modules/*", "*.d.ts", "templates/*"],
+    "ignore": ["*.test.ts", "node_modules/*", "*.d.ts", "templates/*", "__tests__/*"],
     "ext": "ts,js",
     "exec": "yarn run build && NODE_ENV=development yarn run hoth start --app-dir='example/hoth-quickstart/dist' --app-name='quickstart'",
     "legacyWatch": true,

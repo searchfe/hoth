@@ -1,0 +1,3 @@
+export = {
+    development: 1,
+};

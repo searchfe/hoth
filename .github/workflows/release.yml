@@ -1,9 +1,7 @@
 name: Release
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches: [main,release]
 jobs:
   release:
     name: Release
@@ -22,7 +20,7 @@ jobs:
       - name: Build
         run: yarn run build
       - name: Release
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: yarn run semantic-release

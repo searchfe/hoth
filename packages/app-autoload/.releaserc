@@ -1,5 +1,5 @@
 {
-    "branch": "main",
+    "branches": ["main", "release"],
     "extends": "semantic-release-monorepo",
     "plugins": [
         "@semantic-release/commit-analyzer",

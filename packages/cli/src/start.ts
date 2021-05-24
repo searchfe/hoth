@@ -118,7 +118,6 @@ async function runFastify(opts: Args) {
 
     let address;
     if (opts.address) {
-        // eslint-disable-next-line
         address = await fastifyInstance.listen(opts.port, opts.address);
     }
     else if (opts.socket) {
@@ -145,6 +144,10 @@ async function runFastify(opts: Args) {
 
 
 async function start(args: string[]) {
+    if (process.env.NODE_ENV === 'development') {
+        require('dotenv').config();
+    }
+
     const opts = parseArgs(args);
 
     if (opts.help) {

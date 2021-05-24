@@ -11,7 +11,7 @@ describe('reply.render with swig engine', () => {
             engine: {
                 swig: Swig,
             },
-            rootPath: __dirname,
+            templatesDir: __dirname,
         });
 
         fastify.get('/', (req: FastifyRequest, reply: FastifyReply) => {
@@ -24,7 +24,7 @@ describe('reply.render with swig engine', () => {
         });
 
         expect(response.statusCode).toBe(200);
-        expect(response.headers['content-type']).toBe('text/html; charset=utf-8');
         expect(response.body).toBe('<h1>fastify</h1>\n<p>text</p>');
+        expect(response.headers['content-type']).toBe('text/html; charset=utf-8');
     });
 });

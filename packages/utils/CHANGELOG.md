@@ -1,3 +1,11 @@
+# @hoth/utils-v1.0.0 (2021-05-24)
+
+
+### Features
+
+* **cli:** support generate app ([98bf545](https://github.com/cxtom/hoth/commit/98bf545e1261ca987de323a9ea1bb698253cfe19))
+* add cli app-autoload decorators packages ([0408de4](https://github.com/cxtom/hoth/commit/0408de4ef2d6e2af47e2fd00c3fca400e6be2619))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

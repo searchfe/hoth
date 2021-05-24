@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.1.4](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.3...@hoth/cli-v1.1.4) (2021-05-24)
+
+
+### Reverts
+
+* Revert "chore(ci): "npmPublish": false" ([5368438](https://github.com/searchfe/hoth/commit/5368438918d0db2c819c32fd0f60e1c01ae7123b))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

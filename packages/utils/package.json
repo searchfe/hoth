@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cxtom/hoth.git"
+    "url": "git+https://github.com/searchfe/hoth.git"
   },
   "keywords": [
     "utils"

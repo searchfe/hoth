@@ -5,6 +5,8 @@
         "outDir": "dist"
     },
     "references": [
-        { "path": "../decorators" }
+        {
+            "path": "../decorators"
+        }
     ]
 }

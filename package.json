@@ -15,8 +15,7 @@
     "yarn": "^1.22.0"
   },
   "workspaces": [
-    "packages/*",
-    "example/*"
+    "packages/*"
   ],
   "scripts": {
     "lint-staged": "lint-staged",
@@ -34,7 +33,8 @@
     "postversionup:major": "npm run commit-version",
     "commit-version": "git add . && git commit -m \"chore(release): bump version\"",
     "release": "lerna publish from-package",
-    "commitlint": "commitlint --edit",
+    "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release",
+    "commitlint": "commitlint --from=HEAD^1",
     "test": "jest"
   },
   "lint-staged": {
@@ -59,6 +59,8 @@
     "@ecomfe/eslint-config": "^7.0.0",
     "@lerna/project": "^4.0.0",
     "@searchfe/tsconfig": "^1.1.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.23",
     "@types/node": "^14.14.22",
@@ -72,6 +74,8 @@
     "lerna-jest": "^0.5.4",
     "nodemon": "^2.0.7",
     "pre-commit": "^1.2.2",
+    "semantic-release": "^17.4.3",
+    "semantic-release-monorepo": "^7.0.5",
     "source-map-support": "^0.5.19",
     "swig": "1.4.0",
     "ts-jest": "^26.5.6",
@@ -79,3 +83,4 @@
     "typescript": "^4.1.3"
   }
 }
+

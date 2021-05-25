@@ -1,3 +1,18 @@
+# [@hoth/utils-v1.1.4](https://github.com/searchfe/hoth/compare/@hoth/utils-v1.1.3...@hoth/utils-v1.1.4) (2021-05-24)
+
+
+### Reverts
+
+* Revert "chore(ci): "npmPublish": false" ([5368438](https://github.com/searchfe/hoth/commit/5368438918d0db2c819c32fd0f60e1c01ae7123b))
+
+# @hoth/utils-v1.0.0 (2021-05-24)
+
+
+### Features
+
+* **cli:** support generate app ([98bf545](https://github.com/cxtom/hoth/commit/98bf545e1261ca987de323a9ea1bb698253cfe19))
+* add cli app-autoload decorators packages ([0408de4](https://github.com/cxtom/hoth/commit/0408de4ef2d6e2af47e2fd00c3fca400e6be2619))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

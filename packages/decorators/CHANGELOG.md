@@ -1,3 +1,29 @@
+# [@hoth/decorators-v1.1.4](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.1.3...@hoth/decorators-v1.1.4) (2021-05-24)
+
+
+### Reverts
+
+* Revert "chore(ci): "npmPublish": false" ([5368438](https://github.com/searchfe/hoth/commit/5368438918d0db2c819c32fd0f60e1c01ae7123b))
+
+# @hoth/decorators-v1.0.0 (2021-05-24)
+
+
+### Bug Fixes
+
+* auto require reflect-metadata ([935e55f](https://github.com/cxtom/hoth/commit/935e55f103a208091aa0631c3b6ea554ae73fbf5))
+* install npm error ([cbd3d12](https://github.com/cxtom/hoth/commit/cbd3d126ccfcaafade90161edd8f86f88a60f4d4))
+* use setErrorHandler ([996247f](https://github.com/cxtom/hoth/commit/996247f026754940bcfc415910d4ff89828c8bcd))
+* **decorators:** fix appConfig type ([df8c9fb](https://github.com/cxtom/hoth/commit/df8c9fb5511dc8ee92bd876087045fe8060b48b9))
+
+
+### Features
+
+* add cli app-autoload decorators packages ([0408de4](https://github.com/cxtom/hoth/commit/0408de4ef2d6e2af47e2fd00c3fca400e6be2619))
+* app-autoload add config module ([24df2e3](https://github.com/cxtom/hoth/commit/24df2e36906820c9626b88dfae6a45e7ac231887))
+* logger add notice & performace ([f3c73a0](https://github.com/cxtom/hoth/commit/f3c73a0ab5e480bef01476b922e3e319977ef9ff))
+* support get fastifyInstance in service ([2367f2b](https://github.com/cxtom/hoth/commit/2367f2b694fe3a50f0bf12af7c459d4e6b97153b))
+* support request notice log & string log format ([c9eaa65](https://github.com/cxtom/hoth/commit/c9eaa659fd564542b95c165fa019316bb10f3e20))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

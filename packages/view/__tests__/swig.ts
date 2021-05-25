@@ -7,7 +7,7 @@ describe('reply.render with swig engine', () => {
     it('simple output', async () => {
         const data = {title: 'fastify', text: 'text'};
 
-        fastify.register(require('../index'), {
+        fastify.register(require('../src/index'), {
             engine: {
                 swig: Swig,
             },

@@ -6470,11 +6470,6 @@ latest-version@^5.0.0:
   dependencies:
     package-json "^6.3.0"
 
-lerna-jest@^0.5.4:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/lerna-jest/-/lerna-jest-0.5.4.tgz#907d7ca7c91cbb3d7e840d36a916dad52f59f360"
-  integrity sha512-DmqSVRm65IiG0vNVdHXPjo/D0//kq4yfq/zA7h4F4D5bDyKFsB8nTFlpQ4OylkIB59s5WCmgLr1p1jRQ8BRWQA==
-
 lerna@^3.22.1:
   version "3.22.1"
   resolved "https://registry.yarnpkg.com/lerna/-/lerna-3.22.1.tgz#82027ac3da9c627fd8bf02ccfeff806a98e65b62"

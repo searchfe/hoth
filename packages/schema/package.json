@@ -1,0 +1,19 @@
+{
+  "name": "@hoth/schema",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --build tsconfig.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hoth/typescript-to-json-schema": "^1.0.23",
+    "through2": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/through2": "^2.0.36",
+    "@types/vinyl": "^2.0.4"
+  }
+}

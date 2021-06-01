@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.5](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.4...@hoth/app-autoload-v1.1.5) (2021-06-01)
+
+
+### Bug Fixes
+
+* support app prefix config ([b4f82a6](https://github.com/searchfe/hoth/commit/b4f82a61ae9bed96843a8a5fa4c2aa17095eb215))
+
 # [@hoth/app-autoload-v1.1.4](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.3...@hoth/app-autoload-v1.1.4) (2021-05-24)
 
 

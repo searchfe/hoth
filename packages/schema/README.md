@@ -9,11 +9,11 @@
 提供了一个 gulp 插件，用于编译所有 interfaces。
 
 ```javascript
-import {compileInterfaceToSchema} from '@hoth/schema/dist/gulp';
+import {compileInterface} from '@hoth/schema';
 
 function compile() {
     return src('src/interfaces/**/*.ts')
-        .pipe(compileInterfaceToSchema({
+        .pipe(compileInterface({
             fileName: 'schema.json'
         }))
         .pipe(dest('dist/interfaces'));

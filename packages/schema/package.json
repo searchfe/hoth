@@ -6,11 +6,21 @@
   "scripts": {
     "build": "tsc --build tsconfig.json"
   },
+  "keywords": [
+    "hoth"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@hoth/typescript-to-json-schema": "^1.0.23",
     "through2": "^4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/searchfe/hoth.git"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@types/through2": "^2.0.36",

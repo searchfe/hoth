@@ -1,3 +1,10 @@
+# [@hoth/view-v1.1.3](https://github.com/searchfe/hoth/compare/@hoth/view-v1.1.2...@hoth/view-v1.1.3) (2021-06-01)
+
+
+### Bug Fixes
+
+* support app prefix config ([b4f82a6](https://github.com/searchfe/hoth/commit/b4f82a61ae9bed96843a8a5fa4c2aa17095eb215))
+
 # [@hoth/view-v1.1.2](https://github.com/searchfe/hoth/compare/@hoth/view-v1.1.1...@hoth/view-v1.1.2) (2021-05-24)
 
 

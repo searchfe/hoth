@@ -1,3 +1,10 @@
+# [@hoth/schema-v1.1.0](https://github.com/searchfe/hoth/compare/@hoth/schema-v1.0.0...@hoth/schema-v1.1.0) (2021-06-01)
+
+
+### Features
+
+* @hoth/schema  package.json 中设置为 public ([5b24ec2](https://github.com/searchfe/hoth/commit/5b24ec2fed8642e493eb930c112d5cffbc2ce6b1))
+
 # @hoth/schema-v1.0.0 (2021-06-01)
 
 

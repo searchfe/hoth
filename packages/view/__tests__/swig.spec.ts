@@ -1,4 +1,5 @@
 import Fastify, {FastifyReply, FastifyRequest} from 'fastify';
+import view from '../src/index';
 
 describe('reply.render with swig engine', () => {
     const fastify = Fastify();
@@ -7,7 +8,7 @@ describe('reply.render with swig engine', () => {
     it('simple output', async () => {
         const data = {title: 'fastify', text: 'text'};
 
-        fastify.register(require('../src/index'), {
+        fastify.register(view, {
             engine: {
                 swig: Swig,
             },

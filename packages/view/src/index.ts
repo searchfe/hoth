@@ -7,9 +7,12 @@ import fp from 'fastify-plugin';
 import LRU from 'lru-cache';
 
 
+type PartialRecord<K extends keyof any, T> = {
+    [P in K]?: T;
+};
 const supportedEngines = ['swig', 'nunjucks'] as const;
 type supportedEnginesType = typeof supportedEngines[number];;
-type EngineList = Record<supportedEnginesType, any>;
+type EngineList = PartialRecord<supportedEnginesType, any>;
 
 interface NunjunksOptions {
     onConfigure: (env: string) => void;

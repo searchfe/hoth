@@ -92,10 +92,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     // load module plugins
     if (appConfig.pluginConfig) {
         for (const [name, config] of Object.entries(appConfig.pluginConfig)) {
-            if (name === '@hoth/app-autoload') {
-                if (config.prefix) {
-                    appConfig.prefix = config.prefix;
-                }
+            if (!config) {
                 continue;
             }
             let mod: any = resolveFrom.silent(appConfig.dir, name);
@@ -153,8 +150,11 @@ export async function getApps(opts: AppAutoload): Promise<AppConfig[]> {
 
     let appRoot = dir;
     if (!isAbsolute(appRoot)) {
+        console.log(rootPath, dir);
         appRoot = resolve(rootPath, dir);
     }
+
+    console.log(appRoot);
 
     if (!existsSync(appRoot)) {
         exit(`app root "${dir}" not exists!`);
@@ -164,9 +164,14 @@ export async function getApps(opts: AppAutoload): Promise<AppConfig[]> {
 
     if (existsSync(join(appRoot, 'app.js'))) {
         const configs = await loadConfig(appRoot);
+        let appPrefix = prefix;
+        if (configs.pluginConfig['@hoth/app-autoload']) {
+            appPrefix = configs.pluginConfig['@hoth/app-autoload'].prefix || appPrefix;
+            delete configs.pluginConfig['@hoth/app-autoload'];
+        }
         apps = [{
             dir: appRoot,
-            prefix,
+            prefix: appPrefix,
             name: name || (prefix === '/' ? 'root' : prefix.slice(1)),
             rootPath,
             ...configs,
@@ -178,9 +183,14 @@ export async function getApps(opts: AppAutoload): Promise<AppConfig[]> {
             const dirPath = resolve(appRoot, dir.name);
             if (dir.isDirectory() && existsSync(join(dirPath, 'app.js'))) {
                 const configs = await loadConfig(dirPath);
+                let appPrefix = prefix;
+                if (configs.pluginConfig['@hoth/app-autoload']) {
+                    appPrefix = configs.pluginConfig['@hoth/app-autoload'].prefix || appPrefix;
+                    delete configs.pluginConfig['@hoth/app-autoload'];
+                }
                 apps.push({
                     dir: dirPath,
-                    prefix: `${prefix}${prefix === '/' ? '' : '/'}${dir.name}`,
+                    prefix: appPrefix || `${prefix}${prefix === '/' ? '' : '/'}${dir.name}`,
                     name: dir.name,
                     rootPath,
                     ...configs,
@@ -205,6 +215,8 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload |
     else {
         apps = (await getApps(opts as AppAutoload))!;
     }
+
+    console.log(apps);
 
     for await (const appConfig of apps) {
         await instance.register(load.bind(null, appConfig), {

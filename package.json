@@ -35,7 +35,7 @@
     "release": "lerna publish from-package",
     "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release",
     "commitlint": "commitlint --from=HEAD^1",
-    "test": "jest"
+    "test": "NODE_CONFIG_STRICT_MODE=false jest"
   },
   "lint-staged": {
     "**/*.ts": [

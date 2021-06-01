@@ -4,6 +4,7 @@
         "rootDir": "src",
         "outDir": "dist"
     },
+    "exclude": ["__tests__/*", "dist/*"],
     "references": [
         { "path": "../utils" },
         { "path": "../decorators" },

@@ -65,9 +65,6 @@ declare module 'fastify' {
         readonly $appConfig: {
             get: (property: string | string[]) => any;
         };
-        readonly $bdConf: {
-            get: (property?: string) => any;
-        };
     }
 }
 

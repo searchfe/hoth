@@ -1,3 +1,10 @@
+# [@hoth/schema-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/schema-v1.1.0...@hoth/schema-v1.2.0) (2021-06-02)
+
+
+### Features
+
+* 加载 schema 改成使用 readFile，避免内存占用 ([27194e9](https://github.com/searchfe/hoth/commit/27194e9eae0d2cc94fa3fc03fe657b582f8c0751))
+
 # [@hoth/schema-v1.1.0](https://github.com/searchfe/hoth/compare/@hoth/schema-v1.0.0...@hoth/schema-v1.1.0) (2021-06-01)
 
 

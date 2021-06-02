@@ -1,3 +1,11 @@
+# [@hoth/decorators-v1.1.5](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.1.4...@hoth/decorators-v1.1.5) (2021-06-02)
+
+
+### Bug Fixes
+
+* add $bdConf decorator &  update molecule template tsconfig.json ([f4b891d](https://github.com/searchfe/hoth/commit/f4b891dbc0dd976616e4549d7db00bab5f134e88))
+* delete $bdConf decorator ([9057491](https://github.com/searchfe/hoth/commit/90574919064670f2e0dc21952ff1bd700b8cd121))
+
 # [@hoth/decorators-v1.1.4](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.1.3...@hoth/decorators-v1.1.4) (2021-05-24)
 
 

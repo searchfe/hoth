@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.6](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.5...@hoth/app-autoload-v1.1.6) (2021-06-02)
+
+
+### Bug Fixes
+
+* **app-autoload:** app prefix generate error ([aee22b6](https://github.com/searchfe/hoth/commit/aee22b686c8fdcb95382bbc2cadaf4be0309fd99))
+
 # [@hoth/app-autoload-v1.1.5](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.4...@hoth/app-autoload-v1.1.5) (2021-06-01)
 
 

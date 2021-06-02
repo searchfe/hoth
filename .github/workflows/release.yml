@@ -19,6 +19,8 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn run build
+      - name: UT
+        run: yarn test
       - name: Delete hooks
         run: rm -rf ./.git/hooks
       - name: Release

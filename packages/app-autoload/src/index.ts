@@ -150,11 +150,8 @@ export async function getApps(opts: AppAutoload): Promise<AppConfig[]> {
 
     let appRoot = dir;
     if (!isAbsolute(appRoot)) {
-        console.log(rootPath, dir);
         appRoot = resolve(rootPath, dir);
     }
-
-    console.log(appRoot);
 
     if (!existsSync(appRoot)) {
         exit(`app root "${dir}" not exists!`);
@@ -215,8 +212,6 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload |
     else {
         apps = (await getApps(opts as AppAutoload))!;
     }
-
-    console.log(apps);
 
     for await (const appConfig of apps) {
         await instance.register(load.bind(null, appConfig), {

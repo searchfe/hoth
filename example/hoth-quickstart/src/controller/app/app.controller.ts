@@ -36,4 +36,9 @@ export default class AppController {
 
         reply.send('ok');
     }
+
+    @GET("/other")
+    other(req: FastifyRequest, reply: FastifyReply) {
+        reply.send('other ok');
+    }
 }

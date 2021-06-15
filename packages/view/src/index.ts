@@ -112,14 +112,14 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
         // 加载用户扩展
         if (swigOptions.tags) {
             Object.keys(swigOptions.tags).forEach(function (name) {
-                const t = swigOptions.tags[name];
+                const t = swigOptions.tags![name];
                 swig.setTag(name, t.parse, t.compile, t.ends, t.blockLevel || false);
             });
         }
 
         if (swigOptions.filters) {
             Object.keys(swigOptions.filters).forEach(function (name) {
-                const t = swigOptions.filters[name];
+                const t = swigOptions.filters![name];
                 swig.setFilter(name, t);
             });
         }

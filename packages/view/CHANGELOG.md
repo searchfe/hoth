@@ -1,3 +1,10 @@
+# [@hoth/view-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/view-v1.1.3...@hoth/view-v1.2.0) (2021-06-15)
+
+
+### Features
+
+* **view:** support renderOnly ([a08e019](https://github.com/searchfe/hoth/commit/a08e019c7938c6001a3b51b3d31f9286ed87736f))
+
 # [@hoth/view-v1.1.3](https://github.com/searchfe/hoth/compare/@hoth/view-v1.1.2...@hoth/view-v1.1.3) (2021-06-01)
 
 

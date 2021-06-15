@@ -9,7 +9,7 @@ export default {
         engine: {
             swig: require('swig'),
         }
-        rootPath: path.resolve(__dirname, '../templates')
+        templatesDir: path.resolve(__dirname, '../templates')
     },
 };
 ```

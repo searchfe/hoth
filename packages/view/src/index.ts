@@ -37,11 +37,12 @@ export interface HothViewOptions {
     maxCache?: number;
     templatesDir?: string;
     viewExt?: string;
+    renderOnly?: boolean;
 }
 
 declare module 'fastify' {
     interface FastifyReply {
-        render(page: string, data?: object): FastifyReply;
+        render(page: string, data?: Record<string, unknown>): FastifyReply;
         // locals?: object;
     }
 }
@@ -52,7 +53,7 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
     }
 
     const type = Object.keys(opts.engine)[0] as supportedEnginesType;
-    if (supportedEngines.indexOf(type) === -1) {
+    if (!supportedEngines.includes(type)) {
         throw new Error(`'${type}' not yet supported`);
     }
 
@@ -62,6 +63,7 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
     const maxCacheAge = opts.maxCacheAge || 1000 * 60 * 60;
     const maxCache = opts.maxCache || 20 * 1024 * 1024;
     const defaultCtx = {};
+    const renderOnly = opts.renderOnly || false;
 
     let templatesDir = opts.templatesDir;
     if (!templatesDir && fastify.$appConfig) {
@@ -104,74 +106,87 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
                 renderCaches.reset();
             },
         };
+
+        const swigOptions = options as wrapSwigOptions;
+
+        // 加载用户扩展
+        if (swigOptions.tags) {
+            Object.keys(swigOptions.tags).forEach(function (name) {
+                const t = swigOptions.tags[name];
+                swig.setTag(name, t.parse, t.compile, t.ends, t.blockLevel || false);
+            });
+        }
+
+        if (swigOptions.filters) {
+            Object.keys(swigOptions.filters).forEach(function (name) {
+                const t = swigOptions.filters[name];
+                swig.setFilter(name, t);
+            });
+        }
     }
 
     const renderer = renders[type];
 
-    fastify.decorateReply('render', function (this: FastifyReply, page: string, data: object) {
-        renderer.apply(this, [page, data]);
-        return this;
+    fastify.decorateReply('render', function (this: FastifyReply, page: string, data: Record<string, unknown>) {
+        return new Promise((resolve, reject) => {
+            const done = (error: Error, html: string) => {
+                if (error) {
+                    if (!renderOnly) {
+                        this.send(error);
+                    }
+                    reject(error);
+                }
+
+                if (!renderOnly) {
+                    this.header('Content-Type', 'text/html; charset=utf-8');
+                    this.send(html);
+                }
+                resolve(html);
+            };
+            renderer.apply(this, [page, data, done]);
+        });
     });
 
     function getPage(page: string) {
         if (viewExt) {
             return `${page}.${viewExt}`;
         }
-        return page
+        return page;
     }
 
-    function viewSwig(this: FastifyReply, page: string, data: object) {
+    function viewSwig(
+        this: FastifyReply,
+        page: string,
+        data: Record<string, unknown>,
+        done: (err: Error, html: string) => void
+    ) {
         if (!page) {
-            this.send(new Error('Missing page'))
-            return
-        }
-
-        const finalOpts = options as wrapSwigOptions;
-
-        // 加载用户扩展
-        if (finalOpts.tags) {
-            Object.keys(finalOpts.tags).forEach(function (name) {
-                const t = finalOpts.tags[name];
-                swig.setTag(name, t.parse, t.compile, t.ends, t.blockLevel || false);
-            });
-        }
-
-        if (finalOpts.filters) {
-            Object.keys(finalOpts.filters).forEach(function (name) {
-                const t = finalOpts.filters[name];
-                swig.setFilter(name, t);
-            });
+            this.send(new Error('Missing page'));
+            return;
         }
 
         data = Object.assign({}, defaultCtx, data);
-        swig.renderFile(join(templatesDir!, getPage(page)), data, (error: Error, html: string) => {
-            if (error) {
-                return this.send(error);
-            }
-            this.header('Content-Type', 'text/html; charset=utf-8');
-            this.send(html);
-        });
+        swig.renderFile(join(templatesDir!, getPage(page)), data, done);
     }
 
-    function viewNunjucks(this: FastifyReply, page: string, data: object) {
+    function viewNunjucks(
+        this: FastifyReply,
+        page: string,
+        data: Record<string, unknown>,
+        done: (err: Error, html: string) => void
+    ) {
         if (!page) {
-            this.send(new Error('Missing page'))
-            return
+            this.send(new Error('Missing page'));
+            return;
         }
         const env = engine.configure(templatesDir, options);
         const finalOpts = options as NunjunksOptions;
         if (typeof finalOpts.onConfigure === 'function') {
-            finalOpts.onConfigure(env)
+            finalOpts.onConfigure(env);
         }
         data = Object.assign({}, defaultCtx, data);
         page = getPage(page);
-        env.render(join(templatesDir!, page), data, (err: Error, html: string) => {
-            if (err) {
-                return this.send(err);
-            }
-            this.header('Content-Type', 'text/html; charset=utf-8');
-            this.send(html);
-        });
+        env.render(join(templatesDir!, page), data, done);
     }
 }
 

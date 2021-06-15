@@ -1,3 +1,10 @@
+# [@hoth/view-v1.2.1](https://github.com/searchfe/hoth/compare/@hoth/view-v1.2.0...@hoth/view-v1.2.1) (2021-06-15)
+
+
+### Bug Fixes
+
+* **view:** optional options type ([7fdf60a](https://github.com/searchfe/hoth/commit/7fdf60a77c54e9a44fc8feeb221ffc44b498d05b))
+
 # [@hoth/view-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/view-v1.1.3...@hoth/view-v1.2.0) (2021-06-15)
 
 

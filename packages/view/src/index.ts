@@ -26,8 +26,8 @@ interface swigTagsOptions {
 }
 
 interface wrapSwigOptions extends SwigOptions {
-    filters: Record<string, (...args: any[]) => string>;
-    tags: Record<string, swigTagsOptions>;
+    filters?: Record<string, (...args: any[]) => string>;
+    tags?: Record<string, swigTagsOptions>;
 }
 
 export interface HothViewOptions {

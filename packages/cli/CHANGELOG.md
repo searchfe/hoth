@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.1.6](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.5...@hoth/cli-v1.1.6) (2021-07-16)
+
+
+### Bug Fixes
+
+* **cli:** update app-autoload version ([53754d7](https://github.com/searchfe/hoth/commit/53754d7f4a1db1e047c5d667e445c4993f85a879))
+
 # [@hoth/cli-v1.1.5](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.4...@hoth/cli-v1.1.5) (2021-06-02)
 
 

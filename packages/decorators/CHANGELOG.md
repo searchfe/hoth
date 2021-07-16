@@ -1,3 +1,10 @@
+# [@hoth/decorators-v1.1.6](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.1.5...@hoth/decorators-v1.1.6) (2021-07-16)
+
+
+### Bug Fixes
+
+* controller route scope error ([9ec461a](https://github.com/searchfe/hoth/commit/9ec461acb7f5838f43bbe06c8df5f1ad80feb30d))
+
 # [@hoth/decorators-v1.1.5](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.1.4...@hoth/decorators-v1.1.5) (2021-06-02)
 
 

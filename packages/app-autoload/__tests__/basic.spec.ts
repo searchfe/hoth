@@ -1,12 +1,14 @@
-import Fastify, {FastifyInstance, FastifyLoggerInstance} from 'fastify';
+import fastify, {FastifyInstance, FastifyLoggerInstance} from 'fastify';
 import {resolve} from 'path';
+import FormData from 'form-data';
+import fs from 'fs';
 import appAutoload, {AppConfig, getApps} from '../src/index';
 
 describe('@hoth/app-autoload basic app', () => {
 
-    function noop () {}
+    function noop() {} // eslint-disable-line @typescript-eslint/no-empty-function
     let apps: AppConfig[];
-    let fastify: FastifyInstance;
+    let fastifyInstance: FastifyInstance;
     let logger: FastifyLoggerInstance = {
         fatal: noop,
         error: noop,
@@ -15,6 +17,7 @@ describe('@hoth/app-autoload basic app', () => {
         debug: noop,
         trace: noop,
         notice: noop,
+        // @ts-ignore
         addNotice: noop,
         addPerformance: noop,
         child: () => logger,
@@ -28,19 +31,19 @@ describe('@hoth/app-autoload basic app', () => {
             prefix: '/some',
         });
 
-        fastify = Fastify({
+        fastifyInstance = fastify({
             disableRequestLogging: true,
             logger,
         });
 
-        await fastify.register(appAutoload, {
+        await fastifyInstance.register(appAutoload, {
             apps,
         });
     });
 
     it('config app prefix', async () => {
 
-        const res1 = await fastify.inject({
+        const res1 = await fastifyInstance.inject({
             method: 'GET',
             path: '/another/app'
         });
@@ -48,7 +51,7 @@ describe('@hoth/app-autoload basic app', () => {
         expect(res1.statusCode).toBe(200);
         expect(res1.body).toBe('ok!');
 
-        const res2 = await fastify.inject({
+        const res2 = await fastifyInstance.inject({
             method: 'GET',
             path: '/some/app'
         });
@@ -60,18 +63,68 @@ describe('@hoth/app-autoload basic app', () => {
 
         const spy = jest.spyOn(logger, 'fatal');
 
-        const response = await fastify.inject({
+        const response = await fastifyInstance.inject({
             method: 'GET',
             path: '/another/app/50x'
         });
 
         expect(response.statusCode).toBe(500);
         expect(spy).toHaveBeenCalledTimes(1);
-        //@ts-ignore
+        // @ts-ignore
         expect(spy.mock.calls[0][0].err.message).toBe('some error');
 
         spy.mockReset();
         spy.mockRestore();
     });
+
+    it('app.js decorateRequest', async () => {
+
+        const response = await fastifyInstance.inject({
+            method: 'GET',
+            path: '/another/app/foo'
+        });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toBe('ok');
+    });
+
+    it('config', async () => {
+
+        const response = await fastifyInstance.inject({
+            method: 'GET',
+            path: '/another/app/config'
+        });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toBe('ok');
+    });
+
+    it('plugin decorateRequest', async () => {
+
+        const response = await fastifyInstance.inject({
+            method: 'GET',
+            path: '/another/app/req'
+        });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toBe('ok');
+    });
+
+    it('add fastify-multipart plugin', async () => {
+
+        const form = new FormData();
+        form.append('upload', fs.createReadStream(resolve(__dirname, 'fixtures/basic/upload.txt')));
+
+        const response = await fastifyInstance.inject({
+            method: 'POST',
+            path: '/another/app/upload',
+            headers: form.getHeaders(),
+            payload: form,
+        });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toBe('ok');
+    });
+
 
 });

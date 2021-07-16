@@ -106,7 +106,9 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
 
     // register app plugins
     const appEntryModule: FastifyPluginAsync = await loadModule(pluginAppConfig.entryPath);
-    await appEntryModule(childInstance, {...appConfig});
+    // @ts-ignore
+    appEntryModule[Symbol.for('skip-override')] = true;
+    await childInstance.register(appEntryModule, {...appConfig});
 
     if (existsSync(pluginAppConfig.pluginPath)) {
         await childInstance.register(autoload, {
@@ -128,6 +130,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
             appName: appConfig.name,
         });
     }
+
     // load molecule
     await loadMoleculeApp(appConfig, childInstance);
 
@@ -212,8 +215,6 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload |
     else {
         apps = (await getApps(opts as AppAutoload))!;
     }
-
-    console.log(apps);
 
     for await (const appConfig of apps) {
         await instance.register(load.bind(null, appConfig), {

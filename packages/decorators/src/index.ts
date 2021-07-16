@@ -5,6 +5,7 @@ import 'reflect-metadata';
 import type {FastifyInstance} from 'fastify';
 
 import type {AutoLoadConfig} from 'fastify-decorators/interfaces/bootstrap-config';
+import fastifyPlugin from 'fastify-plugin';
 import {bootstrap as bootstrapInner} from 'fastify-decorators';
 
 export {
@@ -39,11 +40,11 @@ export function getFastifyInstanceByAppName(name: string) {
     return appFastifyInstanceTokenMap.get(name);
 }
 
-export async function bootstrap(fastify: FastifyInstance, config: BootstrapConfig) {
+export const bootstrap = fastifyPlugin(async function (fastify: FastifyInstance, config: BootstrapConfig) {
     const appName = config.appName;
     appFastifyInstanceTokenMap.set(appName, fastify);
     return await bootstrapInner(fastify, config);
-}
+});
 
 declare module 'fastify' {
     interface FastifyRequest {

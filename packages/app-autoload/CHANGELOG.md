@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.7](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.6...@hoth/app-autoload-v1.1.7) (2021-07-16)
+
+
+### Bug Fixes
+
+* controller route scope error ([9ec461a](https://github.com/searchfe/hoth/commit/9ec461acb7f5838f43bbe06c8df5f1ad80feb30d))
+
 # [@hoth/app-autoload-v1.1.6](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.5...@hoth/app-autoload-v1.1.6) (2021-06-02)
 
 

@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/cxtom/hoth#readme",
   "dependencies": {
-    "@hoth/decorators": "^1.1.2",
+    "@hoth/decorators": "^1.1.6",
     "@hoth/logger": "^1.1.2",
     "@hoth/molecule": "^1.1.2",
     "@hoth/utils": "^1.1.2",

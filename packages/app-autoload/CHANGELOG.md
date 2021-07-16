@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.8](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.7...@hoth/app-autoload-v1.1.8) (2021-07-16)
+
+
+### Bug Fixes
+
+* **app-autoload:** update decorators version ([f62126e](https://github.com/searchfe/hoth/commit/f62126e68c0bb131771c1d5da421a354a370d5d0))
+
 # [@hoth/app-autoload-v1.1.7](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.6...@hoth/app-autoload-v1.1.7) (2021-07-16)
 
 

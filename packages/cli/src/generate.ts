@@ -22,12 +22,13 @@ function getTemplate(type: string) {
 }
 
 function generate(dir: string, template: ReturnType<typeof getTemplate>, data: Record<string, any>) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         generify(join(__dirname, '../templates', template.dir), dir, data, function (file: string) {
             console.log(`generated ${file}`);
         }, function (err: Error) {
+            /* istanbul ignore next */
             if (err) {
-                return reject(err);
+                return exit(err.message);
             }
             template.logInstructions();
             resolve(1);
@@ -42,23 +43,24 @@ export async function cli(args: string[]) {
 
     if (dir && existsSync(dir)) {
         if (dir !== '.' && dir !== './') {
-            exit(`directory ${opts._[0]} already exists`);
+            return exit(`directory ${opts._[0]} already exists`);
         }
     }
 
     if (dir === undefined) {
-        exit('must specify a directory to \'fastify generate\'');
+        return exit('must specify a directory to \'hoth generate\'');
     }
 
+    /* istanbul ignore next */
     if (existsSync(join(dir, 'package.json'))) {
-        exit('a package.json file already exists in target directory');
+        return exit('a package.json file already exists in target directory');
     }
 
     const inputs = [{
         type: 'input',
         name: 'appName',
         message: 'What\'s your product name?',
-        default: function () {
+        default() {
             return opts.appName;
         },
         // @ts-ignore
@@ -82,7 +84,10 @@ export async function cli(args: string[]) {
         },
     }];
 
-    const {appType, appName} = await inquirer.prompt(inputs);
+    const {
+        appType,
+        appName
+    } = await inquirer.prompt(inputs);
 
     const data = {
         appName,
@@ -90,10 +95,5 @@ export async function cli(args: string[]) {
     };
 
     let template = getTemplate(appType);
-    generate(dir, template, data).catch(function (err) {
-        if (err) {
-            console.error(err.message);
-            process.exit(1);
-        }
-    });
+    return generate(dir, template, data);
 }

@@ -3,6 +3,7 @@ module.exports = {
     transform: {
         '^.+\\.(ts)$': 'ts-jest',
     },
+    testPathIgnorePatterns: ['/node_modules/', '.*\\.d.ts', '/workdir/'],
     testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts$',
     collectCoverage: true,
     collectCoverageFrom: [

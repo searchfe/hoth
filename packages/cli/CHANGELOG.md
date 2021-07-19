@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.1.7](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.6...@hoth/cli-v1.1.7) (2021-07-19)
+
+
+### Performance Improvements
+
+* add cli version in generare ([6023013](https://github.com/searchfe/hoth/commit/60230137f8153aee5ffe2bea466f607b76ccc6e2))
+
 # [@hoth/cli-v1.1.6](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.5...@hoth/cli-v1.1.6) (2021-07-16)
 
 

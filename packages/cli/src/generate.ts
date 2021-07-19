@@ -5,7 +5,7 @@ import generify from 'generify';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 
-import parseArgs, {Args} from './parseArgs';
+import parseArgs from './parseArgs';
 
 function getTemplate(type: string) {
     return {
@@ -21,7 +21,7 @@ function getTemplate(type: string) {
     };
 }
 
-function generate(dir: string, template: ReturnType<typeof getTemplate>, data: Args) {
+function generate(dir: string, template: ReturnType<typeof getTemplate>, data: Record<string, any>) {
     return new Promise((resolve, reject) => {
         generify(join(__dirname, '../templates', template.dir), dir, data, function (file: string) {
             console.log(`generated ${file}`);
@@ -57,7 +57,7 @@ export async function cli(args: string[]) {
     const inputs = [{
         type: 'input',
         name: 'appName',
-        message: `What's your product name?`,
+        message: 'What\'s your product name?',
         default: function () {
             return opts.appName;
         },
@@ -80,13 +80,17 @@ export async function cli(args: string[]) {
         filter(val: string) {
             return val.toLowerCase();
         },
-    }]
+    }];
 
     const {appType, appName} = await inquirer.prompt(inputs);
-    opts.appName = appName;
+
+    const data = {
+        appName,
+        cliVersion: require(join(__dirname, '../package.json')).version, // eslint-disable-line @typescript-eslint/no-var-requires, max-len
+    };
 
     let template = getTemplate(appType);
-    generate(dir, template, opts).catch(function (err) {
+    generate(dir, template, data).catch(function (err) {
         if (err) {
             console.error(err.message);
             process.exit(1);

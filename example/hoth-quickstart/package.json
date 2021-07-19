@@ -8,5 +8,8 @@
   "main": "src/app.ts",
   "scripts": {
     "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5"
   }
 }

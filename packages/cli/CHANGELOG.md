@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.1.9](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.8...@hoth/cli-v1.1.9) (2021-07-21)
+
+
+### Performance Improvements
+
+* **cli:** add update version checker ([50abf8a](https://github.com/searchfe/hoth/commit/50abf8a334628d6bd6cee959d25ae899bfe9479a))
+
 # [@hoth/cli-v1.1.8](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.7...@hoth/cli-v1.1.8) (2021-07-21)
 
 

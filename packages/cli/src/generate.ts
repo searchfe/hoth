@@ -78,9 +78,10 @@ export async function cli(args: string[]) {
         choices: [
             'Normal',
             'Molecule',
+            'Vue SSR APP'
         ],
         filter(val: string) {
-            return val.toLowerCase();
+            return val.toLowerCase().replace(/\s/g, '-');
         },
     }];
 

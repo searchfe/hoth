@@ -22,6 +22,7 @@ hoth generate myproj
 
 - `Normal`(with [fastify-decorators](https://github.com/L2jLiga/fastify-decorators)): [example](https://github.com/searchfe/hoth/tree/main/example/hoth-quickstart)
 - `Molecue` (ssr only): [example](https://github.com/searchfe/hoth/tree/main/example/hoth-molecule)
+- `Vue SSR APP`: normal template with vue 3.0 ssr
 
 Install dependencies:
 

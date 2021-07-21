@@ -38,7 +38,9 @@
     "inquirer": "^8.0.0",
     "is-docker": "^2.1.1",
     "make-promises-safe": "^5.1.0",
+    "read-package-json": "^3.0.1",
     "tslib": "^2.1.0",
+    "update-notifier": "^5.1.0",
     "yargs-parser": "^20.2.4"
   },
   "files": [

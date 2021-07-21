@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.1.8](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.7...@hoth/cli-v1.1.8) (2021-07-21)
+
+
+### Performance Improvements
+
+* **cli:** add vue ssr app template ([218a15a](https://github.com/searchfe/hoth/commit/218a15abd7bf7f312cc5c0da8d97436681b53458))
+
 # [@hoth/cli-v1.1.7](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.6...@hoth/cli-v1.1.7) (2021-07-19)
 
 

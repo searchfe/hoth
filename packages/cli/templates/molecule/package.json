@@ -12,10 +12,6 @@
     "build-client": "tsc --build ./src/tsconfig.node.json",
     "build": "npm run build-serve && npm run build-client"
   },
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@icode.baidu.com:8235/baidu/__appName__-fe/node-ui"
-  },
   "author": "",
   "license": "ISC",
   "lint-staged": {

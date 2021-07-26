@@ -1,8 +1,8 @@
-import {FastifyInstance} from 'fastify';
+import type {FastifyInstance} from 'fastify';
 import {promises as fs} from 'fs';
 
 export async function initSchema(fastify: FastifyInstance, options: {
-    schemaPath: string
+    schemaPath: string;
 }) {
     const {
         schemaPath
@@ -15,7 +15,7 @@ export async function initSchema(fastify: FastifyInstance, options: {
 
     Object.keys(schema).forEach(id => {
         const innerSchema = schema[id];
-        innerSchema['$id'] = id;
+        innerSchema.$id = id;
         fastify.addSchema(innerSchema);
     });
 }

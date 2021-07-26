@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Jest task",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "packages/schema/__tests__",
+                "--coverage=false"
+            ]
+        },
+        {
             "type": "pwa-node",
             "request": "launch",
             "name": "Launch Program",
@@ -18,7 +32,7 @@
             "env": {
                 "NODE_ENV": "development"
             },
-            "cwd": "/home/meixg/code/learn/learn-hoth/myapp",
+            "cwd": "${workspaceFolder}",
             "args": [
                 "start",
                 "--app-dir='dist'",

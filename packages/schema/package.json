@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@types/through2": "^2.0.36",
-    "@types/vinyl": "^2.0.4"
+    "@types/vinyl": "^2.0.4",
+    "vinyl": "^2.2.1"
   }
 }

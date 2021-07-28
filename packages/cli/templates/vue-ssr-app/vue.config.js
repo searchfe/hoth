@@ -5,7 +5,7 @@ const isServer = !!process.env.SSR;
 
 module.exports = {
 
-    publicPath: '/matrix/',
+    publicPath: '/__appName__/',
 
     assetsDir: isServer ? 'ssr' : 'static',
 
@@ -22,17 +22,7 @@ module.exports = {
         // will used cached components from the server build
         webpackConfig.module.rule('vue').uses.delete('cache-loader');
         webpackConfig.module.rule('js').uses.delete('cache-loader');
-        webpackConfig.module.rule('ts').uses.delete('cache-loader');
         webpackConfig.module.rule('tsx').uses.delete('cache-loader');
-
-        if (!isServer) {
-            // Point entry to your app's client entry file
-            webpackConfig
-                .entry('app')
-                .clear()
-                .add('./src/entry-client.ts');
-            return;
-        }
 
         webpackConfig.module
             .rule('ts')
@@ -43,6 +33,15 @@ module.exports = {
                     configFile: isServer ? './tsconfig.ssr.json' : './tsconfig.csr.json',
                 };
             });
+
+        if (!isServer) {
+            // Point entry to your app's client entry file
+            webpackConfig
+                .entry('app')
+                .clear()
+                .add('./src/entry-client.ts');
+            return;
+        }
 
         webpackConfig.plugins.delete('html');
 

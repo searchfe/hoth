@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.1.10](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.9...@hoth/cli-v1.1.10) (2021-07-29)
+
+
+### Performance Improvements
+
+* **cli:** add san-ssr-app template ([1e9d1fd](https://github.com/searchfe/hoth/commit/1e9d1fd268285d8fea537cd4893b94c54e154414))
+
 # [@hoth/cli-v1.1.9](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.8...@hoth/cli-v1.1.9) (2021-07-21)
 
 

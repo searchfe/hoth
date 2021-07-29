@@ -9,6 +9,10 @@ module.exports = {
 
     extract: false,
 
+    css: {
+        cssPreprocessor: 'less'
+    },
+
     pages: {
         main: {
             entry: './src/main.ts',

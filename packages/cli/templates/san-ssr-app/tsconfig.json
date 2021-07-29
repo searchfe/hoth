@@ -1,0 +1,13 @@
+{
+    "extends": "@searchfe/tsconfig/base/recommend.json",
+    "compilerOptions": {
+        "target": "es2019",
+        "module": "commonjs",
+        "moduleResolution": "Node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "outDir": "dist"
+    },
+    "include": ["server/**/*"]
+}

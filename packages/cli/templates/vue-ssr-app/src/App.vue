@@ -1,5 +1,5 @@
 <template>
-    <hello-world :msg="messgae"/>
+    <hello-world :msg="message"/>
 </template>
 
 <script lang="ts">

@@ -1,0 +1,23 @@
+<template>
+    <div class="hello">
+        <h1>{{ msg }}</h1>
+    </div>
+</template>
+
+<script lang="ts">
+import {Component} from 'san'
+export default class HelloWorld extends Component {
+    initData() {
+        return {
+            msg: ''
+        };
+    }
+
+};
+</script>
+
+<style lang="less">
+.hello {
+    margin-top: 100px;
+}
+</style>

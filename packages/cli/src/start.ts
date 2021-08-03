@@ -16,6 +16,7 @@ import appAutoload, {getApps} from '@hoth/app-autoload';
 import createLogger from '@hoth/logger';
 import {showHelpForCommand} from './util';
 import {warmup} from './start/warmup';
+import closeWithGrace from 'close-with-grace';
 
 const listenAddressDocker = '0.0.0.0';
 
@@ -39,22 +40,15 @@ function loadFastify() {
 function initFinalLogger(logger: Logger) {
     // use pino.final to create a special logger that
     // guarantees final tick writes
-    const handler = pino.final(logger, (err, finalLogger, evt) => {
+    return pino.final(logger, (err, finalLogger, evt) => {
         if (err) {
-            finalLogger.fatal({err}, evt + ' caused exit');
+            finalLogger.fatal({err}, evt);
         }
         else {
             finalLogger.info(`${evt} caught`);
         }
         process.exit(err ? 1 : 0);
     });
-    // catch all the ways node might exit
-    process.on('beforeExit', () => handler(null, 'beforeExit'));
-    process.on('exit', () => handler(null, 'exit'));
-    process.on('uncaughtException', err => handler(err, 'uncaughtException'));
-    process.on('SIGINT', () => handler(null, 'SIGINT'));
-    process.on('SIGQUIT', () => handler(null, 'SIGQUIT'));
-    process.on('SIGTERM', () => handler(null, 'SIGTERM'));
 }
 
 async function runFastify(opts: Args) {
@@ -95,7 +89,19 @@ async function runFastify(opts: Args) {
         });
     }
 
-    initFinalLogger(logger);
+    const finalLogger = initFinalLogger(logger);
+
+    // delay is the number of milliseconds for the graceful close to finish
+    const closeListeners = closeWithGrace({delay: 500}, async function ({signal, err, manual}) {
+        if (!manual) {
+            finalLogger(err!, signal);
+        }
+        await fastifyInstance.close();
+    } as closeWithGrace.CloseWithGraceAsyncCallback);
+
+    fastifyInstance.addHook('onClose', async () => {
+        closeListeners.uninstall();
+    });
 
     const rootEntryPath = join(rootPath, 'main.js');
     if (existsSync(rootEntryPath)) {
@@ -111,8 +117,7 @@ async function runFastify(opts: Args) {
     }
     catch (e) {
         const errorMessage = (e && e.message) || '';
-        console.error('warmup error: ' + errorMessage);
-        logger.fatal('warmup error: ' + errorMessage);
+        logger.fatal(`warmup error: ${errorMessage}`);
         process.exit(-1);
     }
 
@@ -144,7 +149,9 @@ async function runFastify(opts: Args) {
 
 
 async function start(args: string[]) {
+
     if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         require('dotenv').config();
     }
 

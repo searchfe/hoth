@@ -30,6 +30,7 @@
     "@hoth/logger": "^1.1.2",
     "@hoth/utils": "^1.1.2",
     "chalk": "^4.1.0",
+    "close-with-grace": "^1.1.0",
     "commist": "^1.1.0",
     "dotenv": "^10.0.0",
     "fastify-warmup": "0.1.1",

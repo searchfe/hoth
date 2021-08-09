@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.9](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.8...@hoth/app-autoload-v1.1.9) (2021-08-09)
+
+
+### Performance Improvements
+
+* **app-autoload:** logid beforehand ([2b6d9a6](https://github.com/searchfe/hoth/commit/2b6d9a69dcccc7732b37bf9d9af9b7371d2f9275))
+
 # [@hoth/app-autoload-v1.1.8](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.7...@hoth/app-autoload-v1.1.8) (2021-07-16)
 
 

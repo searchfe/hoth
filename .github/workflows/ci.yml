@@ -1,5 +1,11 @@
 name: CI
 
+uses: szenius/set-timezone@v1.0
+with:
+  timezoneLinux: "Asia/Singapore"
+  timezoneMacos: "Asia/Singapore"
+  timezoneWindows: "Singapore Standard Time"
+
 on:
   push:
     branches: [main]

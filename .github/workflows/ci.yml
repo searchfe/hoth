@@ -1,32 +1,27 @@
 name: CI
-
-uses: szenius/set-timezone@v1.0
-with:
-  timezoneLinux: "Asia/Singapore"
-  timezoneMacos: "Asia/Singapore"
-  timezoneWindows: "Singapore Standard Time"
-
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Set TimeZone
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Asia/Singapore"
+        timezoneMacos: "Asia/Singapore"
+        timezoneWindows: "Singapore Standard Time"
     - run: yarn install
     - run: yarn build
     - run: yarn test

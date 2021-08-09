@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.1.13](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.12...@hoth/cli-v1.1.13) (2021-08-09)
+
+
+### Performance Improvements
+
+* **cli:** update hoth deps ([1f2d1db](https://github.com/searchfe/hoth/commit/1f2d1dbb3a35f1996c4941b1afdacf16855dd4f0))
+
 # [@hoth/cli-v1.1.12](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.11...@hoth/cli-v1.1.12) (2021-08-09)
 
 

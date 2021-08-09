@@ -1,3 +1,10 @@
+# [@hoth/logger-v1.1.6](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.5...@hoth/logger-v1.1.6) (2021-08-09)
+
+
+### Bug Fixes
+
+* **cli:** entry module load ([772eb23](https://github.com/searchfe/hoth/commit/772eb2336120afd898d231cf04d8ec5248dccd08))
+
 # [@hoth/logger-v1.1.5](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.4...@hoth/logger-v1.1.5) (2021-08-09)
 
 

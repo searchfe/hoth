@@ -1,3 +1,11 @@
+# [@hoth/cli-v1.1.11](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.10...@hoth/cli-v1.1.11) (2021-08-09)
+
+
+### Performance Improvements
+
+* **cli:** update plugin example ([abe145e](https://github.com/searchfe/hoth/commit/abe145e4074a4982186524d24770c0c90452d3f2))
+* **cli:** use close-with-grace ([401832a](https://github.com/searchfe/hoth/commit/401832af35e275aa6ca85828a2785baf1bb6c35b))
+
 # [@hoth/cli-v1.1.10](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.9...@hoth/cli-v1.1.10) (2021-07-29)
 
 

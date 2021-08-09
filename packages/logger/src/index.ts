@@ -24,7 +24,6 @@ interface StreamItem {
 const pad = num => (num > 9 ? '' : '0') + num;
 const createGenerator = file => {
     return time => {
-        console.log(file, time);
         if (!time) {
             time = new Date();
         };

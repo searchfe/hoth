@@ -4,5 +4,6 @@
         "rootDir": "src",
         "outDir": "dist",
         "strict": false
-    }
+    },
+    "exclude": ["./templates/**/*.ts", "dist/*", "__tests__/*"]
 }

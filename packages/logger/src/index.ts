@@ -114,3 +114,43 @@ export function preHandler(req: FastifyRequest, reply: FastifyReply, done) {
     };
     done();
 }
+
+// eslint-disable-next-line max-len
+// message: NOTICE: 2021-08-09 13:28:35 [-:-] errno[-] status[200] logId[2e45e4f4-56e8-4496-abf2-9731c083f0ee] pid[14871] uri[/app/other] cluster[-] idc[-] product[quickstart] module[test] clientIp[127.0.0.1] ua[Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36] refer[-] cookie[-] parseTime[0.2] validationTime[0.6] tm[-] responseTime[1.2]
+
+export function parse(line: string): Record<string, string | number> | undefined {
+    let regexp = /^(\w+):\s(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})\s\[([\w-\/\.]+):([\d-]+)\]\s+(.*)$/;
+    const match = regexp.exec(line);
+    if (!match) {
+        return;
+    }
+
+    const extra = match[5];
+    const records: Record<string, string> = {};
+    const reg = /(\w+)\[([^\]]*)\](\s|$)/g;
+    let m;
+    let lastIndex;
+
+    while ((m = reg.exec(extra)) != null) {
+        const value = m[2].trim();
+        if (value && value !== '-') {
+            records[m[1].trim()] = isNaN(value) ? value : +value;
+        }
+        lastIndex = reg.lastIndex;
+    }
+
+    let msg = extra.slice(lastIndex);
+
+    if (!records.app && records.cluster) {
+        records.app = records.cluster;
+        delete records.cluster;
+    }
+
+    return {
+        level: match[1].toLowerCase(),
+        app: 'hoth',
+        msg,
+        timestamp: new Date(match[2]).getTime(),
+        ...records,
+    };
+}

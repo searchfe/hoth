@@ -1,3 +1,10 @@
+# [@hoth/logger-v1.1.7](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.6...@hoth/logger-v1.1.7) (2021-08-09)
+
+
+### Performance Improvements
+
+* **logger:** skip warmup log ([98abe74](https://github.com/searchfe/hoth/commit/98abe742a625ac0e0cb1fe6fc7674954b72fca96))
+
 # [@hoth/logger-v1.1.6](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.5...@hoth/logger-v1.1.6) (2021-08-09)
 
 

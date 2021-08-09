@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.1.12](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.11...@hoth/cli-v1.1.12) (2021-08-09)
+
+
+### Bug Fixes
+
+* **cli:** entry module load ([772eb23](https://github.com/searchfe/hoth/commit/772eb2336120afd898d231cf04d8ec5248dccd08))
+
 # [@hoth/cli-v1.1.11](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.10...@hoth/cli-v1.1.11) (2021-08-09)
 
 

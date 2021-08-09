@@ -3,10 +3,8 @@
  * @author cxtom
  */
 
-import pino from 'pino';
 import format from './format';
 import {defaultLevels} from './constants';
-import {getTime} from './getTime';
 
 const metadata = Symbol.for('pino.metadata');
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -28,17 +26,7 @@ export default function (streamsArray) {
 
         for (let dest of streams) {
             if (dest.app === info.app && dest.level <= info.level) {
-                const fullpath = dest.fullpath;
-                const [year, month, day, hour] = getTime(Date.now());
-                const suffix = `${year}${month}${day}${hour}`;
-
-                if (dest.suffix === suffix) {
-                    stream = dest.stream;
-                }
-                else {
-                    stream = dest.stream = pino.destination(`${fullpath}.${year}${month}${day}${hour}`);
-                    dest.suffix = suffix;
-                }
+                stream = dest.stream;
 
                 if (stream[metadata]) {
                     const {
@@ -65,7 +53,7 @@ export default function (streamsArray) {
         }
 
         if (isDevelopment) {
-            console.log(info.result);
+            console.log(data);
         }
 
         stream.write(info.result);

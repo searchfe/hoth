@@ -1,10 +1,12 @@
 import fs from 'fs-extra';
 import path from 'path';
 import pino from 'pino';
+import {createStream} from 'rotating-file-stream';
 import type {FastifyRequest, FastifyReply} from 'fastify';
 
 import stream from './stream';
 import {noticeSym, performanceSym} from './constants';
+import {Stream} from 'stream';
 
 interface LoggerOptions {
     apps: Array<{name: string}>;
@@ -15,7 +17,26 @@ interface StreamItem {
     fullpath: string;
     level: string;
     app: string;
+    stream: Stream;
 }
+
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+const pad = num => (num > 9 ? '' : '0') + num;
+const createGenerator = file => {
+    return time => {
+        console.log(file, time);
+        if (!time) {
+            time = new Date();
+        };
+
+        const month = time.getFullYear() + '' + pad(time.getMonth() + 1);
+        const day = pad(time.getDate());
+        const hour = pad(time.getHours());
+        // const minute = pad(time.getMinutes());
+
+        return `${file}.${month}${day}${hour}`;
+    };
+};
 
 export default function (options: LoggerOptions) {
     let {
@@ -38,13 +59,14 @@ export default function (options: LoggerOptions) {
         const levels = ['trace', 'notice', 'warn'];
         for (let i = 0; i < files.length; i++) {
             const fullpath = path.join(logPath, files[i]);
-            // if (!fs.existsSync(fullpath)) {
-            //     fs.ensureFileSync(fullpath);
-            // }
             streams.push({
                 app: name,
                 fullpath,
                 level: levels[i],
+                stream: createStream(createGenerator(files[i]), {
+                    interval: '1h',
+                    path: logPath
+                })
             });
         }
     }

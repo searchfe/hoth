@@ -26,6 +26,13 @@ describe('@hoth/logger parser', function () {
         });
     });
 
+    it('parse normal log warmup skip', function () {
+        // eslint-disable-next-line max-len
+        let message = 'NOTICE: 2021-08-09 13:28:35 [-:-] errno[-] status[200] logId[warmup] pid[14871] uri[/app/other] cluster[-] idc[-] product[quickstart]';
+        const log = parse(message);
+        expect(log).toBe(undefined);
+    });
+
     it('parse error log', function () {
         // eslint-disable-next-line max-len
         let message = 'ERROR: 2021-08-09 14:08:16 [-:-] errno[-] status[-] logId[8dd409d2-bdd4-43e8-b946-88143cb7c26c] pid[20657] uri[/app] cluster[-] idc[-] product[quickstart] module[test] clientIp[127.0.0.1] ua[Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36] refer[-] cookie[-] Error: hello1     at AppController.getApp (/Users/chenxiao07/work/github/hoth/example/hoth-quickstart/dist/controller/app/app.controller.js:13:32)     at preHandlerCallback (/Users/chenxiao07/work/github/hoth/node_modules/fastify/lib/handleRequest.js:126:28)     at next (/Users/chenxiao07/work/github/hoth/node_modules/fastify/lib/hooks.js:158:7)     at handleResolve (/Users/chenxiao07/work/github/hoth/node_modules/fastify/lib/hooks.js:175:5)     at processTicksAndRejections (internal/process/task_queues.js:97:5)';

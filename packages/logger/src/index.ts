@@ -167,6 +167,10 @@ export function parse(line: string): Record<string, string | number> | undefined
         delete records.cluster;
     }
 
+    if (records.logId === 'warmup') {
+        return;
+    }
+
     return {
         level: match[1].toLowerCase(),
         app: 'hoth',

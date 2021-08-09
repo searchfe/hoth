@@ -1,3 +1,11 @@
+# [@hoth/logger-v1.1.5](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.4...@hoth/logger-v1.1.5) (2021-08-09)
+
+
+### Performance Improvements
+
+* **logger:** add log parser ([3de80e5](https://github.com/searchfe/hoth/commit/3de80e505ff4efc6e0d1aadaf14b889f01d85122))
+* **logger:** use file-stream-rotating ([31bcdf4](https://github.com/searchfe/hoth/commit/31bcdf4a4b2fd5f9e2101459c335af2965366a11))
+
 # [@hoth/logger-v1.1.4](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.3...@hoth/logger-v1.1.4) (2021-05-24)
 
 

@@ -8,6 +8,7 @@ import stream from './stream';
 import {noticeSym, performanceSym} from './constants';
 import {Stream} from 'stream';
 
+
 interface LoggerOptions {
     apps: Array<{name: string}>;
     rootPath: string;

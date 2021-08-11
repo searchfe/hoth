@@ -41,7 +41,7 @@ describe('@hoth/app-autoload multi app', () => {
     it('app & prefix', async () => {
         expect(apps.length).toBe(2);
         expect(apps[0].prefix).toBe('/demo');
-        expect(apps[1].prefix).toBe('/myapp');
+        expect(apps[1].prefix).toBe('/another');
         expect(apps[0].name).toBe('demo');
         expect(apps[1].name).toBe('myapp');
 
@@ -55,7 +55,7 @@ describe('@hoth/app-autoload multi app', () => {
 
         response = await fastify.inject({
             method: 'GET',
-            path: '/myapp/app'
+            path: '/another/app'
         });
 
         expect(response.statusCode).toBe(200);

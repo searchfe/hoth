@@ -4,6 +4,7 @@
  */
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
+process.env.ALLOW_CONFIG_MUTATIONS = 'false';
 
 import Config from 'config';
 import {resolve, join, isAbsolute} from 'path';
@@ -70,6 +71,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     childInstance.setErrorHandler(onErrorFactory(appConfig.name));
 
     const config = Config.util.loadFileConfigs(pluginAppConfig.configPath);
+    Config[appConfig.name] = {};
     Config.util.setModuleDefaults(appConfig.name, {
         ...config,
         ...appConfig,

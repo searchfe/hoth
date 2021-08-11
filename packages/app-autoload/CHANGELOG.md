@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.11](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.10...@hoth/app-autoload-v1.1.11) (2021-08-11)
+
+
+### Bug Fixes
+
+* **app-autoload:** multi app config error ([66e11d7](https://github.com/searchfe/hoth/commit/66e11d71b954a70134f9c57771200cecea33fd7b))
+
 # [@hoth/app-autoload-v1.1.10](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.9...@hoth/app-autoload-v1.1.10) (2021-08-09)
 
 

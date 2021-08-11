@@ -1,3 +1,10 @@
+# [@hoth/logger-v1.1.8](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.7...@hoth/logger-v1.1.8) (2021-08-11)
+
+
+### Bug Fixes
+
+* **logger:** use file-stream-rotator ([f09efd9](https://github.com/searchfe/hoth/commit/f09efd915f7f5b1e514cf775170de17913eb1376))
+
 # [@hoth/logger-v1.1.7](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.6...@hoth/logger-v1.1.7) (2021-08-09)
 
 

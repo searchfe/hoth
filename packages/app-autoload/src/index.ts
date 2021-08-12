@@ -8,7 +8,6 @@ process.env.ALLOW_CONFIG_MUTATIONS = 'false';
 
 import Config from 'config';
 import {resolve, join, isAbsolute} from 'path';
-import autoload from 'fastify-autoload';
 import {existsSync, readdirSync} from 'fs';
 import {FastifyInstance, FastifyPluginAsync} from 'fastify';
 import fp from 'fastify-plugin';
@@ -23,6 +22,7 @@ import preValidation from './hook/preValidation';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
 import {molecule} from '@hoth/molecule';
 import {loadConfig} from './configLoader';
+import pluginLoader from './pluginLoader';
 import {loadMoleculeApp} from './loadMoleculeApp';
 import type {WarmupConf} from 'fastify-warmup';
 interface AppAutoload {
@@ -113,14 +113,9 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     await childInstance.register(appEntryModule, {...appConfig});
 
     if (existsSync(pluginAppConfig.pluginPath)) {
-        await childInstance.register(autoload, {
+        await childInstance.register(pluginLoader, {
             dir: pluginAppConfig.pluginPath,
-            dirNameRoutePrefix: false,
-            ignorePattern: /.*(test|spec).js/,
-            maxDepth: 2,
-            options: {
-                ...appConfig,
-            },
+            options: {...appConfig},
         });
     }
 

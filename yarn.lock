@@ -4530,14 +4530,6 @@ fast-safe-stringify@^2.0.7:
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.7.tgz#124aa885899261f68aedb42a7c080de9da608743"
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
-fastify-autoload@^3.4.2:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/fastify-autoload/-/fastify-autoload-3.7.1.tgz#64dd843c5fe340d4c42d3d9353521e70c4c28b4f"
-  integrity sha512-Bgq+62s9aZu3VEKV/fZA+BTxqvEZ/2LrdvXhf6BztEtBuC5AWWrgaTBl63OJ2WdqVr0BZvLldGOouAj3U7OrDA==
-  dependencies:
-    pkg-up "^3.1.0"
-    semver "^7.3.2"
-
 fastify-decorators@~3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/fastify-decorators/-/fastify-decorators-3.8.0.tgz#212b52ef1795a54ae65d336d35cea152210fe719"
@@ -8668,13 +8660,6 @@ pkg-up@^2.0.0:
   integrity sha1-yBmscoBZpGHKscOImivjxJoATX8=
   dependencies:
     find-up "^2.1.0"
-
-pkg-up@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/pkg-up/-/pkg-up-3.1.0.tgz#100ec235cc150e4fd42519412596a28512a0def5"
-  integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
-  dependencies:
-    find-up "^3.0.0"
 
 please-upgrade-node@^3.2.0:
   version "3.2.0"

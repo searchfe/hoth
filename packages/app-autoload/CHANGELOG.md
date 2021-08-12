@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.12](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.11...@hoth/app-autoload-v1.1.12) (2021-08-12)
+
+
+### Performance Improvements
+
+* **app-autoload:** plugin-autoload support symlink ([544b22d](https://github.com/searchfe/hoth/commit/544b22dd600acbef4a4a5d9c5893b65616b6275a))
+
 # [@hoth/app-autoload-v1.1.11](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.10...@hoth/app-autoload-v1.1.11) (2021-08-11)
 
 

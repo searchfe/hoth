@@ -4,7 +4,7 @@ import path from 'path';
 import type {FastifyInstance} from 'fastify';
 import {pathToFileURL} from 'url';
 
-const {readdir, realpath, stat} = promises;
+const {readdir, stat} = promises;
 
 interface PluginLoaderOptions {
     dir: string;
@@ -40,16 +40,11 @@ async function findPlugins(dir: string, pluginTree: PluginTree = {}, prefix: str
                 file,
             });
         }
-        else if (dirent.isSymbolicLink()) {
-            const finalFile = await realpath(file);
-            if (!scriptPattern.test(finalFile)) {
-                continue;
-            }
-            const fileStat = await stat(finalFile);
-
+        else if (dirent.isSymbolicLink() && scriptPattern.test(dirent.name)) {
+            const fileStat = await stat(file);
             if (fileStat.isFile()) {
                 pluginTree[prefix].push({
-                    file: finalFile,
+                    file,
                 });
             }
         }

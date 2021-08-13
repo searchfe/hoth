@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.13](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.12...@hoth/app-autoload-v1.1.13) (2021-08-13)
+
+
+### Bug Fixes
+
+* **app-autoload:** use symlink path ([e8c48f9](https://github.com/searchfe/hoth/commit/e8c48f9d006fcb109dc81ae1ee1819355192f6d4))
+
 # [@hoth/app-autoload-v1.1.12](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.11...@hoth/app-autoload-v1.1.12) (2021-08-12)
 
 

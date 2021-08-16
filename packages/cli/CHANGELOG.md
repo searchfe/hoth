@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.1.14](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.13...@hoth/cli-v1.1.14) (2021-08-16)
+
+
+### Performance Improvements
+
+* **cli:** main entry error catch ([520cf9c](https://github.com/searchfe/hoth/commit/520cf9c7849b8c2a7ea98434f71cf86d7abfe698))
+
 # [@hoth/cli-v1.1.13](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.12...@hoth/cli-v1.1.13) (2021-08-09)
 
 

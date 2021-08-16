@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/cxtom/hoth#readme",
   "dependencies": {
-    "@hoth/app-autoload": "^1.1.9",
-    "@hoth/logger": "^1.1.7",
+    "@hoth/app-autoload": "^1.1.15",
+    "@hoth/logger": "^1.1.8",
     "@hoth/utils": "^1.1.4",
     "chalk": "^4.1.0",
     "close-with-grace": "^1.1.0",

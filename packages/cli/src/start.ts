@@ -20,6 +20,7 @@ import closeWithGrace from 'close-with-grace';
 
 const listenAddressDocker = '0.0.0.0';
 
+// eslint-disable-next-line @typescript-eslint/init-declarations
 let fastify: typeof Fastify;
 
 // 初始化全局变量
@@ -74,11 +75,6 @@ async function runFastify(opts: Args) {
         pluginTimeout: 60 * 1000,
     });
 
-    // eslint-disable-next-line
-    require('make-promises-safe').logError = function (error: Error | string) {
-        fastifyInstance.log.fatal(error instanceof Error ? {err: error} : error);
-    };
-
     await fastifyInstance.register(appAutoload, {
         apps,
     });
@@ -99,6 +95,12 @@ async function runFastify(opts: Args) {
         await fastifyInstance.close();
     } as closeWithGrace.CloseWithGraceAsyncCallback);
 
+    // eslint-disable-next-line
+    require('make-promises-safe').logError = async function (error: Error | string) {
+        finalLogger(error instanceof Error ? error : null, error);
+        await fastifyInstance.close();
+    };
+
     fastifyInstance.addHook('onClose', async () => {
         closeListeners.uninstall();
     });
@@ -107,10 +109,15 @@ async function runFastify(opts: Args) {
     if (existsSync(rootEntryPath)) {
         const entryMod = await loadModule(rootEntryPath);
         entryMod[Symbol.for('skip-override')] = true;
-        await fastifyInstance.register(entryMod, {
-            apps,
-            rootPath
-        });
+        try {
+            await fastifyInstance.register(entryMod, {
+                apps,
+                rootPath
+            });
+        }
+        catch (err) {
+            finalLogger(err);
+        }
     }
 
     // warmup
@@ -123,7 +130,7 @@ async function runFastify(opts: Args) {
         process.exit(-1);
     }
 
-    let address;
+    let address = '';
     if (opts.address) {
         address = await fastifyInstance.listen(opts.port, opts.address);
     }

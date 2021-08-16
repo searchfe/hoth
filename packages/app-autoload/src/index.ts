@@ -207,6 +207,7 @@ export async function getApps(opts: AppAutoload): Promise<AppConfig[]> {
 
 export default fp(async function (instance: FastifyInstance, opts: AppAutoload | AppsLoaded) {
 
+    // eslint-disable-next-line @typescript-eslint/init-declarations
     let apps: AppConfig[];
     if ((opts as AppsLoaded).apps) {
         apps = (opts as AppsLoaded).apps;
@@ -216,9 +217,17 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload |
     }
 
     for await (const appConfig of apps) {
-        await instance.register(load.bind(null, appConfig), {
-            prefix: appConfig.prefix,
-        });
+        try {
+            await instance.register(load.bind(null, appConfig), {
+                prefix: appConfig.prefix,
+            });
+        }
+        catch (e) {
+            instance.log.fatal({
+                app: appConfig.name,
+                err: e
+            });
+        }
     }
 
     return;

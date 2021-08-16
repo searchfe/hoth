@@ -119,17 +119,19 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         });
     }
 
+    const moleculeConfigPath = join(appConfig.dir, 'config/molecule.json');
+    // load molecule
+    if (existsSync(moleculeConfigPath)) {
+        await loadMoleculeApp(appConfig, childInstance);
+    }
     // load controllers
-    if (existsSync(pluginAppConfig.controllerPath)) {
+    else if (existsSync(pluginAppConfig.controllerPath)) {
         await childInstance.register(bootstrap, {
             directory: pluginAppConfig.controllerPath,
             mask: /\.controller\.js$/,
             appName: appConfig.name,
         });
     }
-
-    // load molecule
-    await loadMoleculeApp(appConfig, childInstance);
 
     childInstance.addHook('preValidation', preValidation);
     childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));

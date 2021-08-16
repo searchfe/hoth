@@ -3,7 +3,6 @@
  */
 import {FastifyInstance, FastifyRequest} from 'fastify';
 import {join} from 'path';
-import {existsSync} from 'fs';
 import {loadModule} from '@hoth/utils';
 
 interface AppConfig {
@@ -27,9 +26,6 @@ interface MoleculeConfig {
 
 export async function loadMoleculeApp(appConfig: AppConfig, instance: FastifyInstance) {
     const moleculeConfPath = join(appConfig.dir, 'config/molecule.json');
-    if (!existsSync(moleculeConfPath)) {
-        return;
-    }
     const {controllers} =  await loadModule(moleculeConfPath) as MoleculeConfig;
 
     controllers.forEach(item => {

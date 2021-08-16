@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.15](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.14...@hoth/app-autoload-v1.1.15) (2021-08-16)
+
+
+### Performance Improvements
+
+* **app-autoload:** add init error catch ([995946c](https://github.com/searchfe/hoth/commit/995946cbf32d96ed2699a18c6589481265fc9050))
+
 # [@hoth/app-autoload-v1.1.14](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.13...@hoth/app-autoload-v1.1.14) (2021-08-16)
 
 

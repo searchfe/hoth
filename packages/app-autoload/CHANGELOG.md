@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.14](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.13...@hoth/app-autoload-v1.1.14) (2021-08-16)
+
+
+### Bug Fixes
+
+* **app-autoload:** molecule first ([9c851da](https://github.com/searchfe/hoth/commit/9c851da73785a1446473a23ca7dea26f2d0d792c))
+
 # [@hoth/app-autoload-v1.1.13](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.12...@hoth/app-autoload-v1.1.13) (2021-08-13)
 
 

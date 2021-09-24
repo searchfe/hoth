@@ -54,4 +54,17 @@ describe('@hoth/logger parser', function () {
         });
     });
 
+    it('cluster as app', function () {
+        // eslint-disable-next-line max-len
+        const message = 'ERROR: 2021-08-09 14:08:16 [-:-] errno[-] status[-] cluster[test]';
+        const log = parse(message);
+        expect(log!.app).toBe('test');
+    });
+
+    it('not match', function () {
+        // eslint-disable-next-line max-len
+        const message = 'ERROR 2021-08-09 14:08:16 [-:-] errno[-] status[-]';
+        const log = parse(message);
+        expect(log).toBeUndefined();
+    });
 });

@@ -8,6 +8,23 @@ import stream from './stream';
 import {noticeSym, performanceSym} from './constants';
 import {Stream} from 'stream';
 
+declare module 'fastify' {
+    interface FastifyRequest {
+        [noticeSym]: {
+            [key: string]: string;
+        };
+        [performanceSym]: {
+            [key: string]: number[];
+        };
+    }
+
+    interface FastifyLoggerInstance {
+        addNotice: (key: string, value: string) => void;
+        addPerformance: (name: string, value: number) => void;
+    }
+}
+
+
 
 interface LoggerOptions {
     apps: Array<{name: string}>;
@@ -88,23 +105,6 @@ export default function (options: LoggerOptions) {
 
     return logger;
 }
-
-declare module 'fastify' {
-    interface FastifyRequest {
-        [noticeSym]: {
-            [key: string]: string;
-        };
-        [performanceSym]: {
-            [key: string]: number[];
-        };
-    }
-
-    interface FastifyLoggerInstance {
-        addNotice: (key: string, value: string) => void;
-        addPerformance: (name: string, value: number) => void;
-    }
-}
-
 
 
 export function preHandler(req: FastifyRequest, reply: FastifyReply, done) {

@@ -4,14 +4,11 @@ import {levelFormats} from './constants';
 import {getTime} from './getTime';
 
 export default {
-    id(o) {
-        return o.req.id;
-    },
     cluster() {
-        return process.env.HOTH_CLUSTER
+        return process.env.HOTH_CLUSTER;
     },
     idc() {
-        return process.env.HOTH_IDC
+        return process.env.HOTH_IDC;
     },
     app(o) {
         return o.app;
@@ -28,9 +25,9 @@ export default {
     level(o) {
         return levelFormats[o.level].str;
     },
-    hostname(o) {
-        return o.hostname;
-    },
+    // hostname(o) {
+    //     return o.hostname;
+    // },
     uri(o) {
         return o.req?.url;
     },
@@ -93,22 +90,22 @@ export default {
         }).join(' ');
         return perfStr;
     },
-    req(o, field) {
-        if (!field) {
-            return;
-        }
-        return o.req?.headers[field.toLowerCase()];
-    },
-    res(o, field) {
-        if (!field) {
-            return;
-        }
-        const headers = o._lastResHeaders || o.res.headers;
-        o._lastResHeaders = headers;
-        const key = headers[field];
-        if (!key) {
-            return;
-        }
-        return key;
-    },
+    // req(o, field) {
+    //     if (!field) {
+    //         return;
+    //     }
+    //     return o.req?.headers[field.toLowerCase()];
+    // },
+    // res(o, field) {
+    //     if (!field) {
+    //         return;
+    //     }
+    //     const headers = o._lastResHeaders || o.res.headers;
+    //     o._lastResHeaders = headers;
+    //     const key = headers[field];
+    //     if (!key) {
+    //         return;
+    //     }
+    //     return key;
+    // },
 };

@@ -12,7 +12,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 export default function (streamsArray) {
     let counter = 0;
 
-    streamsArray = streamsArray || [];
+    streamsArray = streamsArray || /* istanbul ignore next */ [];
 
     let levels = defaultLevels;
     let res;
@@ -28,6 +28,7 @@ export default function (streamsArray) {
             if (dest.app === info.app && dest.level <= info.level) {
                 stream = dest.stream;
 
+                /* istanbul ignore next */
                 if (stream[metadata]) {
                     const {
                         lastTime,
@@ -48,10 +49,12 @@ export default function (streamsArray) {
             }
         }
 
+        /* istanbul ignore next */
         if (!stream) {
             stream = info.level >= 40 ? process.stderr : process.stdout;
         }
 
+        /* istanbul ignore else */
         if (isDevelopment) {
             console.log(data);
         }
@@ -69,17 +72,19 @@ export default function (streamsArray) {
 
     function add(dest) {
         const {streams} = this;
+        /* istanbul ignore next */
         if (typeof dest.write === 'function') {
             return add.call(this, {stream: dest});
         }
+        /* istanbul ignore next */
         else if (typeof dest.levelVal === 'number') {
             return add.call(this, Object.assign({}, dest, {level: dest.levelVal, levelVal: undefined}));
         }
         else if (typeof dest.level === 'string') {
             return add.call(this, Object.assign({}, dest, {level: levels[dest.level]}));
         }
+        /* istanbul ignore next */
         else if (typeof dest.level !== 'number') {
-            // we default level to 'info'
             dest = Object.assign({}, dest, {level: 30});
         }
         else {
@@ -95,7 +100,7 @@ export default function (streamsArray) {
     }
 
     function clone(level) {
-        let streams = new Array(this.streams.length).map((_, i) => ({
+        let streams = new Array(this.streams.length).map(/* istanbul ignore next */ (_, i) => ({
             level: level,
             stream: this.streams[i].stream,
         }));
@@ -121,12 +126,7 @@ export default function (streamsArray) {
         [metadata]: true,
     };
 
-    if (Array.isArray(streamsArray)) {
-        streamsArray.forEach(add, res);
-    }
-    else {
-        add.call(res, streamsArray);
-    }
+    streamsArray.forEach(add, res);
 
     // clean this object up
     // or it will stay allocated forever

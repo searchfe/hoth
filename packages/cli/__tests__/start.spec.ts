@@ -1,6 +1,21 @@
 import {join} from 'path';
 import {start} from '../src/start';
 import {mockProcessExit, mockConsoleLog} from 'jest-mock-process';
+import {noop} from '@hoth/utils';
+
+let processExitCallback: (_: any) => Promise<void> = () => Promise.resolve(undefined);
+jest.mock('close-with-grace', () => {
+    return function (_: any, cb: (_: any) => Promise<void>) {
+        processExitCallback = cb;
+        return {
+            uninstall: noop
+        };
+    };
+});
+
+function triggerExit(signal: string, err: null | Error, manual: boolean) {
+    processExitCallback({signal, err, manual});
+}
 
 describe('hoth cli start', () => {
 
@@ -48,5 +63,76 @@ describe('hoth cli start', () => {
         expect(fastifyInstance).toBeFalsy();
         mockExit.mockRestore();
         mockLog.mockRestore();
+    });
+
+    it('healthcheck path', async () => {
+        const mockExit = mockProcessExit();
+        const mockLog = mockConsoleLog();
+        process.env.ROOT_PATH = join(__dirname, 'testapp');
+
+        const fastifyInstance = await start(['--healthcheck-path="/healthcheck"', '--port=8252']);
+
+        expect(mockLog.mock.calls[mockLog.mock.calls.length - 1][0]).toContain('/healthcheck (GET)');
+        expect(mockExit).not.toHaveBeenCalled();
+        mockExit.mockRestore();
+        mockLog.mockRestore();
+        expect(fastifyInstance).toBeTruthy();
+        if (fastifyInstance) {
+            const res = await fastifyInstance.inject({
+                method: 'GET',
+                path: '/healthcheck'
+            });
+
+            expect(res.body).toBe('ok');
+            await fastifyInstance.close();
+        }
+    });
+
+    describe('close with grace', function () {
+
+        it('SIGTERM', async () => {
+            const mockExit = mockProcessExit();
+            const mockLog = mockConsoleLog();
+            process.env.ROOT_PATH = join(__dirname, 'testapp');
+
+            const fastifyInstance = await start(['--port=8251', '--address=0.0.0.0']);
+
+            if (!fastifyInstance) {
+                return;
+            }
+
+            const mockClose = jest.spyOn(fastifyInstance, 'close');
+
+            triggerExit('SIGTERM', null, false);
+            expect(mockClose).toHaveBeenCalled();
+            expect(mockExit).toHaveBeenCalled();
+
+            mockExit.mockRestore();
+            mockLog.mockRestore();
+            mockClose.mockRestore();
+        });
+
+        it('uncaughtException', async () => {
+            const mockExit = mockProcessExit();
+            const mockLog = mockConsoleLog();
+            process.env.ROOT_PATH = join(__dirname, 'testapp');
+
+            const fastifyInstance = await start(['--port=8251']);
+
+            if (!fastifyInstance) {
+                return;
+            }
+
+            const mockClose = jest.spyOn(fastifyInstance, 'close');
+
+            triggerExit('uncaughtException', new TypeError('some error'), false);
+            expect(mockClose).toHaveBeenCalled();
+            expect(mockExit).toHaveBeenCalled();
+
+            mockExit.mockRestore();
+            mockLog.mockRestore();
+            mockClose.mockRestore();
+        });
+
     });
 });

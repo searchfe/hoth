@@ -29,13 +29,8 @@ if (!process.env.ROOT_PATH) {
 }
 
 function loadFastify() {
-    try {
-        const {module: fastifyModule} = requireFastifyForModule()!;
-        fastify = fastifyModule;
-    }
-    catch (e: any) {
-        exit(e);
-    }
+    const {module: fastifyModule} = requireFastifyForModule()!;
+    fastify = fastifyModule;
 }
 
 function initFinalLogger(logger: Logger) {
@@ -140,10 +135,10 @@ async function runFastify(opts: Args) {
     if (opts.address) {
         address = await fastifyInstance.listen(opts.port, opts.address);
     }
-    else if (opts.socket) {
+    else /* istanbul ignore next */ if (opts.socket) {
         address = await fastifyInstance.listen(opts.socket);
     }
-    else if (isDocker()) {
+    else /* istanbul ignore next */ if (isDocker()) {
         address = await fastifyInstance.listen(opts.port, listenAddressDocker);
     }
     else {

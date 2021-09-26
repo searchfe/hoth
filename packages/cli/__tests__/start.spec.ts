@@ -23,12 +23,16 @@ describe('hoth cli start', () => {
         const mockLog = mockConsoleLog();
         process.env.ROOT_PATH = join(__dirname, 'testapp');
 
-        await start([]);
+        const fastifyInstance = await start([]);
 
         expect(mockLog).toHaveBeenCalledWith('Server listening on http://127.0.0.1:8250.');
         expect(mockLog).toHaveBeenCalledWith('└── /\n');
         expect(mockExit).not.toHaveBeenCalled();
         mockExit.mockRestore();
         mockLog.mockRestore();
+        expect(fastifyInstance).toBeTruthy();
+        if (fastifyInstance) {
+            await fastifyInstance.close();
+        }
     });
 });

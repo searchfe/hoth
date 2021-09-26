@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import pino from 'pino';
-import {getStream} from 'file-stream-rotator';
+import * as fileStreamRotator from 'file-stream-rotator';
 import type {FastifyRequest, FastifyReply} from 'fastify';
 
 import stream from './stream';
@@ -64,7 +64,7 @@ export default function (options: LoggerOptions) {
                 app: name,
                 fullpath,
                 level: levels[i],
-                stream: getStream({
+                stream: fileStreamRotator.getStream({
                     filename: `${fullpath}.%DATE%`,
                     frequency: '1h',
                     verbose: process.env.NODE_ENV === 'development',

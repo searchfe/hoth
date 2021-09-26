@@ -25,6 +25,7 @@ module.exports = {
     setupFiles: ['jest-date-mock'],
     moduleNameMapper: {
         '@hoth/app-autoload': '<rootDir>/packages/app-autoload/src/index.ts',
-        '@hoth/utils': '<rootDir>/packages/utils/src/index.ts'
+        '@hoth/utils': '<rootDir>/packages/utils/src/index.ts',
+        '@hoth/logger': '<rootDir>/packages/logger/src/index.ts'
     }
 };

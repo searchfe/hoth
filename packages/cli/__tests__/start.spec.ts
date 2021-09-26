@@ -18,7 +18,7 @@ describe('hoth cli start', () => {
         mockExit.mockRestore();
     });
 
-    it('simple', async () => {
+    it('simple start', async () => {
         const mockExit = mockProcessExit();
         const mockLog = mockConsoleLog();
         process.env.ROOT_PATH = join(__dirname, 'testapp');
@@ -34,5 +34,19 @@ describe('hoth cli start', () => {
         if (fastifyInstance) {
             await fastifyInstance.close();
         }
+    });
+
+    it('no app', async () => {
+        const mockExit = mockProcessExit();
+        const mockLog = mockConsoleLog();
+        process.env.ROOT_PATH = join(__dirname, 'noapp');
+
+        const fastifyInstance = await start([]);
+
+        expect(mockLog).toHaveBeenCalledWith('Warn: app root "app" not exists!');
+        expect(mockExit).toHaveBeenCalledWith(1);
+        expect(fastifyInstance).toBeFalsy();
+        mockExit.mockRestore();
+        mockLog.mockRestore();
     });
 });

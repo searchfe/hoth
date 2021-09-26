@@ -1,6 +1,8 @@
 # hoth
 A Node.js framework based on fastify
 
+[![Coverage Status](https://coveralls.io/repos/github/searchfe/hoth/badge.svg?branch=main)](https://coveralls.io/github/searchfe/hoth?branch=main)
+
 ## Requirements
 
 Node.js v12 or later.

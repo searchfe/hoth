@@ -33,7 +33,7 @@ function loadFastify() {
         const {module: fastifyModule} = requireFastifyForModule()!;
         fastify = fastifyModule;
     }
-    catch (e) {
+    catch (e: any) {
         exit(e);
     }
 }
@@ -121,7 +121,7 @@ async function runFastify(opts: Args) {
                 rootPath
             });
         }
-        catch (err) {
+        catch (err: any) {
             finalLogger(err);
         }
     }
@@ -130,7 +130,7 @@ async function runFastify(opts: Args) {
     try {
         await warmup(apps, fastifyInstance);
     }
-    catch (e) {
+    catch (e: any) {
         const errorMessage = (e && e.message) || '';
         logger.fatal(`warmup error: ${errorMessage}`);
         process.exit(-1);

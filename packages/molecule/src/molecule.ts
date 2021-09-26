@@ -3,7 +3,7 @@ import path from 'path';
 import {FastifyLoggerInstance} from 'fastify';
 
 interface IController<T> {
-    render(data: any): T;
+    render(data: any): Promise<T> | T;
 }
 
 interface ControllerInfo<T> {
@@ -67,7 +67,8 @@ export async function molecule<T = string>(ctrlPath: string, data: any, option: 
     try {
         if (ctrlInfo) {
             ctrl = ctrlInfo.ctrl;
-        } else {
+        }
+        else {
             const fullCtrlPath = path.join(option.root, ctrlPath);
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const CtrlClass = require(fullCtrlPath).Controller;
@@ -83,7 +84,8 @@ export async function molecule<T = string>(ctrlPath: string, data: any, option: 
 
         let result = await ctrl.render(data);
         return result;
-    } catch (err) {
+    }
+    catch (err: any) {
         logger.fatal(`Error when render ${option.appName}/${option.name}: ${err.message}`);
         return null;
     }

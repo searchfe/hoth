@@ -69,6 +69,12 @@ async function runFastify(opts: Args) {
         rootPath,
     });
 
+    if (apps.length <= 0) {
+        logger.warn('app not found!');
+        exit();
+        return;
+    }
+
     const fastifyInstance = fastify({
         logger,
         disableRequestLogging: true,
@@ -157,7 +163,7 @@ async function runFastify(opts: Args) {
 }
 
 
-async function start(args: string[]) {
+export async function start(args: string[]) {
 
     if (process.env.NODE_ENV === 'development') {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -173,10 +179,12 @@ async function start(args: string[]) {
     return runFastify(opts);
 }
 
+/* istanbul ignore next */
 export function cli(args: string[]) {
     start(args);
 }
 
+/* istanbul ignore if */
 if (require.main === module) {
     cli(process.argv.slice(2));
 }

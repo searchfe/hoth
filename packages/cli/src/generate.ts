@@ -42,6 +42,7 @@ export async function cli(args: string[]) {
     const dir = opts._[0];
 
     if (dir && existsSync(dir)) {
+        /* istanbul ignore else */
         if (dir !== '.' && dir !== './') {
             return exit(`directory ${opts._[0]} already exists`);
         }

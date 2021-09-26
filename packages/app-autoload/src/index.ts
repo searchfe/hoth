@@ -157,6 +157,7 @@ export async function getApps(opts: AppAutoload): Promise<AppConfig[]> {
 
     if (!existsSync(appRoot)) {
         exit(`app root "${dir}" not exists!`);
+        return [];
     }
 
     let apps: AppConfig[] = [];

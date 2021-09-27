@@ -36,6 +36,7 @@ describe('hoth cli start', () => {
     it('simple start', async () => {
         const mockExit = mockProcessExit();
         const mockLog = mockConsoleLog();
+        const mockSend = jest.spyOn(process, 'send');
         process.env.ROOT_PATH = join(__dirname, 'testapp');
 
         const fastifyInstance = await start([]);
@@ -43,8 +44,11 @@ describe('hoth cli start', () => {
         expect(mockLog).toHaveBeenCalledWith('Server listening on http://127.0.0.1:8250.');
         expect(mockLog).toHaveBeenCalledWith('└── /\n');
         expect(mockExit).not.toHaveBeenCalled();
+        expect(mockSend).toHaveBeenCalledWith('ready');
+        expect(mockSend).toHaveBeenCalledTimes(2);
         mockExit.mockRestore();
         mockLog.mockRestore();
+        mockSend.mockRestore();
         expect(fastifyInstance).toBeTruthy();
         if (fastifyInstance) {
             await fastifyInstance.close();
@@ -84,6 +88,40 @@ describe('hoth cli start', () => {
             });
 
             expect(res.body).toBe('ok');
+            await fastifyInstance.close();
+        }
+    });
+
+    it('warmup', async () => {
+        const mockExit = mockProcessExit();
+        const mockLog = mockConsoleLog();
+        process.env.ROOT_PATH = join(__dirname, 'testapp2');
+
+        const fastifyInstance = await start(['--port=8253']);
+
+        expect(mockLog).toHaveBeenCalledWith('warmup ok');
+        expect(mockExit).not.toHaveBeenCalled();
+        mockExit.mockRestore();
+        mockLog.mockRestore();
+        expect(fastifyInstance).toBeTruthy();
+        if (fastifyInstance) {
+            await fastifyInstance.close();
+        }
+    });
+
+    it('main.js', async () => {
+        const mockExit = mockProcessExit();
+        const mockLog = mockConsoleLog();
+        process.env.ROOT_PATH = join(__dirname, 'testapp2');
+
+        const fastifyInstance = await start(['--port=8254']);
+
+        expect(mockLog).toHaveBeenCalledWith('main init');
+        expect(mockExit).not.toHaveBeenCalled();
+        mockExit.mockRestore();
+        mockLog.mockRestore();
+        expect(fastifyInstance).toBeTruthy();
+        if (fastifyInstance) {
             await fastifyInstance.close();
         }
     });

@@ -1,0 +1,7 @@
+{
+    "method": "get",
+    "headers": {
+        "Content-Type": "application/json",
+        "logid": "warmup"
+    }
+}

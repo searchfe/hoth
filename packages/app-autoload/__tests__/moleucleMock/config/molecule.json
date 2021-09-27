@@ -1,0 +1,20 @@
+{
+    "controllers": [
+        {
+            "name": "index",
+            "ctrlPath": "view/main/index",
+            "httpType": "get",
+            "json": true
+        },
+        {
+            "name": "route2",
+            "ctrlPath": "view/main/index",
+            "httpType": "post"
+        },
+        {
+            "name": "route3",
+            "ctrlPath": "view/main/index",
+            "httpType": "patch"
+        }
+    ]
+}

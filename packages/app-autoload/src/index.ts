@@ -91,6 +91,12 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     childInstance.decorate('$appConfig', configProxy);
     childInstance.decorate('molecule', molecule);
 
+    childInstance.addHook('preValidation', preValidation);
+    childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));
+    childInstance.addHook('preHandler', loggerMiddleware);
+    childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
+    childInstance.addHook('onSend', onSend);
+
     // load module plugins
     if (appConfig.pluginConfig) {
         for (const [name, config] of Object.entries(appConfig.pluginConfig)) {
@@ -132,12 +138,6 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
             appName: appConfig.name,
         });
     }
-
-    childInstance.addHook('preValidation', preValidation);
-    childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));
-    childInstance.addHook('preHandler', loggerMiddleware);
-    childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
-    childInstance.addHook('onSend', onSend);
 
     return childInstance;
 }

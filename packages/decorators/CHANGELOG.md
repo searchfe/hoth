@@ -1,3 +1,10 @@
+# [@hoth/decorators-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.1.6...@hoth/decorators-v1.2.0) (2021-12-06)
+
+
+### Features
+
+* **decorators:** export FastifyInstanceToken ([049ba58](https://github.com/searchfe/hoth/commit/049ba585fe0effea4d4a0b287e8da6d6ed9c5dfe))
+
 # [@hoth/decorators-v1.1.6](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.1.5...@hoth/decorators-v1.1.6) (2021-07-16)
 
 

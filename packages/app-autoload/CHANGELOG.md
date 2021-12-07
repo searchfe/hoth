@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.16](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.15...@hoth/app-autoload-v1.1.16) (2021-12-07)
+
+
+### Bug Fixes
+
+* controller 中的 hooks，比 autoload 中的 hook 靠前，导致 req.$appConfig 未定义 ([b06bdcf](https://github.com/searchfe/hoth/commit/b06bdcfbd1dc6865dc60d308b40b64391071847e))
+
 # [@hoth/app-autoload-v1.1.15](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.14...@hoth/app-autoload-v1.1.15) (2021-08-16)
 
 

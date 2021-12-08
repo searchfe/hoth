@@ -28,7 +28,6 @@ export {
     POST,
     PUT,
     getInstanceByToken,
-    FastifyInstanceToken
 } from 'fastify-decorators';
 
 export interface BootstrapConfig extends AutoLoadConfig {

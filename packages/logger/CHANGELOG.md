@@ -1,3 +1,10 @@
+# [@hoth/logger-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.8...@hoth/logger-v1.2.0) (2021-12-14)
+
+
+### Features
+
+* remove cookie in logger ([3d8dba8](https://github.com/searchfe/hoth/commit/3d8dba8eed6c7c2ea7f393a9674d25deedfbf99a))
+
 # [@hoth/logger-v1.1.8](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.7...@hoth/logger-v1.1.8) (2021-08-11)
 
 

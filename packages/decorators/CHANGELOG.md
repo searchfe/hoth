@@ -1,3 +1,10 @@
+# [@hoth/decorators-v1.2.1](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.2.0...@hoth/decorators-v1.2.1) (2021-12-14)
+
+
+### Reverts
+
+* Revert "feat(decorators): export FastifyInstanceToken" ([c5a8786](https://github.com/searchfe/hoth/commit/c5a8786e124c9f774acb2b6113f618d62a9ea108))
+
 # [@hoth/decorators-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.1.6...@hoth/decorators-v1.2.0) (2021-12-06)
 
 

@@ -34,9 +34,9 @@ export default {
     errno() {
         return '';
     },
-    cookie(o) {
-        return o.req?.headers.cookie;
-    },
+    // cookie(o) {
+    //     return o.req?.headers.cookie;
+    // },
     time(o) {
         const [year, month, day, hour, minute, second] = getTime(o.time);
         return `${year}-${month}-${day} ${hour}:${minute}:${second}`;

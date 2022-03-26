@@ -11,7 +11,7 @@ module.exports = {
         '!**/*.d.ts',
         '!**/__fixtures__/**',
         '!**/coverage/**',
-        '!**/templates/**',
+        '!**/hoth-template/**',
         '!**/example/**',
         '!**/node_modules/**',
     ],

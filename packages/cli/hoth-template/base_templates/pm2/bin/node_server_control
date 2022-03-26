@@ -1,0 +1,104 @@
+#!/bin/bash
+
+set -m
+
+rundir=$(cd "$(dirname "$0")" || exit;pwd)
+cd "$rundir" || exit
+cd ..
+TOP_DIR=$(pwd)
+
+# HOTH框架的环境变量，控制端口和健康检查路由
+export HOTH_PORT=8080
+export HOTH_HEALTHCHECK_PATH="/healthcheck"
+export PATH=$TOP_DIR/node_env/bin:$PATH
+export PM2_HOME=$TOP_DIR/.pm2
+
+function start() {
+    cd "$TOP_DIR" || exit
+
+    local env="production"
+    if [ "$1" = "development" ];then
+        env="development"
+    fi
+    PM2_HOME=$PM2_HOME pm2 startOrGracefulReload pm2.config.js --env $env
+
+    sleep 5
+    healthcheck
+    if [ $? -ne 0 ]; then
+        stop_node_server_without_hb
+        echo "start nodeserver error"
+        return 5
+    else
+        echo "start nodeserver success"
+    fi
+}
+
+function stop() {
+    cd "$TOP_DIR" || exit
+    sleep 5
+    stop_node_server_without_hb
+    return $?
+}
+
+function stop_node_server_without_hb() {
+    cd "$TOP_DIR" || exit
+    echo "start to stop nodeserver with pm2"
+    PM2_HOME=$PM2_HOME pm2 delete all
+    PM2_HOME=$PM2_HOME pm2 kill
+
+    #解决停止node时未能成功释放端口问题
+    local pid=$(netstat -npl | grep $HOTH_PORT | awk '{print $7}' | cut -d '/' -f1)
+    if [ "$pid" != "" ];then
+        kill $pid
+    fi
+
+    return 0
+}
+
+function healthcheck() {
+    cd "$TOP_DIR" || exit
+    code=$(curl -o /dev/null -s -w "%{http_code}\n" http://127.0.0.1:${HOTH_PORT}${HOTH_HEALTHCHECK_PATH})
+    if [ ${code} -ne 200 ];then
+        echo "health check fail!"
+        return 5
+    else
+        echo "first health check:  ok!"
+        local pmResult=$(PM2_HOME=${PM2_HOME} pm2 list | grep -v online | wc -l )
+        while [ ${pmResult} -gt 4 ]
+        do
+            echo "$((pmResult-4)) unstarted processes ...wait"
+            sleep 5
+            local pmResult=$(PM2_HOME=${PM2_HOME} pm2 list | grep -v online | wc -l )
+        done
+        echo "second health check:  ok!"
+        return 0
+    fi
+}
+
+function usage() {
+    echo "$0 {start|stop|healthcheck|status}"
+}
+
+case "X$1" in
+    Xstart)
+        start $2
+        exit $?
+        ;;
+    Xstop)
+        stop $2
+        exit $?
+        ;;
+    Xrestart)
+        stop $2
+        start $2
+        exit $?
+        ;;
+    Xstatus|Xhealthcheck)
+        healthcheck $2
+        exit $?
+        ;;
+    *)
+        usage
+        exit $?
+        ;;
+esac

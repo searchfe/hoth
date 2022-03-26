@@ -1,3 +1,1 @@
-export = {
-    test: 1,
-};
+export const foo = 'test';

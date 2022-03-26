@@ -10,9 +10,9 @@
 import path from 'path';
 import commist from 'commist';
 import helpMe from 'help-me';
-import readJson from 'read-package-json';
 import updateNotifier from 'update-notifier';
 
+import {readJson} from './util';
 import {cli as startCli} from './start';
 import {cli as generate} from './generate';
 
@@ -28,19 +28,19 @@ commander.register('version', function () {
 commander.register('start', startCli);
 commander.register('generate', generate);
 
-readJson(path.resolve(__dirname, '../package.json'), (error: Error, pkg: Record<string, unknown>) => {
-    const notifier = updateNotifier({
-        pkg,
-        updateCheckInterval: 1000 * 60 * 60 * 24 * 3,
-        shouldNotifyInNpmScript: true
-    });
-    notifier.notify({
-        defer: false
-    });
+const pkg:  Record<string, unknown> = readJson(path.resolve(__dirname, '../package.json'));
+const notifier = updateNotifier({
+    pkg,
+    updateCheckInterval: 1000 * 60 * 60 * 24 * 3,
+    shouldNotifyInNpmScript: true
+});
+notifier.notify({
+    defer: false
 });
 
 const res = commander.parse(process.argv.splice(2));
-
 if (res) {
     help.toStdout(res);
 }
+
+console.log('start');

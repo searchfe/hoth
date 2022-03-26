@@ -1,38 +1,61 @@
 import {exit} from '@hoth/utils';
-import {existsSync} from 'fs';
+import {existsSync, readdirSync} from 'fs';
 import {join} from 'path';
 import generify from 'generify';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 
 import parseArgs from './parseArgs';
+import { execSync } from 'child_process';
+import { getHome, showHelpForCommand, readJson, writeJson } from './util';
 
-function getTemplate(type: string) {
+
+function createInfo(name: string, repoTemplatesDir: string, opts: ReturnType<typeof parseArgs>) {
+    const conf = require(join(repoTemplatesDir, name, 'package.json'))['hoth-cli'] || {};
+    const baseTemplate = conf.base_template || '';
     return {
-        dir: type,
-        logInstructions() {
+        dir: join(repoTemplatesDir, name),
+        name,
+        desc: conf.desc || name,
+        baseTemplate: opts.subApp ? '' : baseTemplate,
+        baseTemplateDir: join(repoTemplatesDir, '..', 'base_templates', baseTemplate),
+        logInstructions(dir: string) {
             console.log('debug', 'saved package.json');
             console.log('info', 'project generated successfully');
-            console.log('debug', `run '${chalk.bold('npm install')}' to install the dependencies`);
-            console.log('debug', `run '${chalk.bold('npm build')}' to compile the application`);
-            console.log('debug', `run '${chalk.bold('npm run dev')}' to start the application`);
-            console.log('debug', `run '${chalk.bold('npm test')}' to execute the unit tests`);
+            console.log('----')
+            console.log(`run 'cd ${dir}'`);
+            console.log(`run '${chalk.bold('npm install')}' to install the dependencies`);
+            console.log(`run '${chalk.bold('npm build')}' to compile the application`);
+            console.log(`run '${chalk.bold('npm run dev')}' to start the application`);
+            console.log(`run '${chalk.bold('npm test')}' to execute the unit tests`);
         },
-    };
+    }
 }
 
-function generate(dir: string, template: ReturnType<typeof getTemplate>, data: Record<string, any>) {
+function generate(dir: string, templateInfo: ReturnType<typeof createInfo>, data: Record<string, any>) {
     return new Promise(resolve => {
-        generify(join(__dirname, '../templates', template.dir), dir, data, function (file: string) {
+        generify(templateInfo.dir, dir, data, function (file: string) {
             console.log(`generated ${file}`);
         }, function (err: Error) {
             /* istanbul ignore next */
             if (err) {
                 return exit(err.message);
             }
-            template.logInstructions();
-            resolve(1);
+
+            !templateInfo.baseTemplate && resolve(1);
+
+            templateInfo.baseTemplate && generify(templateInfo.baseTemplateDir, dir, data, function (file: string) {
+                console.log(`generated ${file}`);
+            }, function (err: Error) {
+                /* istanbul ignore next */
+                if (err) {
+                    return exit(err.message);
+                }
+                resolve(1);
+            });
         });
+    }).then(() => {
+        templateInfo.logInstructions(dir);
     });
 }
 
@@ -40,6 +63,10 @@ function generate(dir: string, template: ReturnType<typeof getTemplate>, data: R
 export async function cli(args: string[]) {
     const opts = parseArgs(args);
     const dir = opts._[0];
+
+    if (opts.help) {
+        return showHelpForCommand('generate');
+    }
 
     if (dir && existsSync(dir)) {
         /* istanbul ignore else */
@@ -55,6 +82,49 @@ export async function cli(args: string[]) {
     /* istanbul ignore next */
     if (existsSync(join(dir, 'package.json'))) {
         return exit('a package.json file already exists in target directory');
+    }
+
+    // built-in templates
+    let repoTemplatesDir = join(__dirname, '..', 'hoth-template', 'templates');
+
+    // git third-party templates
+    if (opts.repo) {
+        const repo = opts.repo.startsWith('ssh:') || opts.repo.startsWith('http:') || opts.repo.startsWith('https:')
+        ? opts.repo
+        : `https://github.com/${opts.repo}.git`;
+
+        const subDir = repo.split('/').pop()?.split('.git')[0];
+        const repoDir = join(getHome() , 'repo');
+        repoTemplatesDir = join(repoDir, subDir || '', 'templates');
+        execSync(`mkdir -p ${repoDir}`);
+        if (existsSync(repoTemplatesDir)) {
+            try {
+                console.log('start to git pull templates:', repo, repoTemplatesDir);
+                const branch = execSync(`cd ${repoTemplatesDir} && git branch | sed 's%*%%' `);
+                execSync(`cd ${repoTemplatesDir} && git pull origin ${branch}`);
+            }
+            catch (e) {
+                console.warn('failed to git pull latest templates. Maybe use to use old templates');
+            }
+        }
+        else {
+            try {
+                console.log('start to git clone templates:', repo);
+                execSync(`cd ${repoDir} && git clone ${repo} ${subDir}`);
+            }
+            catch (e) {
+                console.error('fail to clone template repo. please make sure installed git and connected internet ')
+                console.error(e);
+            }
+        }
+    }
+
+    const templateInfos = readdirSync(repoTemplatesDir).map(name => {
+        return createInfo(name, repoTemplatesDir, opts);
+    });
+    if (!templateInfos.length) {
+        exit(`The repo does not find any tempalte.`);
+        return;
     }
 
     const inputs = [{
@@ -76,15 +146,10 @@ export async function cli(args: string[]) {
         type: 'list',
         name: 'appType',
         message: 'Select a project type that you want to create.',
-        choices: [
-            'Normal',
-            'Molecule',
-            'Vue SSR App',
-            'San SSR App'
-        ],
-        filter(val: string) {
-            return val.toLowerCase().replace(/\s/g, '-');
-        },
+        choices: templateInfos.map(a => a.desc),
+        default() {
+            return templateInfos[0].desc;
+        }
     }];
 
     const {
@@ -97,6 +162,22 @@ export async function cli(args: string[]) {
         cliVersion: require(join(__dirname, '../package.json')).version, // eslint-disable-line @typescript-eslint/no-var-requires, max-len
     };
 
-    let template = getTemplate(appType);
-    return generate(dir, template, data);
+    const selectedTempate  = templateInfos.find(a => a.desc === appType);
+    if (!selectedTempate) {
+        return;
+    }
+
+    return generate(dir, selectedTempate, data).then(() => {
+        // 做一个小优化，子app不需要在正式依赖里安装@hoth/cli和fastify
+        if (opts.subApp) {
+            const json = readJson(join(dir, 'package.json'));
+            for (const k of ['@hoth/cli', 'fastify', 'teth-sdk']) {
+                if (json.dependencies[k]) {
+                    json.devDependencies[k] = json.dependencies[k];
+                    delete json.dependencies[k];
+                }
+            }
+            writeJson(join(dir, 'package.json'), json);
+        }
+    });
 }

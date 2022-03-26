@@ -39,7 +39,6 @@
     "inquirer": "^8.0.0",
     "is-docker": "^2.1.1",
     "make-promises-safe": "^5.1.0",
-    "read-package-json": "^3.0.1",
     "tslib": "^2.1.0",
     "update-notifier": "^5.1.0",
     "yargs-parser": "^20.2.4"
@@ -47,7 +46,7 @@
   "files": [
     "dist",
     "help",
-    "templates"
+    "hoth-template"
   ],
   "gitHead": "0735cada835eabb2ac787ca1c5f2ff4bb8310fe2"
 }

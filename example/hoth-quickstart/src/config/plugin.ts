@@ -1,3 +1,1 @@
-export default {
-    '@hoth/app-autoload': {},
-};
+export default {};

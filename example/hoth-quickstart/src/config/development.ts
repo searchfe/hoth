@@ -1,3 +1,0 @@
-export = {
-    development: 1,
-};

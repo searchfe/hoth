@@ -1,0 +1,29 @@
+Usage: hoth generate [opts] <app dir>
+
+OPTS
+  --template
+      template (default to select from list)
+
+  --sub-app
+      template as a hoth sub app (default to false)
+
+  --repo
+      git repo (default to 'https://github.com/searchfe/hoth-template.git')
+
+  -h, --help
+      Show this help message
+
+Examples:
+
+  generate template code from default github repo.
+
+    hoth generate myappdir
+
+  generate template code a hoth sub app only needs.
+
+    hoth generate myappdir --sub-app
+
+  generate template code from user specific repo.
+
+    hoth generate myappdir --repo "https://github.com/searchfe/hoth-other-template.git"
+

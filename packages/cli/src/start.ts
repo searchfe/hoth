@@ -146,7 +146,9 @@ async function runFastify(opts: Args) {
     }
 
     console.log(`Server listening on ${address}.`);
-    console.log(fastifyInstance.printRoutes());
+    console.log(fastifyInstance.printRoutes().split('\n').map(line => {
+        return line.replace(/\s*?└── /, `── ${address}`);
+    }).join('\n'));
 
     // for pm2 graceful start
     if (process.send) {

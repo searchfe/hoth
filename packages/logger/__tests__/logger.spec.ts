@@ -39,11 +39,13 @@ describe('@hoth/logger logger', function () {
     });
 
     it('file created', function () {
-        expect(existsSync(join(rootPath, 'log/hoth/hoth.log.2021020100'))).toBe(true);
-        expect(existsSync(join(rootPath, 'log/aa/aa.log.2021020100'))).toBe(true);
-        expect(existsSync(join(rootPath, 'log/bb/bb.log.2021020100'))).toBe(true);
+        setTimeout(() => {
+            expect(existsSync(join(rootPath, 'log/hoth/hoth.log.2021020100'))).toBe(true);
+            expect(existsSync(join(rootPath, 'log/aa/aa.log.2021020100'))).toBe(true);
+            expect(existsSync(join(rootPath, 'log/bb/bb.log.2021020100'))).toBe(true);
 
-        expect(console.log).toBeCalled();
+            expect(console.log).toBeCalled();
+        }, 100);
     });
 
     it('normal log', function (done) {

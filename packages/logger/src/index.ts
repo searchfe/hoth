@@ -39,7 +39,7 @@ interface StreamItem {
 }
 
 
-export default function (options: LoggerOptions) {
+export default function createLogger(options: LoggerOptions) {
     let {
         apps,
         rootPath,

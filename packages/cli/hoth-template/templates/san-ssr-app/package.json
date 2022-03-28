@@ -72,7 +72,7 @@
   "dependencies": {
     "@hoth/cli": "^1.1.14",
     "@hoth/view": "^1.2.1",
-    "fastify": "^3.17.0",
+    "fastify": "^3.19.1",
     "pino": "^6.11.1",
     "v8-compile-cache": "^2.2.0",
     "fastify-static": "^4.2.2",

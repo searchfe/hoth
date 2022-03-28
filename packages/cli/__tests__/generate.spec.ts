@@ -45,7 +45,7 @@ describe('hoth cli generate', () => {
         // @ts-ignore
         inquirer.prompt = jest.fn().mockResolvedValue({
             appName: 'myapp',
-            appType: 'normal'
+            appType: 'Normal'
         });
         const mockLog = mockConsoleLog();
         await cli([workdir]);
@@ -62,7 +62,7 @@ describe('hoth cli generate', () => {
         // @ts-ignore
         inquirer.prompt = jest.fn().mockResolvedValue({
             appName: 'myapp',
-            appType: 'normal'
+            appType: 'Normal'
         });
         const mockLog = mockConsoleLog();
         await cli([workdir]);
@@ -71,7 +71,7 @@ describe('hoth cli generate', () => {
         const pkg = require(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         expect(pkg.private).toBe(true);
-        expect(pkg.devDependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
+        expect(pkg.dependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
 
         mockLog.mockRestore();
     });
@@ -82,7 +82,7 @@ describe('hoth cli generate', () => {
             const app = list[0];
             return {
                 appName: app.default(),
-                appType: 'normal'
+                appType: 'Normal'
             };
         });
         const mockLog = mockConsoleLog();
@@ -99,7 +99,7 @@ describe('hoth cli generate', () => {
             expect(list[0].validate('my*app')).toBe('Please enter a valid product name.');
             return {
                 appName: 'myapp',
-                appType: 'normal'
+                appType: 'Normal'
             };
         });
         const mockLog = mockConsoleLog();
@@ -107,13 +107,14 @@ describe('hoth cli generate', () => {
         mockLog.mockRestore();
     });
 
-    it('filter app type', async () => {
+    it('choices contain basic templates', async () => {
         // @ts-ignore
         inquirer.prompt = jest.fn().mockImplementation(list => {
-            expect(list[1].filter('Normal')).toBe('normal');
+            expect(list[1].choices).toContain('Normal');
+            expect(list[1].choices).toContain('San SSR App');
             return {
                 appName: 'myapp',
-                appType: 'normal'
+                appType: 'Normal'
             };
         });
         const mockLog = mockConsoleLog();

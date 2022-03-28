@@ -1,17 +1,17 @@
 import {exit} from '@hoth/utils';
-import {existsSync, readdirSync} from 'fs';
+import {existsSync, readdirSync, readJsonSync, writeJsonSync} from 'fs-extra';
 import {join} from 'path';
 import generify from 'generify';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 
 import parseArgs from './parseArgs';
-import { execSync } from 'child_process';
-import { getHome, showHelpForCommand, readJson, writeJson } from './util';
+import {execSync} from 'child_process';
+import {getHome, showHelpForCommand} from './util';
 
 
 function createInfo(name: string, repoTemplatesDir: string, opts: ReturnType<typeof parseArgs>) {
-    const conf = require(join(repoTemplatesDir, name, 'package.json'))['hoth-cli'] || {};
+    const conf = require(join(repoTemplatesDir, name, 'package.json'))['hoth-cli'] || {}; // eslint-disable-line
     const baseTemplate = conf.base_template || '';
     return {
         dir: join(repoTemplatesDir, name),
@@ -22,14 +22,14 @@ function createInfo(name: string, repoTemplatesDir: string, opts: ReturnType<typ
         logInstructions(dir: string) {
             console.log('debug', 'saved package.json');
             console.log('info', 'project generated successfully');
-            console.log('----')
+            console.log('----');
             console.log(`run 'cd ${dir}'`);
             console.log(`run '${chalk.bold('npm install')}' to install the dependencies`);
             console.log(`run '${chalk.bold('npm build')}' to compile the application`);
             console.log(`run '${chalk.bold('npm run dev')}' to start the application`);
             console.log(`run '${chalk.bold('npm test')}' to execute the unit tests`);
         },
-    }
+    };
 }
 
 function generate(dir: string, templateInfo: ReturnType<typeof createInfo>, data: Record<string, any>) {
@@ -90,11 +90,10 @@ export async function cli(args: string[]) {
     // git third-party templates
     if (opts.repo) {
         const repo = opts.repo.startsWith('ssh:') || opts.repo.startsWith('http:') || opts.repo.startsWith('https:')
-        ? opts.repo
-        : `https://github.com/${opts.repo}.git`;
+            ? opts.repo : `https://github.com/${opts.repo}.git`;
 
         const subDir = repo.split('/').pop()?.split('.git')[0];
-        const repoDir = join(getHome() , 'repo');
+        const repoDir = join(getHome(), 'repo');
         repoTemplatesDir = join(repoDir, subDir || '', 'templates');
         execSync(`mkdir -p ${repoDir}`);
         if (existsSync(repoTemplatesDir)) {
@@ -113,7 +112,7 @@ export async function cli(args: string[]) {
                 execSync(`cd ${repoDir} && git clone ${repo} ${subDir}`);
             }
             catch (e) {
-                console.error('fail to clone template repo. please make sure installed git and connected internet ')
+                console.error('fail to clone template repo. please make sure installed git and connected internet ');
                 console.error(e);
             }
         }
@@ -123,7 +122,7 @@ export async function cli(args: string[]) {
         return createInfo(name, repoTemplatesDir, opts);
     });
     if (!templateInfos.length) {
-        exit(`The repo does not find any tempalte.`);
+        exit('The repo does not find any tempalte.');
         return;
     }
 
@@ -164,20 +163,23 @@ export async function cli(args: string[]) {
 
     const selectedTempate  = templateInfos.find(a => a.desc === appType);
     if (!selectedTempate) {
+        exit(`The template [${appType}] does not exist.`);
         return;
     }
 
     return generate(dir, selectedTempate, data).then(() => {
         // 做一个小优化，子app不需要在正式依赖里安装@hoth/cli和fastify
         if (opts.subApp) {
-            const json = readJson(join(dir, 'package.json'));
+            const json = readJsonSync(join(dir, 'package.json'));
             for (const k of ['@hoth/cli', 'fastify', 'teth-sdk']) {
                 if (json.dependencies[k]) {
                     json.devDependencies[k] = json.dependencies[k];
                     delete json.dependencies[k];
                 }
             }
-            writeJson(join(dir, 'package.json'), json);
+            writeJsonSync(join(dir, 'package.json'), json, {
+                spaces: 4
+            });
         }
     });
 }

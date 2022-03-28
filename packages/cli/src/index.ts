@@ -12,9 +12,9 @@ import commist from 'commist';
 import helpMe from 'help-me';
 import updateNotifier from 'update-notifier';
 
-import {readJson} from './util';
 import {cli as startCli} from './start';
 import {cli as generate} from './generate';
+import {readJsonSync} from 'fs-extra';
 
 const commander = commist();
 const help = helpMe({
@@ -28,7 +28,7 @@ commander.register('version', function () {
 commander.register('start', startCli);
 commander.register('generate', generate);
 
-const pkg:  Record<string, unknown> = readJson(path.resolve(__dirname, '../package.json'));
+const pkg: Record<string, unknown> = readJsonSync(path.resolve(__dirname, '../package.json'));
 const notifier = updateNotifier({
     pkg,
     updateCheckInterval: 1000 * 60 * 60 * 24 * 3,

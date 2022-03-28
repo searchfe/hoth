@@ -1,5 +1,6 @@
-import {showHelpForCommand} from '../src/util';
+import {showHelpForCommand, getHome} from '../src/util';
 import {mockProcessExit, mockConsoleLog} from 'jest-mock-process';
+import fs from 'fs';
 
 describe('hoth cli util', () => {
 
@@ -13,5 +14,9 @@ describe('hoth cli util', () => {
         expect(mockExit).toHaveBeenCalledWith(1);
         mockLog.mockRestore();
         mockExit.mockRestore();
+    });
+
+    it('get home path', async () => {
+        expect(fs.existsSync(getHome())).toBe(true);
     });
 });

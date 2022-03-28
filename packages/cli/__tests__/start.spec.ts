@@ -42,7 +42,6 @@ describe('hoth cli start', () => {
         const fastifyInstance = await start([]);
 
         expect(mockLog).toHaveBeenCalledWith('Server listening on http://127.0.0.1:8250.');
-        expect(mockLog).toHaveBeenCalledWith('── http://127.0.0.1:8250/\n');
         expect(mockExit).not.toHaveBeenCalled();
         expect(mockSend).toHaveBeenCalledWith('ready');
         expect(mockSend).toHaveBeenCalledTimes(2);
@@ -76,7 +75,7 @@ describe('hoth cli start', () => {
 
         const fastifyInstance = await start(['--healthcheck-path="/healthcheck"', '--port=8252']);
 
-        expect(mockLog.mock.calls[mockLog.mock.calls.length - 1][0]).toContain('/healthcheck (GET)');
+        expect(mockLog.mock.calls[mockLog.mock.calls.length - 1][1]).toContain('/healthcheck (GET)');
         expect(mockExit).not.toHaveBeenCalled();
         mockExit.mockRestore();
         mockLog.mockRestore();

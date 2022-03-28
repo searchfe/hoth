@@ -5,7 +5,7 @@
 
 /* eslint-disable @typescript-eslint/await-thenable */
 
-import Fastify, {FastifyReply, FastifyRequest} from 'fastify';
+import Fastify, {FastifyReply, FastifyRequest, RouteOptions} from 'fastify';
 import pino, {Logger} from 'pino';
 import isDocker from 'is-docker';
 import {existsSync} from 'fs';
@@ -76,10 +76,10 @@ async function runFastify(opts: Args) {
         pluginTimeout: 60 * 1000,
     });
 
-    const routes: string[] = [];
+    const routes: RouteOptions[] = [];
 
     fastifyInstance.addHook('onRoute', routeOptions => {
-        routes.push(routeOptions.path);
+        routes.push(routeOptions);
     });
 
     await fastifyInstance.register(appAutoload, {
@@ -153,7 +153,7 @@ async function runFastify(opts: Args) {
 
     console.log(`Server listening on ${address}.`);
     for (const route of routes) {
-        console.log('——', `${address}${route}`);
+        console.log('——', `${address}${route.url} (${route.method})`);
     }
 
     // for pm2 graceful start

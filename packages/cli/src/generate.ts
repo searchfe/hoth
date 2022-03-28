@@ -107,6 +107,7 @@ export async function cli(args: string[]) {
             }
         }
         else {
+            /* istanbul ignore next */
             try {
                 console.log('start to git clone templates:', repo);
                 execSync(`cd ${repoDir} && git clone ${repo} ${subDir}`);

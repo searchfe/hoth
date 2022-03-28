@@ -1,9 +1,11 @@
 import rimraf from 'rimraf';
 import mkdirp from 'mkdirp';
-import path from 'path';
+import path, {join} from 'path';
 import inquirer from 'inquirer';
 import {mockProcessExit, mockConsoleLog} from 'jest-mock-process';
 import {cli} from '../src/generate';
+import {getHome} from '../src/util';
+import {copySync, mkdirpSync, readJsonSync, removeSync, writeJsonSync} from 'fs-extra';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
@@ -68,7 +70,7 @@ describe('hoth cli generate', () => {
         await cli([workdir]);
 
         expect(mockLog).toHaveBeenCalledWith('generated package.json');
-        const pkg = require(`${workdir}/package.json`);
+        const pkg = readJsonSync(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         expect(pkg.private).toBe(true);
         expect(pkg.dependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
@@ -87,7 +89,7 @@ describe('hoth cli generate', () => {
         });
         const mockLog = mockConsoleLog();
         await cli(['--app-name=myapp', workdir]);
-        const pkg = require(`${workdir}/package.json`);
+        const pkg = readJsonSync(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         mockLog.mockRestore();
     });
@@ -107,19 +109,49 @@ describe('hoth cli generate', () => {
         mockLog.mockRestore();
     });
 
-    it('choices contain basic templates', async () => {
+    it('generate template from external repo', async () => {
         // @ts-ignore
-        inquirer.prompt = jest.fn().mockImplementation(list => {
-            expect(list[1].choices).toContain('Normal');
-            expect(list[1].choices).toContain('San SSR App');
-            return {
-                appName: 'myapp',
-                appType: 'Normal'
-            };
+        inquirer.prompt = jest.fn().mockResolvedValue({
+            appName: 'myapp',
+            appType: 'Normal'
         });
-        const mockLog = mockConsoleLog();
-        await cli([workdir]);
-        mockLog.mockRestore();
+
+        // 构建一个现场
+        const home = getHome();
+        const repoDir = join(home, 'repo', 'hoth-template');
+
+        removeSync(repoDir);
+        mkdirpSync(repoDir);
+        copySync(join(__dirname, '..', 'hoth-template'), repoDir);
+        const jsonfile = join(repoDir, 'templates', 'normal', 'package.json');
+        const json = readJsonSync(jsonfile);
+        json.description = 'test';
+        writeJsonSync(jsonfile, json);
+
+
+        await cli([workdir, '--sub-app', '--repo', 'https://github.com/searchfe/hoth-template']);
+
+        const pkg = readJsonSync(`${workdir}/package.json`);
+        expect(pkg.name).toBe('@baidu/myapp-node-ui');
+        expect(pkg.private).toBe(true);
+        expect(pkg.description).toBe('test');
+
+        removeSync(repoDir);
+    });
+
+    it('generate sub-app template', async () => {
+        // @ts-ignore
+        inquirer.prompt = jest.fn().mockResolvedValue({
+            appName: 'myapp',
+            appType: 'Normal'
+        });
+
+        await cli([workdir, '--sub-app']);
+
+        const pkg = readJsonSync(`${workdir}/package.json`);
+        expect(pkg.name).toBe('@baidu/myapp-node-ui');
+        expect(pkg.private).toBe(true);
+        expect(pkg.devDependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
     });
 
 });

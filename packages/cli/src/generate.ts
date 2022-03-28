@@ -1,5 +1,5 @@
 import {exit} from '@hoth/utils';
-import {existsSync, readdirSync, readJsonSync, writeJsonSync} from 'fs-extra';
+import {existsSync, mkdirpSync, readdirSync, readJsonSync, writeJsonSync} from 'fs-extra';
 import {join} from 'path';
 import generify from 'generify';
 import chalk from 'chalk';
@@ -42,9 +42,11 @@ function generate(dir: string, templateInfo: ReturnType<typeof createInfo>, data
                 return exit(err.message);
             }
 
-            !templateInfo.baseTemplate && resolve(1);
+            if (templateInfo.baseTemplate) {
+                return resolve(1);
+            }
 
-            templateInfo.baseTemplate && generify(templateInfo.baseTemplateDir, dir, data, function (file: string) {
+            generify(templateInfo.baseTemplateDir, dir, data, function (file: string) {
                 console.log(`generated ${file}`);
             }, function (err: Error) {
                 /* istanbul ignore next */
@@ -95,22 +97,29 @@ export async function cli(args: string[]) {
         const subDir = repo.split('/').pop()?.split('.git')[0];
         const repoDir = join(getHome(), 'repo');
         repoTemplatesDir = join(repoDir, subDir || '', 'templates');
-        execSync(`mkdir -p ${repoDir}`);
+        mkdirpSync(repoDir);
         if (existsSync(repoTemplatesDir)) {
             try {
                 console.log('start to git pull templates:', repo, repoTemplatesDir);
-                const branch = execSync(`cd ${repoTemplatesDir} && git branch | sed 's%*%%' `);
-                execSync(`cd ${repoTemplatesDir} && git pull origin ${branch}`);
+                const branch = execSync('git branch | sed "s%*%%"|head -1 ', {
+                    cwd: repoTemplatesDir
+                });
+                execSync(`git pull origin ${branch}`, {
+                    cwd: repoTemplatesDir
+                });
             }
             catch (e) {
                 console.warn('failed to git pull latest templates. Maybe use to use old templates');
             }
         }
+        /* istanbul ignore else */
         else {
             /* istanbul ignore next */
             try {
                 console.log('start to git clone templates:', repo);
-                execSync(`cd ${repoDir} && git clone ${repo} ${subDir}`);
+                execSync(`git clone ${repo} ${subDir}`, {
+                    cwd: repoDir
+                });
             }
             catch (e) {
                 console.error('fail to clone template repo. please make sure installed git and connected internet ');
@@ -163,6 +172,7 @@ export async function cli(args: string[]) {
     };
 
     const selectedTempate  = templateInfos.find(a => a.desc === appType);
+    /* istanbul ignore next */
     if (!selectedTempate) {
         exit(`The template [${appType}] does not exist.`);
         return;

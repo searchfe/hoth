@@ -42,5 +42,3 @@ const res = commander.parse(process.argv.splice(2));
 if (res) {
     help.toStdout(res);
 }
-
-console.log('start');

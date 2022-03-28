@@ -42,7 +42,7 @@ describe('hoth cli start', () => {
         const fastifyInstance = await start([]);
 
         expect(mockLog).toHaveBeenCalledWith('Server listening on http://127.0.0.1:8250.');
-        expect(mockLog).toHaveBeenCalledWith('└── /\n');
+        expect(mockLog).toHaveBeenCalledWith('── http://127.0.0.1:8250/\n');
         expect(mockExit).not.toHaveBeenCalled();
         expect(mockSend).toHaveBeenCalledWith('ready');
         expect(mockSend).toHaveBeenCalledTimes(2);

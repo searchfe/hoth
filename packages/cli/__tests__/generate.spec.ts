@@ -116,6 +116,8 @@ describe('hoth cli generate', () => {
             appType: 'Normal'
         });
 
+        const mockLog = mockConsoleLog();
+
         // 构建一个现场
         const home = getHome();
         const repoDir = join(home, 'repo', 'hoth-template');
@@ -137,6 +139,8 @@ describe('hoth cli generate', () => {
         expect(pkg.description).toBe('test');
 
         removeSync(repoDir);
+
+        mockLog.mockRestore();
     });
 
     it('generate sub-app template', async () => {
@@ -146,12 +150,16 @@ describe('hoth cli generate', () => {
             appType: 'Normal'
         });
 
+        const mockLog = mockConsoleLog();
+
         await cli([workdir, '--sub-app']);
 
         const pkg = readJsonSync(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         expect(pkg.private).toBe(true);
         expect(pkg.devDependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
+
+        mockLog.mockRestore();
     });
 
 });

@@ -37,19 +37,19 @@ function generate(dir: string, templateInfo: ReturnType<typeof createInfo>, data
         generify(templateInfo.dir, dir, data, function (file: string) {
             console.log(`generated ${file}`);
         }, function (err: Error) {
-            /* istanbul ignore next */
+            /* istanbul ignore if */
             if (err) {
                 return exit(err.message);
             }
 
-            if (templateInfo.baseTemplate) {
+            if (!templateInfo.baseTemplate) {
                 return resolve(1);
             }
 
             generify(templateInfo.baseTemplateDir, dir, data, function (file: string) {
                 console.log(`generated ${file}`);
             }, function (err: Error) {
-                /* istanbul ignore next */
+                /* istanbul ignore if */
                 if (err) {
                     return exit(err.message);
                 }
@@ -131,6 +131,7 @@ export async function cli(args: string[]) {
     const templateInfos = readdirSync(repoTemplatesDir).map(name => {
         return createInfo(name, repoTemplatesDir, opts);
     });
+    /* istanbul ignore if */
     if (!templateInfos.length) {
         exit('The repo does not find any tempalte.');
         return;
@@ -172,7 +173,7 @@ export async function cli(args: string[]) {
     };
 
     const selectedTempate  = templateInfos.find(a => a.desc === appType);
-    /* istanbul ignore next */
+    /* istanbul ignore if */
     if (!selectedTempate) {
         exit(`The template [${appType}] does not exist.`);
         return;

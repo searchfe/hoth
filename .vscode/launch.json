@@ -31,7 +31,7 @@
         {
             "type": "pwa-node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch Hoth Program",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -42,7 +42,7 @@
             "env": {
                 "NODE_ENV": "development"
             },
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/example/hoth-quickstart",
             "args": [
                 "start",
                 "--app-dir='dist'",

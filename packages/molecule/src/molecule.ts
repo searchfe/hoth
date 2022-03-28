@@ -85,8 +85,8 @@ export async function molecule<T = string>(ctrlPath: string, data: any, option: 
         let result = await ctrl.render(data);
         return result;
     }
-    catch (err: any) {
-        logger.fatal(`Error when render ${option.appName}/${option.name}: ${err.message}`);
+    catch (err) {
+        logger.fatal(`Error when render ${option.appName}/${option.name}: ${(err as any).message}`);
         return null;
     }
 }

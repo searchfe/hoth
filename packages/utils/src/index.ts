@@ -26,8 +26,8 @@ export function requireFastifyForModule() {
         const module = require(resolveFrom.silent(basedir, 'fastify') || 'fastify');
         return {module};
     }
-    catch (e: any) {
-        exit(`unable to load fastify module: ${e.stack}`);
+    catch (e) {
+        exit(`unable to load fastify module: ${(e as any).stack}`);
     }
 }
 

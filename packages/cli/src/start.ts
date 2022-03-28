@@ -116,8 +116,8 @@ async function runFastify(opts: Args) {
                 rootPath
             });
         }
-        catch (err: any) {
-            finalLogger(err);
+        catch (err) {
+            finalLogger(err as any);
         }
     }
 
@@ -125,8 +125,8 @@ async function runFastify(opts: Args) {
     try {
         await warmup(apps, fastifyInstance);
     }
-    catch (e: any) {
-        const errorMessage = (e && e.message) || '';
+    catch (e) {
+        const errorMessage = (e && (e as any).message) || '';
         logger.fatal(`warmup error: ${errorMessage}`);
         process.exit(-1);
     }

@@ -9,4 +9,7 @@
     "references": [
       { "path": "../../packages/decorators" }
     ],
+    "exclude": [
+      "./gulpfile.ts"
+    ]
   }

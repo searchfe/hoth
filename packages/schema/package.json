@@ -12,7 +12,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@hoth/typescript-to-json-schema": "^1.0.23",
+    "@hoth/typescript-to-json-schema": "^2.1.2",
     "through2": "^4.0.2"
   },
   "repository": {

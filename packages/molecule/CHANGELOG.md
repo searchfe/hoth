@@ -1,3 +1,10 @@
+# [@hoth/molecule-v1.1.5](https://github.com/searchfe/hoth/compare/@hoth/molecule-v1.1.4...@hoth/molecule-v1.1.5) (2022-03-29)
+
+
+### Bug Fixes
+
+* catch type notation ([9cad852](https://github.com/searchfe/hoth/commit/9cad852c11b6980355ce4c54cc75c95f7e1d8f3c))
+
 # [@hoth/molecule-v1.1.4](https://github.com/searchfe/hoth/compare/@hoth/molecule-v1.1.3...@hoth/molecule-v1.1.4) (2021-05-24)
 
 

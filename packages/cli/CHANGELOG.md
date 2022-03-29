@@ -1,3 +1,12 @@
+# [@hoth/cli-v1.4.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.3.0...@hoth/cli-v1.4.0) (2022-03-29)
+
+
+### Features
+
+* cli use pino from logger ([708e7fa](https://github.com/searchfe/hoth/commit/708e7facecf03243cf67d6a83bd1347c081cb0cf))
+* remove mkdirp ([321ee08](https://github.com/searchfe/hoth/commit/321ee0892d5e23ed729359b2e61d6e2ed0e260ce))
+* remove rimraf ([ea7692b](https://github.com/searchfe/hoth/commit/ea7692b5a83dc1a584c582f3bbd4dd5750795c51))
+
 # [@hoth/cli-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.2.0...@hoth/cli-v1.3.0) (2022-03-29)
 
 

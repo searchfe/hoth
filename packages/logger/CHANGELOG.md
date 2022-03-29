@@ -1,3 +1,10 @@
+# [@hoth/logger-v1.4.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.3.0...@hoth/logger-v1.4.0) (2022-03-29)
+
+
+### Features
+
+* cli use pino from logger ([708e7fa](https://github.com/searchfe/hoth/commit/708e7facecf03243cf67d6a83bd1347c081cb0cf))
+
 # [@hoth/logger-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.2.0...@hoth/logger-v1.3.0) (2022-03-29)
 
 

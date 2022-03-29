@@ -1,4 +1,3 @@
-import rimraf from 'rimraf';
 import mkdirp from 'mkdirp';
 import path, {join} from 'path';
 import inquirer from 'inquirer';
@@ -18,7 +17,7 @@ describe('hoth cli generate', () => {
     jest.mock('inquirer');
 
     beforeEach(() => {
-        rimraf.sync(workdir);
+        fs.rmSync(workdir, {recursive: true, force: true});
     });
 
     it('errors if directory exists', async () => {

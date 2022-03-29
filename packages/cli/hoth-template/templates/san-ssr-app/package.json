@@ -72,7 +72,7 @@
     "@hoth/cli": "^__cliVersion__",
     "@hoth/view": "^1.2.1",
     "fastify": "^3.19.1",
-    "fastify-static": "^4.2.2",
+    "fastify-static": "^4.2.4",
     "san": "^3.10.6",
     "san-ssr": "^4.7.0",
     "swig": "^1.4.2",

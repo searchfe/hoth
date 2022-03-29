@@ -166,3 +166,5 @@ export function parse(line: string): Record<string, string | number> | undefined
         ...records,
     };
 }
+
+export * as pino from 'pino';

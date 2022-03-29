@@ -6,14 +6,13 @@
 /* eslint-disable @typescript-eslint/await-thenable */
 
 import Fastify, {FastifyReply, FastifyRequest, RouteOptions} from 'fastify';
-import pino, {Logger} from 'pino';
 import isDocker from 'is-docker';
 import {existsSync} from 'fs';
 import {join} from 'path';
 import parseArgs, {Args} from './parseArgs';
 import {exit, loadModule, requireFastifyForModule} from '@hoth/utils';
 import appAutoload, {getApps} from '@hoth/app-autoload';
-import createLogger from '@hoth/logger';
+import createLogger, {pino} from '@hoth/logger';
 import {showHelpForCommand} from './util';
 import {warmup} from './start/warmup';
 import closeWithGrace from 'close-with-grace';
@@ -33,7 +32,7 @@ function loadFastify() {
     fastify = fastifyModule;
 }
 
-function initFinalLogger(logger: Logger) {
+function initFinalLogger(logger: pino.Logger) {
     // use pino.final to create a special logger that
     // guarantees final tick writes
     return pino.final(logger, (err, finalLogger, evt) => {

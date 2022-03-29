@@ -1,12 +1,12 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-      "rootDir": "src",
-      "outDir": "dist",
-      "declaration": false,
-      "composite": false
-  },
-  "references": [
-    { "path": "../../packages/decorators" }
-  ],
-}
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "dist",
+        "declaration": false,
+        "composite": false
+    },
+    "references": [
+      { "path": "../../packages/decorators" }
+    ],
+  }

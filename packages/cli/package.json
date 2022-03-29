@@ -29,17 +29,18 @@
     "@hoth/app-autoload": "^1.1.15",
     "@hoth/logger": "^1.1.8",
     "@hoth/utils": "^1.1.4",
+    "@types/fs-extra": "^9.0.13",
     "chalk": "^4.1.0",
     "close-with-grace": "^1.1.0",
     "commist": "^1.1.0",
     "dotenv": "^10.0.0",
     "fastify-warmup": "0.1.1",
+    "fs-extra": "^10.0.1",
     "generify": "^4.2.0",
     "help-me": "^2.0.0",
     "inquirer": "^8.0.0",
     "is-docker": "^2.1.1",
     "make-promises-safe": "^5.1.0",
-    "read-package-json": "^3.0.1",
     "tslib": "^2.1.0",
     "update-notifier": "^5.1.0",
     "yargs-parser": "^20.2.4"
@@ -47,7 +48,7 @@
   "files": [
     "dist",
     "help",
-    "templates"
+    "hoth-template"
   ],
   "gitHead": "0735cada835eabb2ac787ca1c5f2ff4bb8310fe2"
 }

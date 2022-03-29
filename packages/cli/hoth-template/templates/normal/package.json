@@ -1,7 +1,7 @@
 {
-  "name": "@baidu/hoth-quickstart-node-ui",
+  "name": "@baidu/__appName__-node-ui",
   "version": "1.0.0",
-  "description": "node server for myapp app",
+  "description": "node server for __appName__ app",
   "main": "dist/app.js",
   "private": true,
   "scripts": {
@@ -22,6 +22,10 @@
       "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "hoth-cli": {
+    "base_template": "pm2",
+    "desc": "Normal"
   },
   "devDependencies": {
     "@babel/eslint-plugin": "^7.12.13",
@@ -48,6 +52,11 @@
   "dependencies": {
     "fastify-plugin": "^3.0.0",
     "nunjucks": "^3.2.3",
-    "point-of-view": "^4.14.0"
+    "point-of-view": "^4.14.0",
+    "@hoth/cli": "^1.1.14",
+    "fastify": "^3.19.1",
+    "pino": "^6.11.1",
+    "v8-compile-cache": "^2.2.0",
+    "fastify-static": "^4.2.2"
   }
 }

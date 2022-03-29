@@ -27,7 +27,6 @@ hoth generate myproj
 #### project types
 
 - `Normal`(with [fastify-decorators](https://github.com/L2jLiga/fastify-decorators)): [example](https://github.com/searchfe/hoth/tree/main/example/hoth-quickstart)
-- `Molecue` (ssr only): [example](https://github.com/searchfe/hoth/tree/main/example/hoth-molecule)
 - `Vue SSR App`: normal template with vue 3.0 ssr
 - `San SSR App`: normal template with san ssr
 
@@ -42,3 +41,28 @@ To start the service in dev mode:
 ```sh
 npm run dev
 ```
+
+## Development
+
+### Preparetion
+```sh
+npm i lerna -g
+
+lerna bootstrap
+lerna link
+
+cd packages/cli
+npm link
+```
+
+### Cli development
+```sh
+# watch @hoth/cli
+lerna exec "tsc --build -w tsconfig.json" --scope @hoth/cli
+
+# debug for "hoth start"
+cd example/hoth-quickstart
+npm link @hoth/cli
+npm run dev
+```
+

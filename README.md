@@ -44,6 +44,10 @@ npm run dev
 
 ## Development
 
+> Node.js v16 is recommended while developing.
+>
+> The semantic-release needs Node.js v16 to install. You can still use Node.js v12 after install though, we don't need semantic-release while developing.
+
 ### Preparetion
 ```sh
 npm i lerna -g

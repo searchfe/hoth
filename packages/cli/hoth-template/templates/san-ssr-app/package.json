@@ -70,7 +70,7 @@
     "webpack": "~4.41.6"
   },
   "dependencies": {
-    "@hoth/cli": "^1.1.14",
+    "@hoth/cli": "^__cliVersion__",
     "@hoth/view": "^1.2.1",
     "fastify": "^3.19.1",
     "pino": "^6.11.1",

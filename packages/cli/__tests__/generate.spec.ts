@@ -73,7 +73,7 @@ describe('hoth cli generate', () => {
         const pkg = readJsonSync(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         expect(pkg.private).toBe(true);
-        expect(pkg.dependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
+        // expect(pkg.dependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
 
         mockLog.mockRestore();
     });
@@ -157,7 +157,7 @@ describe('hoth cli generate', () => {
         const pkg = readJsonSync(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         expect(pkg.private).toBe(true);
-        expect(pkg.devDependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
+        // expect(pkg.devDependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
 
         mockLog.mockRestore();
     });

@@ -1,3 +1,10 @@
+# [@hoth/utils-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/utils-v1.1.5...@hoth/utils-v1.2.0) (2022-03-29)
+
+
+### Features
+
+* remove fs-extra as much as possible ([f21c376](https://github.com/searchfe/hoth/commit/f21c376065d2a41d39da0c1ea6daf886270f436f))
+
 # [@hoth/utils-v1.1.5](https://github.com/searchfe/hoth/compare/@hoth/utils-v1.1.4...@hoth/utils-v1.1.5) (2022-03-29)
 
 

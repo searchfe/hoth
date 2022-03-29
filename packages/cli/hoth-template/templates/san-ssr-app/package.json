@@ -72,12 +72,11 @@
     "@hoth/cli": "^__cliVersion__",
     "@hoth/view": "^1.2.1",
     "fastify": "^3.19.1",
-    "pino": "^6.11.1",
-    "v8-compile-cache": "^2.2.0",
     "fastify-static": "^4.2.2",
     "san": "^3.10.6",
     "san-ssr": "^4.7.0",
     "swig": "^1.4.2",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "v8-compile-cache": "^2.2.0"
   }
 }

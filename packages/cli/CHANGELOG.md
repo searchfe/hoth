@@ -1,3 +1,15 @@
+# [@hoth/cli-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.2.0...@hoth/cli-v1.3.0) (2022-03-29)
+
+
+### Bug Fixes
+
+* auto update cli version for template ([3caaaaa](https://github.com/searchfe/hoth/commit/3caaaaa78c32b0758c3ce17ba26ee5a652a65ea2))
+
+
+### Features
+
+* remove fs-extra as much as possible ([f21c376](https://github.com/searchfe/hoth/commit/f21c376065d2a41d39da0c1ea6daf886270f436f))
+
 # [@hoth/cli-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.14...@hoth/cli-v1.2.0) (2022-03-29)
 
 

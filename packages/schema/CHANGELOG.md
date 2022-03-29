@@ -1,3 +1,10 @@
+# [@hoth/schema-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/schema-v1.2.0...@hoth/schema-v1.3.0) (2022-03-29)
+
+
+### Features
+
+* bump @hoth/typescript-to-json-schema to 2.1.2 ([2e88a02](https://github.com/searchfe/hoth/commit/2e88a0275ec71588a4a3a7420394cce3c89eafca))
+
 # [@hoth/schema-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/schema-v1.1.0...@hoth/schema-v1.2.0) (2021-06-02)
 
 

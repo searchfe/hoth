@@ -1,12 +1,11 @@
-import mkdirp from 'mkdirp';
 import path, {join} from 'path';
 import inquirer from 'inquirer';
 import {mockProcessExit, mockConsoleLog} from 'jest-mock-process';
 import {cli} from '../src/generate';
 import {getHome} from '../src/util';
-import {mkdirSync, writeFileSync} from 'fs';
+import {mkdirSync, writeFileSync, promises as fsPromises} from 'fs';
 import {copySync} from 'fs-extra';
-import {fs} from '@hoth/utils';
+import {fs as utilsFs} from '@hoth/utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
@@ -17,11 +16,11 @@ describe('hoth cli generate', () => {
     jest.mock('inquirer');
 
     beforeEach(() => {
-        fs.rmSync(workdir, {recursive: true, force: true});
+        utilsFs.rmSync(workdir, {recursive: true, force: true});
     });
 
     it('errors if directory exists', async () => {
-        mkdirp.sync(workdir);
+        await fsPromises.mkdir(workdir, {recursive: true});
         const mockExit = mockProcessExit();
         const mockLog = mockConsoleLog();
         await cli([workdir]);
@@ -54,7 +53,7 @@ describe('hoth cli generate', () => {
         await cli([workdir]);
 
         expect(mockLog).toHaveBeenCalledWith('generated package.json');
-        const pkg = await fs.readJson(`${workdir}/package.json`);
+        const pkg = await utilsFs.readJson(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         expect(pkg.private).toBe(true);
 
@@ -71,7 +70,7 @@ describe('hoth cli generate', () => {
         await cli([workdir]);
 
         expect(mockLog).toHaveBeenCalledWith('generated package.json');
-        const pkg = await fs.readJson(`${workdir}/package.json`);
+        const pkg = await utilsFs.readJson(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         expect(pkg.private).toBe(true);
         // expect(pkg.dependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);
@@ -90,7 +89,7 @@ describe('hoth cli generate', () => {
         });
         const mockLog = mockConsoleLog();
         await cli(['--app-name=myapp', workdir]);
-        const pkg = await fs.readJson(`${workdir}/package.json`);
+        const pkg = await utilsFs.readJson(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         mockLog.mockRestore();
     });
@@ -123,23 +122,23 @@ describe('hoth cli generate', () => {
         const home = getHome();
         const repoDir = join(home, 'repo', 'hoth-template');
 
-        await fs.rm(repoDir, {recursive: true, force: true});
+        await utilsFs.rm(repoDir, {recursive: true, force: true});
         mkdirSync(repoDir, {recursive: true});
         copySync(join(__dirname, '..', 'hoth-template'), repoDir);
         const jsonfile = join(repoDir, 'templates', 'normal', 'package.json');
-        const json = await fs.readJson(jsonfile);
+        const json = await utilsFs.readJson(jsonfile);
         json.description = 'test';
         writeFileSync(jsonfile, JSON.stringify(json));
 
 
         await cli([workdir, '--sub-app', '--repo', 'https://github.com/searchfe/hoth-template']);
 
-        const pkg = await fs.readJson(`${workdir}/package.json`);
+        const pkg = await utilsFs.readJson(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         expect(pkg.private).toBe(true);
         expect(pkg.description).toBe('test');
 
-        await fs.rm(repoDir, {recursive: true, force: true});
+        await utilsFs.rm(repoDir, {recursive: true, force: true});
 
         mockLog.mockRestore();
     });
@@ -155,7 +154,7 @@ describe('hoth cli generate', () => {
 
         await cli([workdir, '--sub-app']);
 
-        const pkg = await fs.readJson(`${workdir}/package.json`);
+        const pkg = await utilsFs.readJson(`${workdir}/package.json`);
         expect(pkg.name).toBe('@baidu/myapp-node-ui');
         expect(pkg.private).toBe(true);
         // expect(pkg.devDependencies['@hoth/cli']).toBe(`^${require('../package.json').version}`);

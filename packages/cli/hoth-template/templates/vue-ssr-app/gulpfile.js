@@ -1,7 +1,7 @@
-import {src, dest, series} from 'gulp';
+const {src, dest, series} = require('gulp');
 
 function copyAssets() {
     return src('server/**/*.{tpl,json}').pipe(dest('dist'));
 }
 
-export default series(copyAssets);
+exports.default = series(copyAssets);

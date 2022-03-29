@@ -68,7 +68,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
-    "@hoth/cli": "^1.4.0",
+    "@hoth/cli": "^__cliVersion__",
     "@hoth/view": "^1.2.1",
     "@vue/server-renderer": "^3.2.31",
     "fastify": "^3.27.4",

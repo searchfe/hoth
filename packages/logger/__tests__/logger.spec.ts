@@ -2,7 +2,8 @@ import getLogger from '../src/index';
 import format from '../src/format';
 import {compile} from '../src/compile';
 import {join} from 'path';
-import {removeSync, readFileSync, existsSync} from 'fs-extra';
+import {readFileSync, existsSync} from 'fs';
+import {fs} from '@hoth/utils';
 import {advanceTo, clear} from 'jest-date-mock';
 import mockConsole from 'jest-mock-console';
 import {symbols} from 'pino';
@@ -13,7 +14,7 @@ describe('@hoth/logger logger', function () {
     process.env.HOTH_CLUSTER = 'test';
 
     const rootPath = join(__dirname, 'logs');
-    removeSync(rootPath);
+    fs.rmSync(rootPath, {recursive: true, force: true});
 
     advanceTo(new Date(2021, 1, 1, 0, 0, 0));
     const restoreConsole = mockConsole();
@@ -30,12 +31,12 @@ describe('@hoth/logger logger', function () {
         ]
     });
 
-    const stream: any = logger[symbols.streamSym as any];
+    const stream = logger[symbols.streamSym as any];
 
-    afterAll(() => {
+    afterAll(async () => {
         clear();
         restoreConsole();
-        removeSync(rootPath);
+        await fs.rm(rootPath, {recursive: true, force: true});
     });
 
     it('file created', function () {

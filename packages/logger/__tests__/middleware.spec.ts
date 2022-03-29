@@ -1,9 +1,10 @@
 import getLogger, {preHandler} from '../src/index';
 import {join} from 'path';
-import {removeSync, readFileSync} from 'fs-extra';
+import {readFileSync} from 'fs';
 import {advanceTo, clear} from 'jest-date-mock';
 import mockConsole from 'jest-mock-console';
 import fastify from 'fastify';
+import {fs} from '@hoth/utils';
 
 describe('@hoth/logger logger', function () {
 
@@ -11,7 +12,7 @@ describe('@hoth/logger logger', function () {
     process.env.HOTH_CLUSTER = 'test';
 
     const rootPath = join(__dirname, 'logs2');
-    removeSync(rootPath);
+    fs.rmSync(rootPath, {recursive: true, force: true});
 
     advanceTo(new Date(2021, 1, 1, 0, 0, 0));
     const restoreConsole = mockConsole();
@@ -43,10 +44,10 @@ describe('@hoth/logger logger', function () {
         reply.send('ok');
     });
 
-    afterAll(() => {
+    afterAll(async () => {
         clear();
         restoreConsole();
-        removeSync(rootPath);
+        await fs.rm(rootPath, {recursive: true, force: true});
     });
 
     it('test', async done => {

@@ -3,7 +3,7 @@ import {mockProcessExit, mockConsoleLog} from 'jest-mock-process';
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import {removeSync} from 'fs-extra';
+import {fs as utilsFs} from '@hoth/utils';
 
 describe('hoth cli util', () => {
 
@@ -32,7 +32,7 @@ describe('hoth cli util', () => {
     });
 
     it('get home path', async () => {
-        removeSync(path.join(os.homedir(), '.hoth'));
+        await utilsFs.rm(path.join(os.homedir(), '.hoth'), {recursive: true, force: true});
         expect(fs.existsSync(getHome())).toBe(true);
     });
 });

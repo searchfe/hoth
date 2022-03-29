@@ -41,3 +41,5 @@ export async function loadModule(module: string): Promise<any> {
 }
 
 export function noop() {} // eslint-disable-line
+
+export * as fs from './fs';

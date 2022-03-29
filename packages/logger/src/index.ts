@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+import fs from 'fs';
 import path from 'path';
 import pino from 'pino';
 import * as fileStreamRotator from 'file-stream-rotator';
@@ -51,7 +51,7 @@ export default function createLogger(options: LoggerOptions) {
 
     for (const {name} of apps) {
         const logPath = path.join(rootPath, 'log', name);
-        fs.ensureDirSync(logPath);
+        fs.mkdirSync(logPath, {recursive: true});
         const files = [
             `${name}.log.ti`,
             `${name}.log`,

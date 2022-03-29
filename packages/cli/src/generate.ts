@@ -1,5 +1,5 @@
-import {exit} from '@hoth/utils';
-import {existsSync, mkdirpSync, readdirSync, readJsonSync, writeJsonSync} from 'fs-extra';
+import {exit, fs as utilsFs} from '@hoth/utils';
+import {existsSync, readdirSync, writeFileSync, mkdirSync} from 'fs';
 import {join} from 'path';
 import generify from 'generify';
 import chalk from 'chalk';
@@ -97,7 +97,7 @@ export async function cli(args: string[]) {
         const subDir = repo.split('/').pop()?.split('.git')[0];
         const repoDir = join(getHome(), 'repo');
         repoTemplatesDir = join(repoDir, subDir || '', 'templates');
-        mkdirpSync(repoDir);
+        mkdirSync(repoDir, {recursive: true});
         if (existsSync(repoTemplatesDir)) {
             try {
                 console.log('start to git pull templates:', repo, repoTemplatesDir);
@@ -179,19 +179,17 @@ export async function cli(args: string[]) {
         return;
     }
 
-    return generate(dir, selectedTempate, data).then(() => {
-        // 做一个小优化，子app不需要在正式依赖里安装@hoth/cli和fastify
-        if (opts.subApp) {
-            const json = readJsonSync(join(dir, 'package.json'));
-            for (const k of ['@hoth/cli', 'fastify', 'teth-sdk']) {
-                if (json.dependencies[k]) {
-                    json.devDependencies[k] = json.dependencies[k];
-                    delete json.dependencies[k];
-                }
+    await generate(dir, selectedTempate, data);
+
+    // 做一个小优化，子app不需要在正式依赖里安装@hoth/cli和fastify
+    if (opts.subApp) {
+        const json = await utilsFs.readJson(join(dir, 'package.json'));
+        for (const k of ['@hoth/cli', 'fastify', 'teth-sdk']) {
+            if (json.dependencies[k]) {
+                json.devDependencies[k] = json.dependencies[k];
+                delete json.dependencies[k];
             }
-            writeJsonSync(join(dir, 'package.json'), json, {
-                spaces: 4
-            });
         }
-    });
+        writeFileSync(join(dir, 'package.json'), JSON.stringify(json, null, 4));
+    }
 }

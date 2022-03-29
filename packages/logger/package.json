@@ -25,7 +25,6 @@
   "dependencies": {
     "file-stream-rotator": "^0.5.7",
     "flatstr": "^1.0.12",
-    "fs-extra": "^9.1.0",
     "lodash": "^4.17.21",
     "pino": "^7.9.2",
     "resolve-from": "^5.0.0",

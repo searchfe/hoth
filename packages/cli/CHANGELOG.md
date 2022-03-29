@@ -1,3 +1,19 @@
+# [@hoth/cli-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.14...@hoth/cli-v1.2.0) (2022-03-29)
+
+
+### Bug Fixes
+
+* catch type notation ([9cad852](https://github.com/searchfe/hoth/commit/9cad852c11b6980355ce4c54cc75c95f7e1d8f3c))
+* more route format ([96f8029](https://github.com/searchfe/hoth/commit/96f80294577a1dc1920ec2dd829c13b698c05918))
+
+
+### Features
+
+* better routes print ([3579cb9](https://github.com/searchfe/hoth/commit/3579cb99ed0469e32b94a63fbfbfd96407664888))
+* better routes print, unit test ([63682c0](https://github.com/searchfe/hoth/commit/63682c060cc9ebd85670fb590d86470c8ad31f54))
+* extensible hoth template mechanism ([7b80f8d](https://github.com/searchfe/hoth/commit/7b80f8d1133edf4749931074dc4de8aa71cf6569))
+* extensible hoth template mechanism, unit test ([1eef9ce](https://github.com/searchfe/hoth/commit/1eef9cea8c9629bc49303e9a9f1156823cc654a3))
+
 # [@hoth/cli-v1.1.14](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.1.13...@hoth/cli-v1.1.14) (2021-08-16)
 
 

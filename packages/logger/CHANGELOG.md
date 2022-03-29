@@ -1,3 +1,10 @@
+# [@hoth/logger-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.2.0...@hoth/logger-v1.3.0) (2022-03-29)
+
+
+### Features
+
+* remove fs-extra as much as possible ([f21c376](https://github.com/searchfe/hoth/commit/f21c376065d2a41d39da0c1ea6daf886270f436f))
+
 # [@hoth/logger-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.1.8...@hoth/logger-v1.2.0) (2021-12-14)
 
 

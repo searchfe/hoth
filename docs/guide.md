@@ -86,33 +86,6 @@ NODE_ENV=deveopment，最终的配置为：
     example: 1
 }
 ```
-#### 配置派生
-可以根据 NODE_APP_INSTANCE 环境变量，对某些特定机器使用不同的配置，具体规则：https://github.com/lorenwest/node-config/wiki/Multiple-Node-Instances
-
-线上 node-base 默认赋值了 NODE_APP_INSTANCE 为机房名称，例如：
-
-src/config/default.ts 
-```javascript
-export const env = 'default';
-export const example = 1;
-```
-src/config/production.ts 
-```javascript
-export const env = 'production';
-```
-src/config/production-hba.ts 
-```javascript
-export const env = 'production-hba';
-```
-NODE_ENV=production  NODE_APP_INSTANCE=hba，最终的配置为：
-```
-{
-    env: 'production-hba',
-    example: 1
-}
-```
-### 配送配置
-如果有 mis 配送的配置文件（主要是 .conf 文件），可以使用 bdconf 插件。
 
 ### 获取配置
 

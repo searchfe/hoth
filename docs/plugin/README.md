@@ -11,6 +11,8 @@
 - bdconf
 - shmdictManager
 
-## 开源插件
+## 社区插件
 
-https://www.fastify.cn/ecosystem/
+大部分插件都可直接使用：https://www.fastify.cn/ecosystem/
+
+部分插件可查看 [社区插件使用指南](/plugin/community)。

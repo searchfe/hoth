@@ -15,9 +15,11 @@ export default async function main(fastify: FastifyInstance, config: AppConfig) 
 }
 ```
 
-### fastify-sequelize
+## fastify-sequelize
 
-可以使用 `fastify-sequelize`，直接注册即可。也可以直接使用 sequelize，自行包装：
+> Sequelize (adapter for NodeJS -> Sqlite, Mysql, Mssql, Postgres).
+
+可以使用 [fastify-sequelize](https://github.com/lyquocnam/fastify-sequelize)，直接注册即可。也可以直接使用 sequelize，自行包装：
 
 ```typescript
 // src/plugin/sequelize.ts
@@ -59,9 +61,33 @@ export const autoConfig: SequelizeOptions = {
 };
 ```
 
-### fastify-swagger
+## fastify-static
 
-直接注册即可使用:
+> Plugin for serving static files as fast as possible.
+
+[fastify-static](https://github.com/fastify/fastify-static)，直接注册即可：
+
+```typescript
+import path from 'path';
+import type {FastifyInstance} from 'fastify';
+import type {AppConfig} from '@hoth/app-autoload';
+import fastifyStatic from 'fastify-static';
+export default async function main(fastify: FastifyInstance, config: AppConfig) {
+    await fastify.register(fastifyStatic, {
+        root: path.join(__dirname, './public'),
+        prefix: '/public/',
+    });
+    return fastify;
+}
+
+```
+
+
+## fastify-swagger
+
+> Plugin for serving Swagger/OpenAPI documentation for Fastify, supporting dynamic generation.
+
+直接注册[fastify-swagger](https://github.com/fastify/fastify-swagger)即可使用:
 
 ```typescript
 import type {FastifyInstance} from 'fastify';

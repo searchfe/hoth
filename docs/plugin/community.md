@@ -15,6 +15,28 @@ export default async function main(fastify: FastifyInstance, config: AppConfig) 
 }
 ```
 
+## fastify-redis
+
+> Fastify Redis connection plugin, with which you can share the same Redis connection across every part of your server.
+
+使用 [fastify-redis](https://github.com/fastify/fastify-redis)，直接注册：
+
+```typescript
+import path from 'path';
+import type {FastifyInstance} from 'fastify';
+import type {AppConfig} from '@hoth/app-autoload';
+import fastifyRedis from 'fastify-redis';
+export default async function main(fastify: FastifyInstance, config: AppConfig) {
+    await fastify.register(fastifyRedis, { 
+        host: '127.0.0.1', 
+        password: '***',
+        port: 6379, // Redis port
+        family: 4   // 4 (IPv4) or 6 (IPv6)
+    });
+    return fastify;
+}
+```
+
 ## fastify-sequelize
 
 > Sequelize (adapter for NodeJS -> Sqlite, Mysql, Mssql, Postgres).

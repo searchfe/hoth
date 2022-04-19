@@ -25,9 +25,9 @@ function createInfo(name: string, repoTemplatesDir: string, opts: ReturnType<typ
             console.log('----');
             console.log(`run 'cd ${dir}'`);
             console.log(`run '${chalk.bold('npm install')}' to install the dependencies`);
-            console.log(`run '${chalk.bold('npm build')}' to compile the application`);
+            console.log(`run '${chalk.bold('npm run build')}' to compile the application`);
             console.log(`run '${chalk.bold('npm run dev')}' to start the application`);
-            console.log(`run '${chalk.bold('npm test')}' to execute the unit tests`);
+            // console.log(`run '${chalk.bold('npm test')}' to execute the unit tests`);
         },
     };
 }

@@ -1,6 +1,6 @@
 import {Controller, GET, Inject} from '@hoth/decorators';
 import type {FastifyReply, FastifyRequest} from 'fastify';
-import Calculator from '../../lib/calc/index.service'
+import Calculator from '../../lib/calc/index.service';
 
 @Controller('/index')
 export default class AppController {

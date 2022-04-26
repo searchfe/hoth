@@ -12,6 +12,6 @@ describe('Plugin: foo', () => {
     afterEach(() => jest.restoreAllMocks());
 
     it('should return opt', async () => {
-        expect(instance.foo).toBe('foo');
+        expect(instance.hoth).toBe('hoth');
     });
 });

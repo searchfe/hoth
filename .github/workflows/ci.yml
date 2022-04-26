@@ -22,7 +22,7 @@ jobs:
         timezoneLinux: "Asia/Singapore"
         timezoneMacos: "Asia/Singapore"
         timezoneWindows: "Singapore Standard Time"
-    - run: yarn install
+    - run: yarn install --frozen-lockfile
     - run: yarn build
     - run: yarn test
       env:

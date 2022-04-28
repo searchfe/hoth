@@ -11,7 +11,9 @@
     "build": "npm run build:server && npm run build:client",
     "build:client": "vue-cli-service build --dest dist --no-clean",
     "build:server": "SSR=1 vue-cli-service build --dest dist && tsc && gulp",
-    "serve": "vue-cli-service serve"
+    "serve": "vue-cli-service serve",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "author": "",
   "license": "ISC",

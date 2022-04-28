@@ -8,7 +8,9 @@
     "lint-staged": "lint-staged",
     "lint": "eslint src server",
     "dev": "nodemon",
-    "build": "san build --config san.config.js --dest dist && tsc && gulp"
+    "build": "san build --config san.config.js --dest dist && tsc && gulp",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "author": "",
   "license": "ISC",

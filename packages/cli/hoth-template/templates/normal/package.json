@@ -10,7 +10,7 @@
     "dev": "nodemon",
     "build": "tsc && gulp",
     "test": "jest",
-    "test:coverage": "jest"
+    "test:coverage": "jest --coverage"
   },
   "author": "",
   "license": "ISC",

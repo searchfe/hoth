@@ -228,3 +228,228 @@ modole.exports = p;
 ```
 
 具体可以查看官方文档：https://www.fastify.io/docs/master/Plugins/#Handle%20the%20scope
+
+## 单元测试
+
+由于实践了控制反转原则，我们可以在单元测试过程中方便的对依赖项进行 mock，使得测试编写更加顺畅。
+
+推荐使用 [Jest](https://jestjs.io/) 框架来执行单元测试。
+
+### Jest 配置
+
+如果使用 hoth-cli，则可以跳过本部分，直接开始书写单测。否则，需要对 Jest 进行一些配置。
+
+Jest 版本需要为 26。
+
+安装以下模块：
+
+- [`@types/jest`](https://www.npmjs.com/package/@types/jest)
+- [`jest`](https://www.npmjs.com/package/jest)
+- [`reflect-metadata`](https://www.npmjs.com/package/reflect-metadata)
+- [`jest-environment-node`](https://www.npmjs.com/package/jest-environment-node)
+- [`ts-jest`](https://www.npmjs.com/package/ts-jest)
+
+`jest.environment.js`:
+
+```javascript
+const NodeEnvironment = require('jest-environment-node');
+
+class FastifyDecoratorsTestEnvironment extends NodeEnvironment {
+  setup() {
+    require('reflect-metadata');
+    this.global.Reflect = Reflect;
+    return super.setup();
+  }
+}
+
+module.exports = FastifyDecoratorsTestEnvironment;
+```
+
+`jest.config.js`:
+
+```javascript
+module.exports = {
+    preset: 'ts-jest',
+    // Note resolver required only when using imports with extensions
+    // resolver: 'jest-ts-webcompat-resolver',
+    // In test environment we setup reflect-metadata
+    testEnvironment: './jest.environment.cjs',
+    // Jest does not support ESM modules well, so you will need to define mappings to CJS modules
+    moduleNameMapper: {
+        '^fastify-decorators/testing$': 'fastify-decorators/testing/index.cjs',
+        '^fastify-decorators/plugins$': 'fastify-decorators/plugins/index.cjs',
+        '^fastify-decorators$': 'fastify-decorators/index.cjs',
+    },
+    coveragePathIgnorePatterns: ['dist']
+};
+```
+
+### 测试 controller
+
+我们可以使用 [fastify-decorators](https://github.com/L2jLiga/fastify-decorators) 中提供的 `configureControllerTest` 方法来创建 Controller 实例，并且可以对其依赖的 Services 进行 mock 操作。没有 mock 的 Service 会使用真实代码。
+
+```javascript
+import swig from 'swig';
+import view from '@hoth/view';
+import {FastifyInstance} from 'fastify';
+import {configureControllerTest} from 'fastify-decorators/testing';
+import AppController from '../../../server/controller/index/index.controller';
+import fp from 'fastify-plugin';
+import path from 'path';
+
+describe('Controller: AppController', () => {
+    let instance: FastifyInstance;
+    const authService = { authorize: jest.fn() };
+
+    beforeEach(async () => {
+        instance = await configureControllerTest({
+            controller: AppController,
+
+            // mock service
+            mocks: [
+                {
+                    provide: AuthService,
+                    useValue: authService,
+                },
+            ],
+
+            // mock plugin
+            // 如果 controller 依赖 app.ts 中的初始化逻辑，可以在这里 mock
+            plugins: [
+                fp(async (fastify: FastifyInstance) => {
+                    fastify.decorateRequest('$appConfig', {
+                        get() {
+                            return path.resolve(__dirname, '../../../dist')
+                        }
+                    });
+                    fastify.register(view, {
+                        engine: {swig},
+                        templatesDir: path.resolve(__dirname, '../../../dist/view')
+                    });
+                })
+            ]
+        });
+    });
+    afterEach(() => jest.restoreAllMocks());
+
+    it('get /index', async () => {
+
+        // 使用 fastify 中提供的 inject 功能模拟请求
+        // https://www.fastify.io/docs/latest/Guides/Testing/#benefits-of-using-fastifyinject
+        const result = await instance.inject({
+            url: '/index',
+            method: 'GET',
+        });
+
+        expect(result.body).toContain('<h1>Hello World!</h1>');
+    });
+});
+```
+
+上面示例中我们使用 `configureControllerTest` 创建了 `AppController` 的示例，并对其依赖的 Service 进行了 mock。同时，如果 `AppController` 对 app.ts 中的初始化逻辑有依赖（比如 fastify 实例上挂载了变量，注册了插件等）可以通过 plugins 选项来进行mock。在测试中，由于 Controller 是请求的入口，因此我们需要模拟请求来对 Controller 的逻辑进行测试，这可以通过[fastify 提供的 inject 方法](https://www.fastify.io/docs/latest/Guides/Testing/#benefits-of-using-fastifyinject)来实现。
+
+### 测试 Service
+
+[fastify-decorators](https://github.com/L2jLiga/fastify-decorators) 中还提供了 `configureServiceTest` 方法，该方法与 `configureControllerTest` 十分类似，用于创建 service 实例，并 mock 其依赖。没有 mock 的依赖会使用真实代码。
+
+```javascript
+import {configureServiceTest} from 'fastify-decorators/testing';
+import Calculator from '../../../src/lib/calc/index.service';
+
+describe('Service: AuthService', () => {
+    let service: Calculator;
+    const rolesService = { isTechnical: jest.fn(), isAdmin: jest.fn() };
+
+    beforeEach(async () => {
+        service = await configureServiceTest({
+            service: Calculator,
+            mocks: [
+                {
+                    provide: RolesService,
+                    useValue: rolesService,
+                },
+            ]
+        });
+    });
+    afterEach(() => jest.restoreAllMocks());
+
+    it('add', async () => {
+
+        const result = await service.add(1, 2);
+
+        expect(result).toBe(3);
+    });
+});
+```
+
+同测试 Controller 的代码类似，上面代码中我们使用 `configureServiceTest` 方法创建了 `Calculator` 示例，并 mock 了它的依赖 `RolesService`。之后直接调用 service 上的方法进行测试。
+
+
+### 测试 plugins 及 app.ts
+
+plugin 的测试也比较简单，首先创建一个 fastify 实例，调用 register 方法注册插件，之后直接读取实例上的属性，或者利用 `inject` 功能来进行测试。
+
+```javascript
+import fastify, {FastifyInstance} from 'fastify';
+import foo from '../../../src/plugin/foo/index';
+
+describe('Plugin: foo', () => {
+    let instance: FastifyInstance;
+
+    beforeEach(async () => {
+        instance = fastify();
+        instance.register(foo, 'some options');
+        await instance.ready();
+    });
+    afterEach(() => jest.restoreAllMocks());
+
+    it('should return opt', async () => {
+        expect(instance.hoth).toBe('hoth');
+    });
+});
+```
+
+由于 app.ts 中的逻辑本质上也是一个插件：
+
+```javascript
+import pointOfView from 'point-of-view';
+import nunjucks from 'nunjucks';
+import path from 'path';
+import type {FastifyInstance} from 'fastify';
+import type {AppConfig} from '@hoth/app-autoload';
+export default async function main(fastify: FastifyInstance, config: Pick<AppConfig, 'dir'>) {
+    await fastify.register(pointOfView, {
+        engine: {
+            nunjucks,
+        },
+        root: path.join(config.dir, 'view'),
+    });
+    return fastify;
+}
+```
+
+因此 app.ts 的测试方式与普通 plugins 类似，唯一区别在于 hoth 内部在注册 app.ts 中的逻辑时，会加上 [skip-override](https://www.fastify.io/docs/latest/Reference/Plugins/#handle-the-scope)，在测试中进行相同的操作可以保持与 hoth 一致的效果。
+
+```javascript
+import main from '../src/app';
+import fastify from 'fastify';
+import path from 'path';
+
+describe('main', () => {
+    it('should init', async () => {
+        const instance = fastify();
+
+        // @ts-ignore
+        main[Symbol.for('skip-override')] = true;
+        instance.register(main, {
+            dir: path.resolve(__dirname, '../src'),
+        });
+        await instance.ready();
+
+        expect(instance.hasReplyDecorator('view')).toBe(true);
+    });
+});
+```
+
+
+

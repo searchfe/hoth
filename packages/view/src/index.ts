@@ -42,7 +42,7 @@ export interface HothViewOptions {
 
 declare module 'fastify' {
     interface FastifyReply {
-        render(page: string, data?: Record<string, unknown>): FastifyReply;
+        render(page: string, data?: Record<string, unknown>, cb?: (err: Error, html: string) => void): FastifyReply;
         // locals?: object;
     }
 }
@@ -127,7 +127,15 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
 
     const renderer = renders[type];
 
-    fastify.decorateReply('render', function (this: FastifyReply, page: string, data: Record<string, unknown>) {
+    fastify.decorateReply('render', function (
+        this: FastifyReply,
+        page: string,
+        data: Record<string, unknown>,
+        cb?: (err: Error, html: string) => void
+    ) {
+        if (cb && typeof cb === 'function') {
+            return renderer.apply(this, [page, data, cb]);
+        }
         return new Promise((resolve, reject) => {
             const done = (error: Error, html: string) => {
                 if (error) {

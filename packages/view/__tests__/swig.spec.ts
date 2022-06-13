@@ -131,4 +131,45 @@ describe('reply.render with swig engine', () => {
         expect(response.body).toBe('<h1>fastify</h1>\n<p>text</p>');
         expect(response.headers['content-type']).toBe('text/html; charset=utf-8');
     });
+
+    it('render with cb', async () => {
+        const fastifyInstance = fastify();
+        const data = {
+            title: 'fastify',
+            text: 'text'
+        };
+
+        fastifyInstance.register(view, {
+            engine: {
+                swig: Swig,
+            },
+            templatesDir: __dirname
+        });
+
+        fastifyInstance.get('/', async (req: FastifyRequest, reply: FastifyReply) => {
+            const renderPage = () => {
+                return new Promise(function (resolve, reject) {
+                    reply.render('templates/index.swig', data, function (err, html) {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        resolve(html + '<p>cbRender</p>');
+                    });
+                });
+            };
+            const html = await renderPage();
+            expect(html).toBe('<h1>fastify</h1>\n<p>text</p><p>cbRender</p>');
+            reply.header('content-type', 'text/html; charset=utf-8');
+            reply.send(html);
+        });
+
+        const response = await fastifyInstance.inject({
+            method: 'GET',
+            path: '/'
+        });
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toBe('<h1>fastify</h1>\n<p>text</p><p>cbRender</p>');
+        expect(response.headers['content-type']).toBe('text/html; charset=utf-8');
+    });
 });

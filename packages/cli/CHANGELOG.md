@@ -1,3 +1,25 @@
+# [@hoth/cli-v1.5.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.4.0...@hoth/cli-v1.5.0) (2022-07-12)
+
+
+### Bug Fixes
+
+* templates/vue-ssr-app ([6dbe1f0](https://github.com/searchfe/hoth/commit/6dbe1f053f50b255009bb6c5a7eda0c1f0752163))
+
+
+### Features
+
+* add script in template normal ([d4ce2f2](https://github.com/searchfe/hoth/commit/d4ce2f200d8b2cb57cd2266cd55d7dce760d71bd))
+* add test in normal template ([f77abf4](https://github.com/searchfe/hoth/commit/f77abf414cc6bc834ece64bfc4a8de715bc948dc))
+* add test in san-ssr-app template ([1afb819](https://github.com/searchfe/hoth/commit/1afb81919d882ab36a1ff5e701430504c3edf545))
+* add test in template vue-ssr-app ([d432813](https://github.com/searchfe/hoth/commit/d4328133ec6f220a97cb852ca320c0f898fe37bb))
+* bump ansi-regex to 5.0.1 in templates ([12be134](https://github.com/searchfe/hoth/commit/12be134591bbaba78ff7ca3e4819b10b61737daf))
+* bump fastify-static version to 4.2.4 ([23f47e5](https://github.com/searchfe/hoth/commit/23f47e54dc849de2c6742a0c97ae021e0dbbb984))
+* bump fastify-static version to 4.2.4 ([4382fa6](https://github.com/searchfe/hoth/commit/4382fa67038e3cd628bdcfed9495fb70455fd359))
+* change cli prompts ([b84aaec](https://github.com/searchfe/hoth/commit/b84aaec571eb144c07835a5e5374894721ee7e51))
+* remove lerna in templates ([3d6cf67](https://github.com/searchfe/hoth/commit/3d6cf6763beb2335d661d71ec0be1895dda34d82))
+* remove pino in templates/san-ssr-app ([c32080d](https://github.com/searchfe/hoth/commit/c32080da530ad1f5f9f7b18af1c654b7a55c99b4))
+* update deps in templates ([8b0079a](https://github.com/searchfe/hoth/commit/8b0079a67da90265138bdc8ae4afd6b296a4b455))
+
 # [@hoth/cli-v1.4.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.3.0...@hoth/cli-v1.4.0) (2022-03-29)
 
 

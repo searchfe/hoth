@@ -1,3 +1,10 @@
+# [@hoth/view-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/view-v1.2.1...@hoth/view-v1.3.0) (2022-07-12)
+
+
+### Features
+
+* hoth-view support render with cb function ([dae51e8](https://github.com/searchfe/hoth/commit/dae51e8c5e599ce94279d15a443696a5b37dbf5c))
+
 # [@hoth/view-v1.2.1](https://github.com/searchfe/hoth/compare/@hoth/view-v1.2.0...@hoth/view-v1.2.1) (2021-06-15)
 
 

@@ -1,3 +1,10 @@
+# [@hoth/logger-v1.5.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.4.0...@hoth/logger-v1.5.0) (2022-10-10)
+
+
+### Features
+
+* product取值优化 ([b857005](https://github.com/searchfe/hoth/commit/b85700587d7f208e06698ce88e7069e770729be4))
+
 # [@hoth/logger-v1.4.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.3.0...@hoth/logger-v1.4.0) (2022-03-29)
 
 

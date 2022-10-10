@@ -19,6 +19,9 @@ export default {
     module(o) {
         return o.req?.module || o.req?.url.split('?')[0].split('/').filter(a => a && a !== o.app).join('_');
     },
+    product(o) {
+        return o.req?.product || o.app;
+    },
     pid(o) {
         return o.pid;
     },

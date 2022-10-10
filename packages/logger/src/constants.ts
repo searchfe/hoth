@@ -12,17 +12,17 @@ export const defaultLevels = {
 
 const normalFormat = ':level: :time [:file::line]'
     + ' errno[:errno] logId[:logid] pid[:pid]'
-    + ' uri[:uri] cluster[:cluster] idc[:idc] product[:app] module[:module]'
+    + ' uri[:uri] cluster[:cluster] idc[:idc] product[:product] module[:module]'
     + ' clientIp[:ip] ua[:ua] refer[:referrer] :msg';
 
 const noticeFormat = ':level: :time [:file::line]'
     + ' errno[:errno] status[:status] logId[:logid] pid[:pid]'
-    + ' method[:method] uri[:uri] cluster[:cluster] idc[:idc] product[:app] module[:module]'
+    + ' method[:method] uri[:uri] cluster[:cluster] idc[:idc] product[:product] module[:module]'
     + ' clientIp[:ip] ua[:ua] refer[:referrer] :notices tm[:performance] responseTime[:response-time]';
 
 const errorFormat = ':level: :time [:file::line]'
     + ' errno[:errno] status[:status] logId[:logid] pid[:pid]'
-    + ' uri[:uri] cluster[:cluster] idc[:idc] product[:app] module[:module]'
+    + ' uri[:uri] cluster[:cluster] idc[:idc] product[:product] module[:module]'
     + ' clientIp[:ip] ua[:ua] refer[:referrer] :errmsg';
 
 export const defaultFormats = {

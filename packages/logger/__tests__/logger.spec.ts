@@ -73,7 +73,8 @@ describe('@hoth/logger logger', function () {
                 headers: {
                     'user-agent': 'mock'
                 },
-                method: 'post'
+                method: 'post',
+                product: 'product_aa'
             },
         });
         setTimeout(() => {
@@ -81,7 +82,7 @@ describe('@hoth/logger logger', function () {
             expect(log).toContain('NOTICE: 2021-02-01 00:00:00');
             expect(log).toContain('idc[all]');
             expect(log).toContain('cluster[test]');
-            expect(log).toContain('product[aa]');
+            expect(log).toContain('product[product_aa]');
             expect(log).toContain('module[foo_cc]');
             expect(log).toContain('ua[mock]');
             expect(log).toContain('status[201]');

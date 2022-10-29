@@ -33,6 +33,19 @@ function loadFastify() {
 }
 
 function initFinalLogger(logger: pino.Logger) {
+    const major = Number(process.versions.node.split('.')[0]);
+    // fix:  The use of pino.final is discouraged in Node.js v14+ and not required
+    if (major >= 14) {
+        return function (err: any, evt?: any) {
+            if (err) {
+                logger.fatal({err}, evt);
+            }
+            else {
+                logger.info(`${evt} caught`);
+            }
+        };
+    }
+
     // use pino.final to create a special logger that
     // guarantees final tick writes
     return pino.final(logger, (err, finalLogger, evt) => {

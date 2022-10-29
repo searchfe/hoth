@@ -42,7 +42,7 @@ export interface HothViewOptions {
 
 declare module 'fastify' {
     interface FastifyReply {
-        render(page: string, data?: Record<string, unknown>, cb?: (err: Error, html: string) => void): FastifyReply;
+        render(page: string, data?: Record<string, unknown>, cb?: (err: Error, html: string) => void): Promise<string>;
         // locals?: object;
     }
 }

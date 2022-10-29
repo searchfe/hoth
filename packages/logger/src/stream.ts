@@ -3,6 +3,7 @@
  * @author cxtom
  */
 
+import chalk from 'chalk';
 import format from './format';
 import {defaultLevels} from './constants';
 
@@ -56,7 +57,13 @@ export default function (streamsArray) {
 
         /* istanbul ignore else */
         if (isDevelopment) {
-            console.log(data);
+            const arr = info.result.split(':');
+            arr[0] = (['FATAL', 'ERROR'].includes(arr[0]))
+                ? chalk.red(arr[0]) : (arr[0] === 'WARN')
+                    ? chalk.yellow(arr[0]) : chalk.green(arr[0]);
+
+            // with \n
+            process.stdout.write(arr.join(':'));
         }
 
         stream.write(info.result);

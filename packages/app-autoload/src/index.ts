@@ -6,7 +6,7 @@
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 process.env.ALLOW_CONFIG_MUTATIONS = 'false';
 
-import Config from 'config';
+import Config from 'config-enhanced';
 import {resolve, join, isAbsolute} from 'path';
 import {existsSync, readdirSync} from 'fs';
 import {FastifyInstance, FastifyPluginAsync} from 'fastify';
@@ -183,6 +183,7 @@ export async function getApps(opts: AppAutoload): Promise<AppConfig[]> {
             const dirPath = resolve(appRoot, dir.name);
             if (dir.isDirectory() && existsSync(join(dirPath, 'app.js'))) {
                 const configs = await loadConfig(dirPath);
+
                 let appPrefix = prefix;
                 if (configs.pluginConfig && configs.pluginConfig['@hoth/app-autoload']) {
                     appPrefix = configs.pluginConfig['@hoth/app-autoload'].prefix || appPrefix;

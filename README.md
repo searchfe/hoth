@@ -52,9 +52,10 @@ npm run dev
 ```sh
 npm i lerna -g
 
-lerna bootstrap
+lerna bootstrap --registry https://registry.npmmirror.com
 lerna link
 
+# global link
 cd packages/cli
 npm link
 ```
@@ -63,6 +64,11 @@ npm link
 ```sh
 # watch @hoth/cli
 lerna exec "tsc --build -w tsconfig.json" --scope @hoth/cli
+lerna exec "tsc --build -w tsconfig.json" --scope @hoth/decorators
+lerna exec "tsc --build -w tsconfig.json" --scope @hoth/app-autoload
+lerna exec "tsc --build -w tsconfig.json" --scope @hoth/logger
+
+lerna add config-enhanced --scope @hoth/app-autoload --registry https://registry.npmmirror.com
 
 # debug for "hoth start"
 cd example/hoth-quickstart

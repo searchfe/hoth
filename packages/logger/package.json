@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/cxtom/hoth#readme",
   "dependencies": {
+    "chalk": "4.1.2",
     "file-stream-rotator": "^0.5.7",
     "flatstr": "^1.0.12",
     "lodash": "^4.17.21",

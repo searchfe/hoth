@@ -1,3 +1,10 @@
+# [@hoth/view-v1.3.1](https://github.com/searchfe/hoth/compare/@hoth/view-v1.3.0...@hoth/view-v1.3.1) (2022-10-30)
+
+
+### Bug Fixes
+
+* reply.render ts tip ([685a719](https://github.com/searchfe/hoth/commit/685a7195cf2fd5171f6026d7d7bbf224b8d8f23d))
+
 # [@hoth/view-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/view-v1.2.1...@hoth/view-v1.3.0) (2022-07-12)
 
 

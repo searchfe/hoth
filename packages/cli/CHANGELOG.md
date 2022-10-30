@@ -1,3 +1,12 @@
+# [@hoth/cli-v1.5.1](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.5.0...@hoth/cli-v1.5.1) (2022-10-30)
+
+
+### Bug Fixes
+
+* cli test ([46fa9f5](https://github.com/searchfe/hoth/commit/46fa9f58beb9bac0d90582907b0c6ba1e29c13a3))
+* node config fatal tip message ([793fbc1](https://github.com/searchfe/hoth/commit/793fbc18a86a5533fd4063e2f069c6a4e82365b4))
+* pino.final warning ([1e13f89](https://github.com/searchfe/hoth/commit/1e13f89874a3cf3f2b7135baacf5fb4d6baf685e))
+
 # [@hoth/cli-v1.5.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.4.0...@hoth/cli-v1.5.0) (2022-07-12)
 
 

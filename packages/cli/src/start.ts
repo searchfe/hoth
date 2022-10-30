@@ -43,6 +43,7 @@ function initFinalLogger(logger: pino.Logger) {
             else {
                 logger.info(`${evt} caught`);
             }
+            process.exit(err ? 1 : 0);
         };
     }
 

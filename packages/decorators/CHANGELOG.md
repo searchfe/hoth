@@ -1,3 +1,10 @@
+# [@hoth/decorators-v1.2.2](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.2.1...@hoth/decorators-v1.2.2) (2022-10-30)
+
+
+### Bug Fixes
+
+* node config fatal tip message ([793fbc1](https://github.com/searchfe/hoth/commit/793fbc18a86a5533fd4063e2f069c6a4e82365b4))
+
 # [@hoth/decorators-v1.2.1](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.2.0...@hoth/decorators-v1.2.1) (2021-12-14)
 
 

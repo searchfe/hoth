@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.1.17](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.16...@hoth/app-autoload-v1.1.17) (2022-10-30)
+
+
+### Bug Fixes
+
+* node config fatal tip message ([793fbc1](https://github.com/searchfe/hoth/commit/793fbc18a86a5533fd4063e2f069c6a4e82365b4))
+
 # [@hoth/app-autoload-v1.1.16](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.15...@hoth/app-autoload-v1.1.16) (2021-12-07)
 
 

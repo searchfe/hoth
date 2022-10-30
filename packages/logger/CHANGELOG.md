@@ -1,5 +1,9 @@
+# [@hoth/logger-v1.5.1](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.5.0...@hoth/logger-v1.5.1) (2022-10-30)
 
 
+### Bug Fixes
+
+* node config fatal tip message ([793fbc1](https://github.com/searchfe/hoth/commit/793fbc18a86a5533fd4063e2f069c6a4e82365b4))
 
 ### Features
 

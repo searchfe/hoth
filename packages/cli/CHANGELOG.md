@@ -1,3 +1,10 @@
+# [@hoth/cli-v1.6.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.5.1...@hoth/cli-v1.6.0) (2022-12-01)
+
+
+### Features
+
+* add basic perf time, udpate fastify version, support log.addField, better fatal log ([c617681](https://github.com/searchfe/hoth/commit/c6176819116fdb72730db8f9934d5d3e959b7070))
+
 # [@hoth/cli-v1.5.1](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.5.0...@hoth/cli-v1.5.1) (2022-10-30)
 
 

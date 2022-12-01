@@ -18,6 +18,7 @@ describe('@hoth/app-autoload basic app', () => {
         trace: noop,
         notice: noop,
         // @ts-ignore
+        addField: noop,
         addNotice: noop,
         addPerformance: noop,
         child: () => logger,

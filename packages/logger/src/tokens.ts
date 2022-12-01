@@ -74,11 +74,29 @@ export default {
     errmsg(o) {
         return o.err?.stack?.replace(/(\n)+|(\r\n)+/g, ' ') || o.msg;
     },
+    extraInfo(o) {
+        if (isEmpty(o.extraInfo)) {
+            return '';
+        }
+        return ' ' + Object.keys(o.extraInfo).map(key => {
+            const notice = o.extraInfo[key];
+            return `${key}[${notice}]`;
+        }).join(' ');
+    },
+    fields(o) {
+        if (isEmpty(o.req?.fields)) {
+            return '';
+        }
+        return ' ' + Object.keys(o.req.fields).map(key => {
+            const fields = o.req.fields[key];
+            return `${key}[${fields}]`;
+        }).join(' ');
+    },
     notices(o) {
         if (isEmpty(o.req?.notices)) {
-            return 'request completed';
+            return '';
         }
-        return Object.keys(o.req.notices).map(key => {
+        return ' ' + Object.keys(o.req.notices).map(key => {
             const notice = o.req.notices[key];
             return `${key}[${notice}]`;
         }).join(' ');

@@ -13,17 +13,18 @@ export const defaultLevels = {
 const normalFormat = ':level: :time [:file::line]'
     + ' errno[:errno] logId[:logid] pid[:pid]'
     + ' uri[:uri] cluster[:cluster] idc[:idc] product[:product] module[:module]'
-    + ' clientIp[:ip] ua[:ua] refer[:referrer] :msg';
+    + ' clientIp[:ip] ua[:ua] refer[:referrer]+:fields :msg';
 
 const noticeFormat = ':level: :time [:file::line]'
     + ' errno[:errno] status[:status] logId[:logid] pid[:pid]'
     + ' method[:method] uri[:uri] cluster[:cluster] idc[:idc] product[:product] module[:module]'
-    + ' clientIp[:ip] ua[:ua] refer[:referrer] :notices tm[:performance] responseTime[:response-time]';
+    + ' clientIp[:ip] ua[:ua] refer[:referrer]+:fields+:notices tm[:performance] responseTime[:response-time]';
 
+// +: 代表自行补齐前置空格
 const errorFormat = ':level: :time [:file::line]'
     + ' errno[:errno] status[:status] logId[:logid] pid[:pid]'
     + ' uri[:uri] cluster[:cluster] idc[:idc] product[:product] module[:module]'
-    + ' clientIp[:ip] ua[:ua] refer[:referrer] :errmsg';
+    + ' clientIp[:ip] ua[:ua] refer[:referrer]+:fields+:extraInfo :errmsg';
 
 export const defaultFormats = {
     fatal: errorFormat,
@@ -45,5 +46,6 @@ export const levelFormats = Object.keys(defaultLevels).reduce((prev, level) => {
     };
 }, {});
 
+export const fieldSym = Symbol.for('hoth.logger.field');
 export const noticeSym = Symbol.for('hoth.logger.notice');
 export const performanceSym = Symbol.for('hoth.logger.performace');

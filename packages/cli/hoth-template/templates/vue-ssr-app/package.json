@@ -75,7 +75,7 @@
     "@hoth/cli": "^__cliVersion__",
     "@hoth/view": "^1.2.1",
     "@vue/server-renderer": "^3.2.31",
-    "fastify": "^3.27.4",
+    "fastify": "^3.29.4",
     "fastify-static": "^4.2.4",
     "swig": "^1.4.2",
     "tslib": "^2.3.1",

@@ -5,12 +5,15 @@ import * as fileStreamRotator from 'file-stream-rotator';
 import type {FastifyRequest, FastifyReply} from 'fastify';
 
 import stream from './stream';
-import {noticeSym, performanceSym} from './constants';
+import {fieldSym, noticeSym, performanceSym} from './constants';
 import {Stream} from 'stream';
 
 declare module 'fastify' {
     interface FastifyRequest {
         [noticeSym]: {
+            [key: string]: string;
+        };
+        [fieldSym]: {
             [key: string]: string;
         };
         [performanceSym]: {
@@ -19,7 +22,8 @@ declare module 'fastify' {
     }
 
     interface FastifyLoggerInstance {
-        addNotice: (key: string, value: string) => void;
+        addField: (key: string, value: string | number) => void;
+        addNotice: (key: string, value: string | number) => void;
         addPerformance: (name: string, value: number) => void;
     }
 }
@@ -95,6 +99,7 @@ export default function createLogger(options: LoggerOptions) {
                     module: request.module,
                     product: request.product,
                     logid: request.logid,
+                    fields: request[fieldSym],
                     notices: request[noticeSym],
                     performance: request[performanceSym],
                 };
@@ -109,10 +114,15 @@ export default function createLogger(options: LoggerOptions) {
 
 export function preHandler(req: FastifyRequest, reply: FastifyReply, done) {
     req[noticeSym] = {};
+    req[fieldSym] = {};
     req[performanceSym] = {};
-    req.log.addNotice = (key: string, value: string) => {
-        req[noticeSym][key] = value;
+    req.log.addField = (key: string, value: string | number) => {
+        req[fieldSym][key] = String(value);
     };
+    req.log.addNotice = (key: string, value: string | number) => {
+        req[noticeSym][key] = String(value);
+    };
+
     req.log.addPerformance = (key: string, value: number) => {
         if (!req[performanceSym][key]) {
             req[performanceSym][key] = [0, 0];

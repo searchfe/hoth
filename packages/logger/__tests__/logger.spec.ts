@@ -158,19 +158,13 @@ describe('@hoth/logger logger', function () {
         const fun2 = compile(':foo[aa]');
         expect(fun2.toString()).toContain(':foo(aa)');
 
-        const fun3 = compile(':foo');
-        expect(fun3.toString()).toContain(':foo');
-    });
+        const fun3 = compile(':ua');
+        expect(fun3.toString()).toContain('tokens[\"ua\"]');
+        expect(fun3.toString()).toContain('-');
 
-    it('compile format', () => {
-        const fun1 = compile(':response-time[aa]');
-        expect(fun1.toString()).toContain('tokens[\"response-time\"](o, \"aa\") || \"-\")');
-
-        const fun2 = compile(':foo[aa]');
-        expect(fun2.toString()).toContain(':foo(aa)');
-
-        const fun3 = compile(':foo');
-        expect(fun3.toString()).toContain(':foo');
+        const fun4 = compile('+:fields');
+        expect(fun4.toString()).toContain('tokens[\"fields\"]');
+        expect(fun4.toString()).not.toContain('-');
     });
 
     it('stream flushSync', () => {

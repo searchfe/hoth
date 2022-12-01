@@ -1,10 +1,9 @@
-import Fastify, {FastifyInstance, FastifyLoggerInstance} from 'fastify';
+import fastifyFactory, {FastifyInstance, FastifyLoggerInstance} from 'fastify';
 import {resolve} from 'path';
 import appAutoload, {AppConfig, getApps} from '../src/index';
 
 describe('@hoth/app-autoload multi app', () => {
-
-    function noop () {}
+    function noop() {}
     let apps: AppConfig[];
     let fastify: FastifyInstance;
     let logger: FastifyLoggerInstance = {
@@ -15,6 +14,7 @@ describe('@hoth/app-autoload multi app', () => {
         debug: noop,
         trace: noop,
         notice: noop,
+        addField: noop,
         addNotice: noop,
         addPerformance: noop,
         child: () => logger,
@@ -28,7 +28,7 @@ describe('@hoth/app-autoload multi app', () => {
             prefix: '/',
         });
 
-        fastify = Fastify({
+        fastify = fastifyFactory({
             disableRequestLogging: true,
             logger,
         });

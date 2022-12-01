@@ -17,7 +17,10 @@ import {exit, loadModule} from '@hoth/utils';
 import onErrorFactory from './hook/onErrorFactory';
 import onSend from './hook/onSend';
 import preHandlerFactory from './hook/preHandlerFactory';
+import preSerialization from './hook/preSerialization';
 import onRequestFactory from './hook/onRequestFactory';
+import onResponse from './hook/onResponse';
+import preParsing from './hook/preParsing';
 import preValidation from './hook/preValidation';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
 import {molecule} from '@hoth/molecule';
@@ -91,11 +94,15 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     childInstance.decorate('$appConfig', configProxy);
     childInstance.decorate('molecule', molecule);
 
-    childInstance.addHook('preValidation', preValidation);
+
     childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));
+    childInstance.addHook('preParsing', preParsing);
+    childInstance.addHook('preValidation', preValidation);
     childInstance.addHook('preHandler', loggerMiddleware);
     childInstance.addHook('preHandler', preHandlerFactory(appConfig.name));
+    childInstance.addHook('preSerialization', preSerialization);
     childInstance.addHook('onSend', onSend);
+    childInstance.addHook('onResponse', onResponse);
 
     // load module plugins
     if (appConfig.pluginConfig) {

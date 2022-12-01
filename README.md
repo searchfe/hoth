@@ -50,29 +50,30 @@ npm run dev
 
 ### Preparation
 ```sh
-npm i lerna -g
-
+npm i lerna -g --registry https://registry.npmmirror.com
 lerna bootstrap --registry https://registry.npmmirror.com
 lerna link
-
-# global link
-cd packages/cli
-npm link
 ```
 
 ### Cli development
 ```sh
-# watch @hoth/cli
+# add npm package
+lerna add config-enhanced --scope @hoth/app-autoload --registry https://registry.npmmirror.com
+
+# watch packages
 lerna exec "tsc --build -w tsconfig.json" --scope @hoth/cli
 lerna exec "tsc --build -w tsconfig.json" --scope @hoth/decorators
 lerna exec "tsc --build -w tsconfig.json" --scope @hoth/app-autoload
 lerna exec "tsc --build -w tsconfig.json" --scope @hoth/logger
 
-lerna add config-enhanced --scope @hoth/app-autoload --registry https://registry.npmmirror.com
-
-# debug for "hoth start"
+# debug for example
 cd example/hoth-quickstart
-npm link @hoth/cli
+npm i --registry https://registry.npmmirror.com
 npm run dev
+
+# unit test fro a package
+npm run test packages/logger
+npm run test packages/cli
+npm run test packages/app-autoload
 ```
 

@@ -74,7 +74,7 @@
   "dependencies": {
     "@hoth/cli": "^__cliVersion__",
     "@hoth/view": "^1.2.1",
-    "fastify": "^3.19.1",
+    "fastify": "^3.29.4",
     "fastify-static": "^4.2.4",
     "san": "^3.11.2",
     "san-ssr": "^4.9.2",

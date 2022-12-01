@@ -1,18 +1,11 @@
 import {FastifyReply, FastifyRequest} from 'fastify';
+import {performance} from 'perf_hooks';
 
-declare module 'fastify' {
-    interface FastifyLoggerInstance {
-        notice: (...args: any[]) => void;
-    }
-}
+export const sendStartTimeSym = Symbol.for('hoth.send-start-time');
 
 export default async function (req: FastifyRequest, reply: FastifyReply) {
-    const responseTime = reply.getResponseTime();
-    reply.log.notice({
-        req,
-        res: reply,
-        responseTime: responseTime.toFixed(1),
-    }, 'request completed');
-    reply.header('X-Response-Time', responseTime);
+    const resTime = reply.getResponseTime();
+    req[sendStartTimeSym] = performance.now();
+    reply.header('X-Response-Time', resTime);
     reply.removeHeader('X-Powered-By');
 }

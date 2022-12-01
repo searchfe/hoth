@@ -4,9 +4,13 @@ export function compile(format: string) {
     return Function('tokens, o', 'return "' + format
         .replace(/"/g, '\\"')
         .replace(/\[\]/g, '')
-        .replace(/:([-\w]{2,})(?:\[([^\]]+)\])?/g, function (_, name, arg) {
+
+        // support +:field ,default value is ''
+        // support :field ,default value is '-'
+        .replace(/\+?:([-\w]{2,})(?:\[([^\]]+)\])?/g, function (match, name, arg) {
             return typeof tokens[name] === 'function'
-                ? `" + (tokens["${name}"](o` + (arg ? `, "${arg}"` : '') + ') || "-") + "'
+                ? `" + (tokens["${name}"](o` + (arg ? `, "${arg}"` : '') + ') || "'
+                    + (match.startsWith('+') ? '' : '-') + '") + "'
                 : (arg ? `:${name}(${arg})` : `:${name}`);
         }) + '\\n"');
 }

@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.17...@hoth/app-autoload-v1.2.0) (2022-12-01)
+
+
+### Features
+
+* add basic perf time, udpate fastify version, support log.addField, better fatal log ([c617681](https://github.com/searchfe/hoth/commit/c6176819116fdb72730db8f9934d5d3e959b7070))
+
 # [@hoth/app-autoload-v1.1.17](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.16...@hoth/app-autoload-v1.1.17) (2022-10-30)
 
 

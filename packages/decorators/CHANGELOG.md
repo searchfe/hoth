@@ -1,3 +1,10 @@
+# [@hoth/decorators-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.2.2...@hoth/decorators-v1.3.0) (2022-12-01)
+
+
+### Features
+
+* add basic perf time, udpate fastify version, support log.addField, better fatal log ([c617681](https://github.com/searchfe/hoth/commit/c6176819116fdb72730db8f9934d5d3e959b7070))
+
 # [@hoth/decorators-v1.2.2](https://github.com/searchfe/hoth/compare/@hoth/decorators-v1.2.1...@hoth/decorators-v1.2.2) (2022-10-30)
 
 

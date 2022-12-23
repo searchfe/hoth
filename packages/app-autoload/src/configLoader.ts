@@ -7,6 +7,7 @@ async function loadConfigModule(appRoot: string, subPath: string) {
         return result;
     }
     catch (e) {
+        console.error('load module error', e);
         return null;
     }
 }

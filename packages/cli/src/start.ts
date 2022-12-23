@@ -77,6 +77,14 @@ async function runFastify(opts: Args) {
         rootPath,
     });
 
+    // 比fastify初始化更早地require执行，方便做一些提前初始化
+    const rootEntryPath = join(rootPath, 'main.js');
+    let entryMod = null;
+    if (existsSync(rootEntryPath)) {
+        const entryMod = await loadModule(rootEntryPath);
+        entryMod[Symbol.for('skip-override')] = true;
+    }
+
     if (apps.length <= 0) {
         logger.warn('app not found!');
         exit();
@@ -125,10 +133,7 @@ async function runFastify(opts: Args) {
         closeListeners.uninstall();
     });
 
-    const rootEntryPath = join(rootPath, 'main.js');
-    if (existsSync(rootEntryPath)) {
-        const entryMod = await loadModule(rootEntryPath);
-        entryMod[Symbol.for('skip-override')] = true;
+    if (entryMod) {
         try {
             await fastifyInstance.register(entryMod, {
                 apps,

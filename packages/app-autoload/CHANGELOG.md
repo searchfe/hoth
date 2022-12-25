@@ -1,3 +1,11 @@
+# [@hoth/app-autoload-v1.2.1](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.2.0...@hoth/app-autoload-v1.2.1) (2022-12-25)
+
+
+### Bug Fixes
+
+* console require error ([76b2ece](https://github.com/searchfe/hoth/commit/76b2ece6b19f4935281ba0cd908d40157bda23c9))
+* not log ModuleNotFoundError ([aa634c2](https://github.com/searchfe/hoth/commit/aa634c240a109586a41ea90798b469f4527014b3))
+
 # [@hoth/app-autoload-v1.2.0](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.1.17...@hoth/app-autoload-v1.2.0) (2022-12-01)
 
 

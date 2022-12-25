@@ -1,6 +1,6 @@
 {
   "name": "@hoth/app-autoload",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "app-autoload plugin for hoth framework",
   "main": "dist/index.js",
   "scripts": {

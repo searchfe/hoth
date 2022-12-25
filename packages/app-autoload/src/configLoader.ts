@@ -6,8 +6,10 @@ async function loadConfigModule(appRoot: string, subPath: string) {
         const result = await loadModule(join(appRoot, `config/${subPath}`));
         return result;
     }
-    catch (e) {
-        console.error('load module error', e);
+    catch (e: any) {
+        if (e.constructor.name !== 'ModuleNotFoundError') {
+            console.error('load module error', e);
+        }
         return null;
     }
 }

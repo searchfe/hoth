@@ -81,7 +81,7 @@ async function runFastify(opts: Args) {
     const rootEntryPath = join(rootPath, 'main.js');
     let entryMod = null;
     if (existsSync(rootEntryPath)) {
-        const entryMod = await loadModule(rootEntryPath);
+        entryMod = await loadModule(rootEntryPath);
         entryMod[Symbol.for('skip-override')] = true;
     }
 

@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.2.2](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.2.1...@hoth/app-autoload-v1.2.2) (2022-12-26)
+
+
+### Bug Fixes
+
+* not log ModuleNotFoundError ([eabee27](https://github.com/searchfe/hoth/commit/eabee27b43c4a2473e6e69ed2742a0a973130bfc))
+
 # [@hoth/app-autoload-v1.2.1](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.2.0...@hoth/app-autoload-v1.2.1) (2022-12-25)
 
 

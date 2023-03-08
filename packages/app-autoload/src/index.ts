@@ -242,6 +242,6 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload |
     return;
 
 }, {
-    fastify: '3.x',
+    fastify: '>= 3.0.0 < 5.0.0',
     name: '@hoth/app-autoload',
 });

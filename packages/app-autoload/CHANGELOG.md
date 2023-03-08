@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.2.2...@hoth/app-autoload-v1.3.0) (2023-03-08)
+
+
+### Features
+
+* **autoload:** support fastify 4.x ([2866f4e](https://github.com/searchfe/hoth/commit/2866f4e5af4e88de19bd71f5421cfa7ebf8d24ef))
+
 # [@hoth/app-autoload-v1.2.2](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.2.1...@hoth/app-autoload-v1.2.2) (2022-12-26)
 
 

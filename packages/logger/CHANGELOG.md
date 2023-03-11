@@ -1,3 +1,10 @@
+# [@hoth/logger-v1.7.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.6.0...@hoth/logger-v1.7.0) (2023-03-11)
+
+
+### Features
+
+* add getOuterIP,expose , env CONSOLE_LOG ([e4440c5](https://github.com/searchfe/hoth/commit/e4440c535c82a423226915f3434328bfc54d8f27))
+
 # [@hoth/logger-v1.6.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.5.1...@hoth/logger-v1.6.0) (2022-12-01)
 
 

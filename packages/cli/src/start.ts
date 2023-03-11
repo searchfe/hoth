@@ -121,7 +121,7 @@ async function runFastify(opts: Args) {
     });
 
     const routes: RouteOptions[] = [];
-
+    fastifyInstance.decorate('$addedRoutes', routes);
     fastifyInstance.addHook('onRoute', routeOptions => {
         routes.push(routeOptions);
     });
@@ -192,18 +192,11 @@ async function runFastify(opts: Args) {
         address = await fastifyInstance.listen(opts.port);
     }
 
-    const showAddress = address === `0.0.0.0:${opts.port}` ? `${getOuterIP()}:${opts.port}` : address;
-
+    const showAddress = address.replace('0.0.0.0', getOuterIP());
+    console.log(`Server listening on ${showAddress}.`);
     for (const route of routes) {
         console.log('——', `${showAddress}${route.url} (${route.method})`);
     }
-
-    console.log(`Server listening on ${address}.`);
-    for (const route of routes) {
-        console.log('——', `${address}${route.url} (${route.method})`);
-    }
-
-    fastifyInstance.decorate('$addedRoutes', routes);
 
     // for pm2 graceful start
     if (process.send) {

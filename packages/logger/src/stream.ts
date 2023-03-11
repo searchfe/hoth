@@ -56,7 +56,7 @@ export default function (streamsArray) {
         }
 
         /* istanbul ignore else */
-        if (isDevelopment) {
+        if (isDevelopment || process.env.CONSOLE_LOG === 'true') {
             const arr = info.result.split(':');
             arr[0] = (['FATAL', 'ERROR'].includes(arr[0]))
                 ? chalk.red(arr[0]) : (arr[0] === 'WARN')

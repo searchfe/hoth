@@ -4,7 +4,7 @@
  */
 
 /* eslint-disable @typescript-eslint/await-thenable */
-
+import os from 'os';
 import Fastify, {FastifyReply, FastifyRequest, RouteOptions} from 'fastify';
 import isDocker from 'is-docker';
 import {existsSync} from 'fs';
@@ -16,6 +16,12 @@ import createLogger, {pino} from '@hoth/logger';
 import {showHelpForCommand} from './util';
 import {warmup} from './start/warmup';
 import closeWithGrace from 'close-with-grace';
+
+declare module 'fastify' {
+    interface FastifyInstance {
+        readonly $addedRoutes: RouteOptions[];
+    }
+}
 
 const listenAddressDocker = '0.0.0.0';
 
@@ -58,6 +64,23 @@ function initFinalLogger(logger: pino.Logger) {
         }
         process.exit(err ? 1 : 0);
     });
+}
+
+function getOuterIP() {
+    let interfaces = os.networkInterfaces();
+    for (const devName of Object.keys(interfaces)) {
+        let iface = interfaces[devName];
+        if (!iface) {
+            continue;
+        }
+        for (let i = 0, len = iface.length; i < len; i++) {
+            let alias = iface[i];
+            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+                return alias.address;
+            }
+        }
+    }
+    return '';
 }
 
 async function runFastify(opts: Args) {
@@ -169,10 +192,18 @@ async function runFastify(opts: Args) {
         address = await fastifyInstance.listen(opts.port);
     }
 
+    const showAddress = address === `0.0.0.0:${opts.port}` ? `${getOuterIP()}:${opts.port}` : address;
+
+    for (const route of routes) {
+        console.log('——', `${showAddress}${route.url} (${route.method})`);
+    }
+
     console.log(`Server listening on ${address}.`);
     for (const route of routes) {
         console.log('——', `${address}${route.url} (${route.method})`);
     }
+
+    fastifyInstance.decorate('$addedRoutes', routes);
 
     // for pm2 graceful start
     if (process.send) {

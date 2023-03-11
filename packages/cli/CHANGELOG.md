@@ -1,3 +1,15 @@
+# [@hoth/cli-v1.7.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.6.1...@hoth/cli-v1.7.0) (2023-03-11)
+
+
+### Bug Fixes
+
+* prepend ([cde98e4](https://github.com/searchfe/hoth/commit/cde98e4c96637e35eaca5619a194bb3f1b4e6957))
+
+
+### Features
+
+* add getOuterIP,expose , env CONSOLE_LOG ([e4440c5](https://github.com/searchfe/hoth/commit/e4440c535c82a423226915f3434328bfc54d8f27))
+
 # [@hoth/cli-v1.6.1](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.6.0...@hoth/cli-v1.6.1) (2022-12-25)
 
 

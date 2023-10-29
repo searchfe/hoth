@@ -15,7 +15,8 @@
   },
   "keywords": [
     "view",
-    "swig"
+    "swig",
+    "ejs"
   ],
   "author": "cxtom (cxtom2008@gmail.com)",
   "license": "MIT",

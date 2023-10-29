@@ -10,7 +10,7 @@ import LRU from 'lru-cache';
 type PartialRecord<K extends keyof any, T> = {
     [P in K]?: T;
 };
-const supportedEngines = ['swig', 'nunjucks'] as const;
+const supportedEngines = ['swig', 'nunjucks', 'ejs'] as const;
 type supportedEnginesType = typeof supportedEngines[number];;
 type EngineList = PartialRecord<supportedEnginesType, any>;
 
@@ -84,6 +84,7 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
     const renders = {
         swig: viewSwig,
         nunjucks: viewNunjucks,
+        ejs: viewEjs,
     };
 
     let swig: Swig;
@@ -175,6 +176,21 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
 
         data = Object.assign({}, defaultCtx, data);
         swig.renderFile(join(templatesDir!, getPage(page)), data, done);
+    }
+
+    function viewEjs(
+        this: FastifyReply,
+        page: string,
+        data: Record<string, unknown>,
+        done: (err: Error, html: string) => void
+    ) {
+        if (!page) {
+            this.send(new Error('Missing page'));
+            return;
+        }
+
+        data = Object.assign({}, defaultCtx, data);
+        engine.renderFile(join(templatesDir!, getPage(page)), data, done);
     }
 
     function viewNunjucks(

@@ -125,6 +125,9 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
             });
         }
     }
+    else if (type === 'ejs') {
+        engine.cache = renderCaches;
+    }
 
     const renderer = renders[type];
 

@@ -1,3 +1,10 @@
+# [@hoth/view-v1.3.2](https://github.com/searchfe/hoth/compare/@hoth/view-v1.3.1...@hoth/view-v1.3.2) (2023-10-29)
+
+
+### Bug Fixes
+
+* **view:** ejs add cache ([edf8eb5](https://github.com/searchfe/hoth/commit/edf8eb5c6e7b7e620439e589a94062da38fe64e7))
+
 # [@hoth/view-v1.3.1](https://github.com/searchfe/hoth/compare/@hoth/view-v1.3.0...@hoth/view-v1.3.1) (2022-10-30)
 
 

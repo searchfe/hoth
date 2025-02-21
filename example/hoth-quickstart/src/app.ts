@@ -1,14 +1,16 @@
-import pointOfView from 'point-of-view';
-import nunjucks from 'nunjucks';
+
+import view from '@hoth/view';
+import ejs from 'ejs';
 import path from 'path';
 import type {FastifyInstance} from 'fastify';
 import type {AppConfig} from '@hoth/app-autoload';
 export default async function main(fastify: FastifyInstance, config: AppConfig) {
-    await fastify.register(pointOfView, {
+    await fastify.register(view, {
         engine: {
-            nunjucks,
+            ejs,
         },
-        root: path.join(config.dir, 'view'),
+        renderOnly: true,
+        templatesDir: path.join(config.dir, 'view'),
     });
     return fastify;
 }

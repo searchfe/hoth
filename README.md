@@ -50,9 +50,9 @@ npm run dev
 
 ### Preparation
 ```sh
-npm i lerna -g --registry https://registry.npmmirror.com
-lerna bootstrap --registry https://registry.npmmirror.com
-lerna link
+pnpm i
+
+pnpm run build
 ```
 
 ### Cli development
@@ -68,13 +68,10 @@ lerna exec "tsc --build -w tsconfig.json" --scope @hoth/logger
 
 # debug for example
 cd example/hoth-quickstart
-npm i --registry https://registry.npmmirror.com
-npm run dev
+pnpm i
 
-# unit test fro a package
-npm run test packages/logger
-npm run test packages/cli
-npm run test packages/app-autoload
+pnpm run dev
 
+pnpm --filter @hoth/logger run build
+pnpm --filter @hoth/cli run build
 ```
-

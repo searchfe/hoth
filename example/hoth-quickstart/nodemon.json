@@ -2,6 +2,6 @@
     "watch": ["*.ts", "src/*.tpl"],
     "ignore": ["*.test.ts", "node_modules/*", "*.d.ts"],
     "ext": "ts,js,tpl",
-    "exec": "npm run build && NODE_ENV=development node ../../node_modules/.bin/hoth start --app-dir='dist' --app-name='hoth-quickstart' --app-prefix='/hoth-quickstart'",
+    "exec": "npm run build && NODE_ENV=development ../../node_modules/.bin/hoth start --app-dir='dist' --app-name='hoth-quickstart' --app-prefix='/hoth-quickstart'",
     "legacyWatch": true
 }

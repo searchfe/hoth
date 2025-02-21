@@ -9,6 +9,12 @@
         "importHelpers": true,
         "sourceMap": true,
         "declaration": true,
-        "composite": true
+        "composite": true,
+        "preserveSymlinks": true,
+        "skipLibCheck": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./types"
+        ]
     }
 }

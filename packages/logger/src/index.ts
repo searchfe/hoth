@@ -3,6 +3,8 @@ import path from 'path';
 import pino from 'pino';
 import * as fileStreamRotator from 'file-stream-rotator';
 import type {FastifyRequest, FastifyReply} from 'fastify';
+import type {Logger} from 'pino';
+import type {LoggerOptions} from './types';
 
 import stream from './stream';
 import {fieldSym, noticeSym, performanceSym} from './constants';
@@ -28,13 +30,6 @@ declare module 'fastify' {
     }
 }
 
-
-
-interface LoggerOptions {
-    apps: Array<{name: string}>;
-    rootPath: string;
-}
-
 interface StreamItem {
     fullpath: string;
     level: string;
@@ -42,8 +37,7 @@ interface StreamItem {
     stream: Stream;
 }
 
-
-export default function createLogger(options: LoggerOptions) {
+export default function createLogger(options: LoggerOptions): Logger {
     let {
         apps,
         rootPath,
@@ -110,7 +104,6 @@ export default function createLogger(options: LoggerOptions) {
 
     return logger;
 }
-
 
 export function preHandler(req: FastifyRequest, reply: FastifyReply, done) {
     req[noticeSym] = {};

@@ -9,7 +9,7 @@ export default class AppController {
     private readonly service!: Calculator;
 
     @GET()
-    getApp(req: FastifyRequest, reply: FastifyReply) {
+    async getApp(req: FastifyRequest, reply: FastifyReply) {
         // test for log
         // try {
         //     (reply as any).sss('aa');
@@ -21,11 +21,14 @@ export default class AppController {
         //     req.log.fatal(e, 'handle error');
         //     req.log.fatal({req, from: 'home'}, 'handle error');
         // }
-        reply.view('index.tpl', {
+        const html = await reply.render('index.tpl', {
             name: req.$appConfig.get('name'),
             foo: req.$appConfig.get('foo'),
             num: this.service.add(1, 1),
         });
+
+        reply.header('Content-Type', 'text/html; charset=utf-8');
+        reply.send(html);
     }
 }
 

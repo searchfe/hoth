@@ -109,3 +109,9 @@ dist
 log/
 
 workdir/
+
+# pnpm store directory
+.pnpm-store/
+
+# pnpm debug log
+.pnpm-debug.log

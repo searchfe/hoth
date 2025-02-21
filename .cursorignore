@@ -1,0 +1,40 @@
+# 依赖目录
+node_modules/
+
+# 构建输出目录
+dist/
+
+# pnpm 锁文件
+pnpm-lock.yaml
+
+# 编辑器和 IDE 文件
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 环境变量文件
+.env
+.env.local
+.env.*.local
+
+# 临时文件
+.temp
+.tmp
+.cache
+example/
+docs
+.coverage
+.husky
+.vscode
+.yarn
+.yarnrc
+__tests__

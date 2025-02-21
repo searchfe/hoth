@@ -4,11 +4,22 @@
   ],
   "command": {
     "publish": {
-      "ignoreChanges": ["*.spec.ts", "*.md", "example/*", "README", "__tests__/*"],
-      "message": "chore(release): publish"
+      "ignoreChanges": [
+        "*.spec.ts",
+        "*.md",
+        "example/*",
+        "README",
+        "__tests__/*"
+      ],
+      "message": "chore(release): publish",
+      "registry": "https://registry.npmmirror.com"
+    },
+    "version": {
+      "conventionalCommits": true,
+      "message": "chore(release): publish %s"
     }
   },
-  "npmClient": "yarn",
+  "npmClient": "pnpm",
   "version": "independent",
   "useWorkspaces": true
 }

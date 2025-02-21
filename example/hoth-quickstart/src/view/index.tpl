@@ -1,3 +1,3 @@
-Hello world! {{ name }}
-foo: {{ foo }}
-num: {{ num }}
+Hello world!<%= name %>
+foo: <%= foo %>
+num:<%= num %>

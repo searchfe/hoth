@@ -28,7 +28,7 @@
     "@hoth/molecule": "^1.1.2",
     "@hoth/utils": "^1.1.4",
     "config-enhanced": "^3.3.7",
-    "fastify-plugin": "^3.0.0",
+    "fastify-plugin": "^5.0.0",
     "fastify-warmup": "0.1.1",
     "resolve-from": "^5.0.0",
     "tslib": "^2.1.0",
@@ -39,6 +39,6 @@
   ],
   "gitHead": "0735cada835eabb2ac787ca1c5f2ff4bb8310fe2",
   "devDependencies": {
-    "fastify-multipart": "^5.3.1"
+    "@fastify/multipart": "^8.0.0"
   }
 }

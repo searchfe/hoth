@@ -3,6 +3,16 @@ import {performance} from 'perf_hooks';
 
 export const handlerStartTimeSym = Symbol.for('hoth.handler-start-time');
 
+
+declare module 'fastify' {
+    interface FastifyBaseLogger {
+        notice: (...args: any[]) => void;
+        fatal: (...args: any[]) => void;
+        error: (...args: any[]) => void;
+        warn: (...args: any[]) => void;
+    }
+}
+
 export default function (app: string) {
     return async function (req: FastifyRequest, reply: FastifyReply) {
         req[handlerStartTimeSym] = performance.now();

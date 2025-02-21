@@ -5,7 +5,7 @@
 
 /* eslint-disable @typescript-eslint/await-thenable */
 import os from 'os';
-import Fastify, {FastifyReply, FastifyRequest, RouteOptions} from 'fastify';
+import Fastify, {FastifyBaseLogger, FastifyReply, FastifyRequest, RouteOptions} from 'fastify';
 import isDocker from 'is-docker';
 import {existsSync} from 'fs';
 import {join} from 'path';
@@ -39,31 +39,16 @@ function loadFastify() {
 }
 
 function initFinalLogger(logger: pino.Logger) {
-    const major = Number(process.versions.node.split('.')[0]);
-    // fix:  The use of pino.final is discouraged in Node.js v14+ and not required
-    if (major >= 14) {
-        return function (err: any, evt?: any) {
-            if (err) {
-                logger.fatal({err}, evt);
-            }
-            else {
-                logger.info(`${evt} caught`);
-            }
-            process.exit(err ? 1 : 0);
-        };
-    }
-
-    // use pino.final to create a special logger that
-    // guarantees final tick writes
-    return pino.final(logger, (err, finalLogger, evt) => {
+    // const major = Number(process.versions.node.split('.')[0]);
+    return function (err: Error | null, evt?: string) {
         if (err) {
-            finalLogger.fatal({err}, evt);
+            logger.fatal({err}, evt);
         }
         else {
-            finalLogger.info(`${evt} caught`);
+            logger.info(`${evt} caught`);
         }
         process.exit(err ? 1 : 0);
-    });
+    };
 }
 
 function getOuterIP() {
@@ -115,7 +100,7 @@ async function runFastify(opts: Args) {
     }
 
     const fastifyInstance = fastify({
-        logger,
+        loggerInstance: logger as unknown as FastifyBaseLogger,
         disableRequestLogging: true,
         pluginTimeout: 60 * 1000,
     });
@@ -148,7 +133,7 @@ async function runFastify(opts: Args) {
 
     // eslint-disable-next-line
     require('make-promises-safe').logError = async function (error: Error | string) {
-        finalLogger(error instanceof Error ? error : null, error);
+        finalLogger(error instanceof Error ? error : null, typeof error === 'string' ? error : error.message);
         await fastifyInstance.close();
     };
 
@@ -180,16 +165,16 @@ async function runFastify(opts: Args) {
 
     let address = '';
     if (opts.address) {
-        address = await fastifyInstance.listen(opts.port, opts.address);
+        address = await fastifyInstance.listen({ port: Number(opts.port), host: opts.address });
     }
-    else /* istanbul ignore next */ if (opts.socket) {
-        address = await fastifyInstance.listen(opts.socket);
+    else if (opts.socket) {
+        address = await fastifyInstance.listen({ path: opts.socket });
     }
-    else /* istanbul ignore next */ if (isDocker()) {
-        address = await fastifyInstance.listen(opts.port, listenAddressDocker);
+    else if (isDocker()) {
+        address = await fastifyInstance.listen({ port: Number(opts.port), host: listenAddressDocker });
     }
     else {
-        address = await fastifyInstance.listen(opts.port);
+        address = await fastifyInstance.listen({ port: Number(opts.port) });
     }
 
     const showAddress = address.replace('0.0.0.0', getOuterIP());

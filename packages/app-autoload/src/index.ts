@@ -23,11 +23,12 @@ import onResponse from './hook/onResponse';
 import preParsing from './hook/preParsing';
 import preValidation from './hook/preValidation';
 import {preHandler as loggerMiddleware} from '@hoth/logger';
-import {molecule} from '@hoth/molecule';
+// import {molecule} from '@hoth/molecule';
 import {loadConfig} from './configLoader';
 import pluginLoader from './pluginLoader';
-import {loadMoleculeApp} from './loadMoleculeApp';
+// import {loadMoleculeApp} from './loadMoleculeApp';
 import type {WarmupConf} from 'fastify-warmup';
+
 interface AppAutoload {
     dir: string;
     rootPath: string;
@@ -92,7 +93,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     };
 
     childInstance.decorate('$appConfig', configProxy);
-    childInstance.decorate('molecule', molecule);
+    // childInstance.decorate('molecule', molecule);
 
 
     childInstance.addHook('onRequest', onRequestFactory(configProxy, childInstance));
@@ -135,7 +136,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
     const moleculeConfigPath = join(appConfig.dir, 'config/molecule.json');
     // load molecule
     if (existsSync(moleculeConfigPath)) {
-        await loadMoleculeApp(appConfig, childInstance);
+        // await loadMoleculeApp(appConfig, childInstance);
     }
     // load controllers
     else if (existsSync(pluginAppConfig.controllerPath)) {
@@ -242,6 +243,6 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload |
     return;
 
 }, {
-    fastify: '>= 3.0.0 < 5.0.0',
-    name: '@hoth/app-autoload',
+    fastify: '>=5.0.0',
+    name: '@hoth/app-autoload'
 });

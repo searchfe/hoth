@@ -23,7 +23,7 @@ declare module 'fastify' {
         };
     }
 
-    interface FastifyLoggerInstance {
+    interface FastifyBaseLogger {
         addField: (key: string, value: string | number) => void;
         addNotice: (key: string, value: string | number) => void;
         addPerformance: (name: string, value: number) => void;

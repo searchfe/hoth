@@ -43,7 +43,9 @@ export function getFastifyInstanceByAppName(name: string) {
 export const bootstrap = fastifyPlugin(async function (fastify: FastifyInstance, config: BootstrapConfig) {
     const appName = config.appName;
     appFastifyInstanceTokenMap.set(appName, fastify);
-    return await bootstrapInner(fastify, config);
+    return bootstrapInner(fastify, config);
+}, {
+    fastify: '>=5.0.0'
 });
 
 declare module 'fastify' {
@@ -55,12 +57,6 @@ declare module 'fastify' {
         module?: string;
         logid?: string;
         product?: string;
-    }
-
-    interface FastifyLoggerInstance {
-        addField: (key: string, value: string | number) => void;
-        addNotice: (key: string, value: string | number) => void;
-        addPerformance: (name: string, value: number) => void;
     }
 
     interface FastifyInstance {

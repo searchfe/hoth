@@ -1,4 +1,3 @@
-
 import type {FastifyInstance, FastifyReply} from 'fastify';
 import type {Swig, SwigOptions} from 'swig';
 import '@hoth/decorators';
@@ -6,6 +5,13 @@ import {join, resolve} from 'path';
 import fp from 'fastify-plugin';
 import LRU from 'lru-cache';
 
+declare module 'fastify' {
+    interface FastifyInstance {
+        readonly $appConfig: {
+            get: (property: string | string[]) => any;
+        };
+    }
+}
 
 type PartialRecord<K extends keyof any, T> = {
     [P in K]?: T;
@@ -134,12 +140,10 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
     fastify.decorateReply('render', function (
         this: FastifyReply,
         page: string,
-        data: Record<string, unknown>,
-        cb?: (err: Error, html: string) => void
+        data?: Record<string, unknown> | undefined,
+        cb?: ((err: Error, html: string) => void) | undefined
     ) {
-        if (cb && typeof cb === 'function') {
-            return renderer.apply(this, [page, data, cb]);
-        }
+
         return new Promise((resolve, reject) => {
             const done = (error: Error, html: string) => {
                 if (error) {
@@ -153,9 +157,13 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
                     this.header('Content-Type', 'text/html; charset=utf-8');
                     this.send(html);
                 }
+
+                // if (cb && typeof cb === 'function') {
+                //     cb(null, html);
+                // }
                 resolve(html);
             };
-            renderer.apply(this, [page, data, done]);
+            renderer.apply(this, [page, data || {}, done]);
         });
     });
 

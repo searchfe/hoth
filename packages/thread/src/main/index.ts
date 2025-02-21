@@ -13,7 +13,7 @@ async function threadPluginInner(fastify: FastifyInstance, options: PluginOption
 }
 
 export const threadPlugin = fp(threadPluginInner, {
-    fastify: '>=1.0.0',
+    fastify: '>=5.0.0',
     name: '@hoth/thread',
 });
 

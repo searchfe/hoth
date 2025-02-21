@@ -8,10 +8,6 @@ import {serializationTimeSym} from './preSerialization';
 import {sendStartTimeSym} from './onSend';
 
 declare module 'fastify' {
-    interface FastifyLoggerInstance {
-        notice: (...args: any[]) => void;
-    }
-
     interface FastifyRequest {
         [reqStartTimeSym]: number;
         [parseStartTimeSym]: number;
@@ -41,7 +37,7 @@ export default async function (req: FastifyRequest, reply: FastifyReply) {
     reply.log.notice({
         req,
         res: reply,
-        responseTime: reply.getResponseTime().toFixed(1),
+        responseTime: reply.elapsedTime.toFixed(1),
     }, 'request completed');
 }
 

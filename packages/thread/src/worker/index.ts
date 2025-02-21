@@ -20,7 +20,7 @@ const logger = createLogger({
     apps: [{name: logConfig.appName}],
     rootPath: process.env.ROOT_PATH as string
 });
-const hothUtils = {
+const hothUtils: any = {
     logger
 };
 

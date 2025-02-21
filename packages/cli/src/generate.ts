@@ -9,6 +9,10 @@ import parseArgs from './parseArgs';
 import {execSync} from 'child_process';
 import {getHome, showHelpForCommand} from './util';
 
+interface PromptAnswers {
+    appType: string;
+    appName: string;
+}
 
 function createInfo(name: string, repoTemplatesDir: string, opts: ReturnType<typeof parseArgs>) {
     const conf = require(join(repoTemplatesDir, name, 'package.json'))['hoth-cli'] || {}; // eslint-disable-line
@@ -165,7 +169,7 @@ export async function cli(args: string[]) {
     const {
         appType,
         appName
-    } = await inquirer.prompt(inputs);
+    } = await inquirer.prompt<PromptAnswers>(inputs);
 
     const data = {
         appName,

@@ -9,7 +9,7 @@ A Node.js framework based on fastify
 
 ## Requirements
 
-Node.js v12 or later.
+Node.js v20 or later.
 
 ## Install
 
@@ -44,34 +44,25 @@ npm run dev
 
 ## Development
 
-> Node.js v16 is recommended while developing.
->
-> The semantic-release needs Node.js v16 to install. You can still use Node.js v12 after install though, we don't need semantic-release while developing.
-
 ### Preparation
 ```sh
 pnpm i
-
 pnpm run build
 ```
 
-### Cli development
+### Debug
 ```sh
-# add npm package
-lerna add config-enhanced --scope @hoth/app-autoload --registry https://registry.npmmirror.com
-
-# watch packages
-lerna exec "tsc --build -w tsconfig.json" --scope @hoth/cli
-lerna exec "tsc --build -w tsconfig.json" --scope @hoth/decorators
-lerna exec "tsc --build -w tsconfig.json" --scope @hoth/app-autoload
-lerna exec "tsc --build -w tsconfig.json" --scope @hoth/logger
-
 # debug for example
 cd example/hoth-quickstart
-pnpm i
+
+# link to packages
+pnpm i ./
 
 pnpm run dev
+```
 
-pnpm --filter @hoth/logger run build
-pnpm --filter @hoth/cli run build
+### release
+
+```sh
+pnpm release
 ```

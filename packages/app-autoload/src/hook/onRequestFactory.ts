@@ -1,6 +1,7 @@
 import {performance} from 'perf_hooks';
 import {FastifyInstance, FastifyRequest} from 'fastify';
 import uuid from 'uuid-random';
+import {appSym} from '@hoth/logger';
 
 export const reqStartTimeSym = Symbol.for('hoth.req-start-time');
 
@@ -12,6 +13,7 @@ export default function (appConfig: FastifyRequest['$appConfig'], fastify: Fasti
             || (req.headers.logid as string)
             || uuid();
         req.$appConfig = appConfig;
+        req[appSym] = appConfig.get('name');
         req.$service = fastify;
     };
 }

@@ -22,7 +22,7 @@ const scriptPattern = /((^.?|\.[^d]|[^.]d|[^.][^d])\.js|\.cjs|\.mjs)$/i;
 
 async function findPlugins(dir: string, pluginTree: PluginTree = {}, prefix: string = '/', depth: number = 0) {
     const list = await readdir(dir, {
-        withFileTypes: true
+        withFileTypes: true,
     });
 
     pluginTree[prefix] = pluginTree[prefix] || [];
@@ -55,7 +55,7 @@ async function findPlugins(dir: string, pluginTree: PluginTree = {}, prefix: str
 
 function loadModule(file: string) {
     if (typeof require !== 'undefined') {
-        /* eslint-disable @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports */
+
         return require(file);
     }
     return import(pathToFileURL(file).toString());
@@ -81,7 +81,7 @@ export default fp(async function pluginAutoLoad(fastify: FastifyInstance, opts: 
             const pluginConfig = (content.default && content.default.autoConfig) || content.autoConfig || {};
             const pluginOptions = {
                 ...pluginConfig,
-                ...opts.options
+                ...opts.options,
             };
 
             if (opts.dirNameRoutePrefix) {
@@ -95,5 +95,5 @@ export default fp(async function pluginAutoLoad(fastify: FastifyInstance, opts: 
     }
 
 }, {
-    name: '@hoth/app-plugin-autoload'
+    name: '@hoth/app-plugin-autoload',
 });

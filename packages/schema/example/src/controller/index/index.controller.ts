@@ -8,9 +8,9 @@ export default class AppController {
         url: '',
         options: {
             schema: {
-                querystring: {$ref: 'hoth/aaa.ts#/definitions/bbb'}
-            }
-        }
+                querystring: {$ref: 'hoth/aaa.ts#/definitions/bbb'},
+            },
+        },
     })
     getApp(req: FastifyRequest, reply: FastifyReply) {
 

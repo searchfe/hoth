@@ -11,11 +11,11 @@ describe('hoth schema plugin', () => {
         const mockFastify = {
             addSchema(schema: any) {
                 expect(Object.keys(originSchema)).toContain(schema.$id);
-            }
+            },
         };
         const addSchemaSpy = jest.spyOn(mockFastify, 'addSchema');
         await initSchema(mockFastify as FastifyInstance, {
-            schemaPath: path.resolve(__dirname, './sample/schema.json')
+            schemaPath: path.resolve(__dirname, './sample/schema.json'),
         });
 
         expect(addSchemaSpy).toHaveBeenCalledTimes(Object.keys(originSchema).length);

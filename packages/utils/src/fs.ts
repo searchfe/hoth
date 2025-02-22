@@ -14,7 +14,7 @@ export async function rm(path: string, options?: Parameters<typeof fsPromises.rm
     // below Node.js v14.14
     // remove when we stop support Node.js v12
     return fsPromises.rmdir(path, {
-        recursive: options?.recursive
+        recursive: options?.recursive,
     });
 }
 
@@ -25,7 +25,7 @@ export function rmSync(path: string, options?: Parameters<typeof fs.rmSync>[1]) 
     }
 
     return fs.rmdirSync(path, {
-        recursive: options?.recursive
+        recursive: options?.recursive,
     });
 }
 

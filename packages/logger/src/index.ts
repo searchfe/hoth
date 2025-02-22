@@ -3,12 +3,23 @@ import path from 'path';
 import pino from 'pino';
 import * as fileStreamRotator from 'file-stream-rotator';
 import type {FastifyRequest, FastifyReply} from 'fastify';
-import type {Logger} from 'pino';
 import type {LoggerOptions} from './types';
 
 import stream from './stream';
-import {fieldSym, noticeSym, performanceSym} from './constants';
+import {fieldSym, noticeSym, performanceSym, appSym} from './constants';
 import {Stream} from 'stream';
+
+export {appSym} from './constants';
+
+
+
+declare module 'pino' {
+    interface BaseLogger {
+        // notice是自定义的level，会自动挂载到pino的logger notice方法上
+        notice: pino.LogFn;
+    }
+}
+
 
 declare module 'fastify' {
     interface FastifyRequest {
@@ -21,9 +32,11 @@ declare module 'fastify' {
         [performanceSym]: {
             [key: string]: number[];
         };
+        [appSym]: string;
     }
 
     interface FastifyBaseLogger {
+        notice: pino.LogFn;
         addField: (key: string, value: string | number) => void;
         addNotice: (key: string, value: string | number) => void;
         addPerformance: (name: string, value: number) => void;
@@ -37,7 +50,7 @@ interface StreamItem {
     stream: Stream;
 }
 
-export default function createLogger(options: LoggerOptions): Logger {
+export default function createLogger(options: LoggerOptions) {
     let {
         apps,
         rootPath,
@@ -67,7 +80,7 @@ export default function createLogger(options: LoggerOptions): Logger {
                     frequency: '1h',
                     verbose: process.env.NODE_ENV === 'development',
                     date_format: 'YYYYMMDDHH',
-                })
+                }),
             });
         }
     }
@@ -77,6 +90,15 @@ export default function createLogger(options: LoggerOptions): Logger {
         customLevels: {
             notice: 35,
         },
+        formatters: {
+            // level(label) {
+            //     console.log('level', label);
+            //     return {level: label};
+            // },
+            // log(object) {
+            //     return object;
+            // },
+        },
         serializers: {
             res(reply) {
                 return {
@@ -85,6 +107,7 @@ export default function createLogger(options: LoggerOptions): Logger {
             },
             req(request) {
                 return {
+                    app: request[appSym],
                     method: request.method,
                     url: request.url,
                     parameters: request.parameters,

@@ -46,6 +46,7 @@ export const levelFormats = Object.keys(defaultLevels).reduce((prev, level) => {
     };
 }, {});
 
+export const appSym = Symbol.for('hoth.logger.app');
 export const fieldSym = Symbol.for('hoth.logger.field');
 export const noticeSym = Symbol.for('hoth.logger.notice');
 export const performanceSym = Symbol.for('hoth.logger.performace');

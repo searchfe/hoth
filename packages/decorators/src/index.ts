@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
+
 
 import 'reflect-metadata';
 
@@ -45,7 +45,7 @@ export const bootstrap = fastifyPlugin(async function (fastify: FastifyInstance,
     appFastifyInstanceTokenMap.set(appName, fastify);
     return bootstrapInner(fastify, config);
 }, {
-    fastify: '>=5.0.0'
+    fastify: '>=5.0.0',
 });
 
 declare module 'fastify' {

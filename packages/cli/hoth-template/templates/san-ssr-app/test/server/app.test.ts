@@ -15,7 +15,7 @@ describe('main', () => {
 
         expect(instance.hasReplyDecorator('render')).toBe(true);
         const res = await instance.inject({
-            url: '/static/js/main.js'
+            url: '/static/js/main.js',
         });
         expect(res.statusCode).toBe(200);
     });

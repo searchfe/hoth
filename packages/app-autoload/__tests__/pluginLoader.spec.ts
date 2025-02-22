@@ -29,7 +29,7 @@ describe('@hoth/app-autoload pluginLoader', () => {
             dir: path.join(__dirname, 'fixtures/plugins/simple'),
             options: {
                 init: 1,
-            }
+            },
         });
 
         expect(fastifyInstance.foo).toEqual({
@@ -53,7 +53,7 @@ describe('@hoth/app-autoload pluginLoader', () => {
             dir: path.join(__dirname, 'fixtures/plugins/empty'),
             options: {
                 init: 1,
-            }
+            },
         });
 
         expect(fastifyInstance.realPlugin).toEqual({

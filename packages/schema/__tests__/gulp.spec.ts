@@ -10,7 +10,7 @@ describe('hoth schema gulp', () => {
         const contents = await fs.readFile(path.resolve(__dirname, './sample/index.ts'));
         const fakeFile = new File({
             path: path.resolve(__dirname, './sample/index.ts'),
-            contents
+            contents,
         });
 
         const gulpPlugin = compileInterface({fileName: 'outputFile.json'});

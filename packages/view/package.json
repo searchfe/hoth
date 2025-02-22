@@ -15,7 +15,6 @@
   },
   "keywords": [
     "view",
-    "swig",
     "ejs"
   ],
   "author": "cxtom (cxtom2008@gmail.com)",
@@ -25,6 +24,7 @@
   },
   "homepage": "https://github.com/searchfe/hoth#readme",
   "dependencies": {
+    "@hoth/decorators": "workspace:^1.1.6",
     "fastify-plugin": "^3.0.0",
     "lru-cache": "^6.0.0",
     "tslib": "^2.1.0"
@@ -33,7 +33,6 @@
     "dist"
   ],
   "devDependencies": {
-    "@types/lru-cache": "^5.1.0",
-    "@types/swig": "^0.0.29"
+    "@types/lru-cache": "^5.1.0"
   }
 }

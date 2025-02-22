@@ -5,7 +5,7 @@ export async function initSchema(fastify: FastifyInstance, options: {
     schemaPath: string;
 }) {
     const {
-        schemaPath
+        schemaPath,
     } = options;
 
     const schemaContent = await fs.readFile(schemaPath, 'utf-8');

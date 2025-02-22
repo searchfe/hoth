@@ -15,7 +15,7 @@ interface PromptAnswers {
 }
 
 function createInfo(name: string, repoTemplatesDir: string, opts: ReturnType<typeof parseArgs>) {
-    const conf = require(join(repoTemplatesDir, name, 'package.json'))['hoth-cli'] || {}; // eslint-disable-line
+    const conf = require(join(repoTemplatesDir, name, 'package.json'))['hoth-cli'] || {};
     const baseTemplate = conf.base_template || '';
     return {
         dir: join(repoTemplatesDir, name),
@@ -106,10 +106,10 @@ export async function cli(args: string[]) {
             try {
                 console.log('start to git pull templates:', repo, repoTemplatesDir);
                 const branch = execSync('git branch | sed "s%*%%"|head -1 ', {
-                    cwd: repoTemplatesDir
+                    cwd: repoTemplatesDir,
                 });
                 execSync(`git pull origin ${branch}`, {
-                    cwd: repoTemplatesDir
+                    cwd: repoTemplatesDir,
                 });
             }
             catch (e) {
@@ -122,7 +122,7 @@ export async function cli(args: string[]) {
             try {
                 console.log('start to git clone templates:', repo);
                 execSync(`git clone ${repo} ${subDir}`, {
-                    cwd: repoDir
+                    cwd: repoDir,
                 });
             }
             catch (e) {
@@ -163,17 +163,17 @@ export async function cli(args: string[]) {
         choices: templateInfos.map(a => a.desc),
         default() {
             return templateInfos[0].desc;
-        }
+        },
     }];
 
     const {
         appType,
-        appName
+        appName,
     } = await inquirer.prompt<PromptAnswers>(inputs);
 
     const data = {
         appName,
-        cliVersion: require(join(__dirname, '../package.json')).version, // eslint-disable-line @typescript-eslint/no-var-requires, max-len
+        cliVersion: require(join(__dirname, '../package.json')).version,
     };
 
     const selectedTempate  = templateInfos.find(a => a.desc === appType);

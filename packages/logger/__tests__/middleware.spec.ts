@@ -4,7 +4,8 @@ import {readFileSync} from 'fs';
 import {advanceTo, clear} from 'jest-date-mock';
 import mockConsole from 'jest-mock-console';
 import fastify from 'fastify';
-import {fs} from '@hoth/utils';
+import fs from 'fs';
+import {FastifyBaseLogger} from 'fastify';
 
 describe('@hoth/logger logger', function () {
 
@@ -21,13 +22,13 @@ describe('@hoth/logger logger', function () {
         rootPath,
         apps: [
             {
-                name: 'test'
-            }
-        ]
+                name: 'test',
+            },
+        ],
     });
 
     const app = fastify({
-        logger,
+        loggerInstance: logger as unknown as FastifyBaseLogger,
     });
 
     app.addHook('preHandler', preHandler);
@@ -39,7 +40,7 @@ describe('@hoth/logger logger', function () {
         req.log.notice({
             app: 'test',
             req,
-            reply
+            reply,
         });
         reply.send('ok');
     });
@@ -47,20 +48,20 @@ describe('@hoth/logger logger', function () {
     afterAll(async () => {
         clear();
         restoreConsole();
-        await fs.rm(rootPath, {recursive: true, force: true});
+        fs.rmSync(rootPath, {recursive: true, force: true});
     });
 
-    it('test', async done => {
+    it('test', async () => {
         await app.inject({
             method: 'GET',
-            path: '/test/xx'
+            path: '/test/xx',
         });
-        setTimeout(() => {
+        await new Promise(resolve => setTimeout(() => {
             const log = readFileSync(join(rootPath, 'log/test/test.log.2021020100'), 'utf8');
             expect(log).toContain('NOTICE: 2021-02-01 00:00:00');
             expect(log).toContain('foo[xx]');
             expect(log).toContain('tm[func1:2:30.0]');
-            done();
-        }, 100);
+            resolve(0);
+        }, 100));
     });
 });

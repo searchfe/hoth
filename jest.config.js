@@ -1,7 +1,11 @@
 module.exports = {
     moduleFileExtensions: ['js', 'ts'],
     transform: {
-        '^.+\\.(ts)$': 'ts-jest',
+        '^.+\\.(ts)$': ['ts-jest', {
+            tsconfig: {
+                strict: false
+            }
+        }]
     },
     testPathIgnorePatterns: ['/node_modules/', '.*\\.d.ts', '/workdir/'],
     testRegex: '/__tests__/.*(test|spec)\\.ts$',
@@ -15,13 +19,6 @@ module.exports = {
         '!**/example/**',
         '!**/node_modules/**',
     ],
-    globals: {
-        'ts-jest': {
-            tsconfig: {
-                strict: false
-            }
-        }
-    },
     setupFiles: ['jest-date-mock'],
     moduleNameMapper: {
         '@hoth/app-autoload': '<rootDir>/packages/app-autoload/src/index.ts',

@@ -39,6 +39,6 @@
   ],
   "gitHead": "0735cada835eabb2ac787ca1c5f2ff4bb8310fe2",
   "devDependencies": {
-    "@fastify/multipart": "^8.0.0"
+    "@fastify/multipart": "^9.0.3"
   }
 }

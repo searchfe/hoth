@@ -7,7 +7,7 @@ import {mkdirSync, writeFileSync, promises as fsPromises} from 'fs';
 import {copySync} from 'fs-extra';
 import {fs as utilsFs} from '@hoth/utils';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+
 
 const workdir = path.join(__dirname, 'workdir');
 
@@ -47,24 +47,7 @@ describe('hoth cli generate', () => {
         // @ts-ignore
         inquirer.prompt = jest.fn().mockResolvedValue({
             appName: 'myapp',
-            appType: 'Normal'
-        });
-        const mockLog = mockConsoleLog();
-        await cli([workdir]);
-
-        expect(mockLog).toHaveBeenCalledWith('generated package.json');
-        const pkg = await utilsFs.readJson(`${workdir}/package.json`);
-        expect(pkg.name).toBe('@baidu/myapp-node-ui');
-        expect(pkg.private).toBe(true);
-
-        mockLog.mockRestore();
-    });
-
-    it('generate normal template', async () => {
-        // @ts-ignore
-        inquirer.prompt = jest.fn().mockResolvedValue({
-            appName: 'myapp',
-            appType: 'Normal'
+            appType: 'Normal',
         });
         const mockLog = mockConsoleLog();
         await cli([workdir]);
@@ -84,7 +67,7 @@ describe('hoth cli generate', () => {
             const app = list[0];
             return {
                 appName: app.default(),
-                appType: 'Normal'
+                appType: 'Normal',
             };
         });
         const mockLog = mockConsoleLog();
@@ -101,7 +84,7 @@ describe('hoth cli generate', () => {
             expect(list[0].validate('my*app')).toBe('Please enter a valid product name.');
             return {
                 appName: 'myapp',
-                appType: 'Normal'
+                appType: 'Normal',
             };
         });
         const mockLog = mockConsoleLog();
@@ -113,7 +96,7 @@ describe('hoth cli generate', () => {
         // @ts-ignore
         inquirer.prompt = jest.fn().mockResolvedValue({
             appName: 'myapp',
-            appType: 'Normal'
+            appType: 'Normal',
         });
 
         const mockLog = mockConsoleLog();
@@ -147,7 +130,7 @@ describe('hoth cli generate', () => {
         // @ts-ignore
         inquirer.prompt = jest.fn().mockResolvedValue({
             appName: 'myapp',
-            appType: 'Normal'
+            appType: 'Normal',
         });
 
         const mockLog = mockConsoleLog();

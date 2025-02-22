@@ -21,5 +21,5 @@ export {initThread} from './initThread';
 
 export type {
     PluginOptions,
-    HothThreadConf
+    HothThreadConf,
 } from '../../types';

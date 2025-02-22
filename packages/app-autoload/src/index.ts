@@ -14,7 +14,9 @@ import fp from 'fastify-plugin';
 import resolveFrom from 'resolve-from';
 import {bootstrap} from '@hoth/decorators';
 import {exit, loadModule} from '@hoth/utils';
-import onErrorFactory from './hook/onErrorFactory';
+import onErrorHandlerFactory from './hook/onErrorHandlerFactory';
+import onNotFoundHandlerFactory from './hook/onNotFoundHandlerFactory';
+
 import onSend from './hook/onSend';
 import preHandlerFactory from './hook/preHandlerFactory';
 import preSerialization from './hook/preSerialization';
@@ -72,7 +74,8 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         return;
     }
 
-    childInstance.setErrorHandler(onErrorFactory(appConfig.name));
+    childInstance.setErrorHandler(onErrorHandlerFactory(appConfig.name));
+    childInstance.setNotFoundHandler(onNotFoundHandlerFactory(appConfig.name));
 
     const config = Config.util.loadFileConfigs(pluginAppConfig.configPath);
     Config[appConfig.name] = {};
@@ -133,13 +136,7 @@ async function load(appConfig: AppConfig, childInstance: FastifyInstance) {
         });
     }
 
-    const moleculeConfigPath = join(appConfig.dir, 'config/molecule.json');
-    // load molecule
-    if (existsSync(moleculeConfigPath)) {
-        // await loadMoleculeApp(appConfig, childInstance);
-    }
-    // load controllers
-    else if (existsSync(pluginAppConfig.controllerPath)) {
+    if (existsSync(pluginAppConfig.controllerPath)) {
         await childInstance.register(bootstrap, {
             directory: pluginAppConfig.controllerPath,
             mask: /\.controller\.js$/,
@@ -217,7 +214,7 @@ export async function getApps(opts: AppAutoload): Promise<AppConfig[]> {
 
 export default fp(async function (instance: FastifyInstance, opts: AppAutoload | AppsLoaded) {
 
-    // eslint-disable-next-line @typescript-eslint/init-declarations
+
     let apps: AppConfig[];
     if ((opts as AppsLoaded).apps) {
         apps = (opts as AppsLoaded).apps;
@@ -235,7 +232,7 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload |
         catch (e) {
             instance.log.fatal({
                 app: appConfig.name,
-                err: e
+                err: e,
             });
         }
     }
@@ -244,5 +241,5 @@ export default fp(async function (instance: FastifyInstance, opts: AppAutoload |
 
 }, {
     fastify: '>=5.0.0',
-    name: '@hoth/app-autoload'
+    name: '@hoth/app-autoload',
 });

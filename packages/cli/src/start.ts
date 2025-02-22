@@ -3,7 +3,7 @@
  * @author cxtom
  */
 
-/* eslint-disable @typescript-eslint/await-thenable */
+
 import os from 'os';
 import Fastify, {FastifyBaseLogger, FastifyReply, FastifyRequest, RouteOptions} from 'fastify';
 import isDocker from 'is-docker';
@@ -25,7 +25,7 @@ declare module 'fastify' {
 
 const listenAddressDocker = '0.0.0.0';
 
-// eslint-disable-next-line @typescript-eslint/init-declarations
+
 let fastify: typeof Fastify;
 
 // 初始化全局变量
@@ -38,7 +38,7 @@ function loadFastify() {
     fastify = fastifyModule;
 }
 
-function initFinalLogger(logger: pino.Logger) {
+function initFinalLogger(logger: pino.BaseLogger) {
     // const major = Number(process.versions.node.split('.')[0]);
     return function (err: Error | null, evt?: string) {
         if (err) {
@@ -131,7 +131,7 @@ async function runFastify(opts: Args) {
         await fastifyInstance.close();
     } as closeWithGrace.CloseWithGraceAsyncCallback);
 
-    // eslint-disable-next-line
+
     require('make-promises-safe').logError = async function (error: Error | string) {
         finalLogger(error instanceof Error ? error : null, typeof error === 'string' ? error : error.message);
         await fastifyInstance.close();
@@ -145,7 +145,7 @@ async function runFastify(opts: Args) {
         try {
             await fastifyInstance.register(entryMod, {
                 apps,
-                rootPath
+                rootPath,
             });
         }
         catch (err) {
@@ -165,16 +165,16 @@ async function runFastify(opts: Args) {
 
     let address = '';
     if (opts.address) {
-        address = await fastifyInstance.listen({ port: Number(opts.port), host: opts.address });
+        address = await fastifyInstance.listen({port: Number(opts.port), host: opts.address});
     }
     else if (opts.socket) {
-        address = await fastifyInstance.listen({ path: opts.socket });
+        address = await fastifyInstance.listen({path: opts.socket});
     }
     else if (isDocker()) {
-        address = await fastifyInstance.listen({ port: Number(opts.port), host: listenAddressDocker });
+        address = await fastifyInstance.listen({port: Number(opts.port), host: listenAddressDocker});
     }
     else {
-        address = await fastifyInstance.listen({ port: Number(opts.port) });
+        address = await fastifyInstance.listen({port: Number(opts.port)});
     }
 
     const showAddress = address.replace('0.0.0.0', getOuterIP());
@@ -196,7 +196,7 @@ async function runFastify(opts: Args) {
 export async function start(args: string[]) {
 
     if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+
         require('dotenv').config();
     }
 

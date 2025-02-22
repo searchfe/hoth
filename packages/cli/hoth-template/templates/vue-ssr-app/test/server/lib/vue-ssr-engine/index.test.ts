@@ -15,11 +15,11 @@ describe('Service: AuthService', () => {
         const component = {
             props: ['word'],
             data: () => ({count: 1}),
-            template: '<button @click="count++">{{ word }}{{ count }}</button>'
+            template: '<button @click="count++">{{ word }}{{ count }}</button>',
         };
 
         const res = await service.render(component, {
-            word: 'Current count: '
+            word: 'Current count: ',
         });
 
         expect(res).toBe('<button>Current count: 1</button>');

@@ -7,9 +7,14 @@
         "composite": false
     },
     "references": [
-      { "path": "../../packages/decorators" }
+      { "path": "../../packages/decorators" },
+      { "path": "../../packages/logger" }
     ],
     "exclude": [
       "./gulpfile.ts"
+    ],
+    "include": [
+        "src/**/*",
+        "src/types/*.d.ts"
     ]
   }

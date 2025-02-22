@@ -51,7 +51,7 @@ export default function (args: string[]): Args {
             appDir: 'app',
             subApp: false,
             appPrefix: '/',
-            repo: ''
+            repo: '',
         },
     });
 

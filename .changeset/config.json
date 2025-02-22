@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": "@changesets/changelog-github",
+  "changelog": ["@changesets/changelog-github", { "repo": "searchfe/hoth" }],
   "commit": false,
   "fixed": [],
   "linked": [],
@@ -8,10 +8,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "*.spec.ts",
-    "*.md",
-    "example/*",
-    "README",
-    "__tests__/*"
+
   ]
 }

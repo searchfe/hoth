@@ -10,7 +10,7 @@ export function compileInterfaceToSchema(options: {
 }) {
     const {
         fileName,
-        getId = filePath => 'hoth/' + path.basename(filePath)
+        getId = filePath => 'hoth/' + path.basename(filePath),
     } = options;
 
     /* istanbul ignore next */
@@ -30,7 +30,7 @@ export function compileInterfaceToSchema(options: {
 
     function endStream(this: Transform, cb: (err: any, file: File) => any) {
         const {schemas} = generateSchema(files, {
-            getId
+            getId,
         });
 
         const outputFile = latestFile.clone({contents: false});

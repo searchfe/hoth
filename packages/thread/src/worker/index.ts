@@ -14,14 +14,14 @@ if (isMainThread) {
 const {
     warmupConfig,
     logConfig,
-    userData
+    userData,
 } = getWorkerDataAndInitHothThread();
 const logger = createLogger({
     apps: [{name: logConfig.appName}],
-    rootPath: process.env.ROOT_PATH as string
+    rootPath: process.env.ROOT_PATH as string,
 });
 const hothUtils: any = {
-    logger
+    logger,
 };
 
 /**
@@ -32,7 +32,7 @@ async function warmup(fn: Function) {
         log: logger as any,
         async inject(data: any) {
             await fn(hothUtils, data);
-        }
+        },
     };
 
     if (warmupConfig) {
@@ -57,7 +57,7 @@ function getWorkerDataAndInitHothThread() {
     return {
         warmupConfig,
         logConfig,
-        userData
+        userData,
     };
 }
 

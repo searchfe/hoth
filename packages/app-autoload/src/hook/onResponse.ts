@@ -18,7 +18,7 @@ declare module 'fastify' {
     }
 }
 
-// Attention: https://www.fastify.io/docs/v3.19.x/Server/#disablerequestlogging
+// Attention: https://fastify.dev/docs/v5.2.x/Reference/Server/#disablerequestlogging
 // 因为禁用disablerequestlogging，onResponse Hook的报错，会被吞掉
 export default async function (req: FastifyRequest, reply: FastifyReply) {
     const now = performance.now();

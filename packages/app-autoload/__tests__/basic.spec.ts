@@ -1,27 +1,28 @@
-import fastify, {FastifyInstance, FastifyLoggerInstance} from 'fastify';
+import fastify, {FastifyInstance, FastifyBaseLogger} from 'fastify';
 import {resolve} from 'path';
 import FormData from 'form-data';
 import fs from 'fs';
 import appAutoload, {AppConfig, getApps} from '../src/index';
 
-describe('@hoth/app-autoload basic app', () => {
+const noop = (level: string) => (...args: any[]) => {}; ;
 
-    function noop() {} // eslint-disable-line @typescript-eslint/no-empty-function
+describe('@hoth/app-autoload basic app', () => {
     let apps: AppConfig[];
     let fastifyInstance: FastifyInstance;
-    let logger: FastifyLoggerInstance = {
-        fatal: noop,
-        error: noop,
-        warn: noop,
-        info: noop,
-        debug: noop,
-        trace: noop,
-        notice: noop,
-        // @ts-ignore
-        addField: noop,
-        addNotice: noop,
-        addPerformance: noop,
+    let logger: FastifyBaseLogger = {
+        fatal: noop('fatal'),
+        error: noop('error'),
+        warn: noop('warn'),
+        info: noop('info'),
+        debug: noop('debug'),
+        trace: noop('trace'),
+        notice: noop('notice'),
+        addField: noop('addField'),
+        addNotice: noop('addNotice'),
+        addPerformance: noop('addPerformance'),
         child: () => logger,
+        level: 'info',
+        silent: noop('silent'),
     };
 
     beforeAll(async () => {
@@ -34,7 +35,7 @@ describe('@hoth/app-autoload basic app', () => {
 
         fastifyInstance = fastify({
             disableRequestLogging: true,
-            logger,
+            loggerInstance: logger as unknown as FastifyBaseLogger,
         });
 
         await fastifyInstance.register(appAutoload, {
@@ -46,7 +47,7 @@ describe('@hoth/app-autoload basic app', () => {
 
         const res1 = await fastifyInstance.inject({
             method: 'GET',
-            path: '/another/app'
+            path: '/another/app',
         });
 
         expect(res1.statusCode).toBe(200);
@@ -54,7 +55,7 @@ describe('@hoth/app-autoload basic app', () => {
 
         const res2 = await fastifyInstance.inject({
             method: 'GET',
-            path: '/some/app'
+            path: '/some/app',
         });
 
         expect(res2.statusCode).toBe(404);
@@ -66,7 +67,7 @@ describe('@hoth/app-autoload basic app', () => {
 
         const response = await fastifyInstance.inject({
             method: 'GET',
-            path: '/another/app/50x'
+            path: '/another/app/50x',
         });
 
         expect(response.statusCode).toBe(500);
@@ -82,7 +83,7 @@ describe('@hoth/app-autoload basic app', () => {
 
         const response = await fastifyInstance.inject({
             method: 'GET',
-            path: '/another/app/foo'
+            path: '/another/app/foo',
         });
 
         expect(response.statusCode).toBe(200);
@@ -93,7 +94,7 @@ describe('@hoth/app-autoload basic app', () => {
 
         const response = await fastifyInstance.inject({
             method: 'GET',
-            path: '/another/app/config'
+            path: '/another/app/config',
         });
 
         expect(response.statusCode).toBe(200);
@@ -104,7 +105,7 @@ describe('@hoth/app-autoload basic app', () => {
 
         const response = await fastifyInstance.inject({
             method: 'GET',
-            path: '/another/app/req'
+            path: '/another/app/req',
         });
 
         expect(response.statusCode).toBe(200);

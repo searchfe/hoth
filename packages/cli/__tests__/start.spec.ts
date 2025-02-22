@@ -8,7 +8,7 @@ jest.mock('close-with-grace', () => {
     return function (_: any, cb: (_: any) => Promise<void>) {
         processExitCallback = cb;
         return {
-            uninstall: noop
+            uninstall: noop,
         };
     };
 });
@@ -75,7 +75,9 @@ describe('hoth cli start', () => {
 
         const fastifyInstance = await start(['--healthcheck-path="/healthcheck"', '--port=8252']);
 
-        expect(mockLog.mock.calls[mockLog.mock.calls.length - 1][1]).toContain('/healthcheck (GET)');
+        const logs = mockLog.mock.calls.map(call => call[1]).join('\n');
+        expect(logs).toContain('/healthcheck (HEAD)');
+        expect(logs).toContain('/healthcheck (GET)');
         expect(mockExit).not.toHaveBeenCalled();
         mockExit.mockRestore();
         mockLog.mockRestore();
@@ -83,7 +85,7 @@ describe('hoth cli start', () => {
         if (fastifyInstance) {
             const res = await fastifyInstance.inject({
                 method: 'GET',
-                path: '/healthcheck'
+                path: '/healthcheck',
             });
 
             expect(res.body).toBe('ok');
@@ -140,13 +142,14 @@ describe('hoth cli start', () => {
 
             const mockClose = jest.spyOn(fastifyInstance, 'close');
 
-            triggerExit('SIGTERM', null, false);
+            await triggerExit('SIGTERM', null, false);
             expect(mockClose).toHaveBeenCalled();
             expect(mockExit).toHaveBeenCalled();
 
             mockExit.mockRestore();
             mockLog.mockRestore();
             mockClose.mockRestore();
+            await fastifyInstance.close();
         });
 
         it('uncaughtException', async () => {
@@ -162,13 +165,14 @@ describe('hoth cli start', () => {
 
             const mockClose = jest.spyOn(fastifyInstance, 'close');
 
-            triggerExit('uncaughtException', new TypeError('some error'), false);
+            await triggerExit('uncaughtException', new TypeError('some error'), false);
             expect(mockClose).toHaveBeenCalled();
             expect(mockExit).toHaveBeenCalled();
 
             mockExit.mockRestore();
             mockLog.mockRestore();
             mockClose.mockRestore();
+            await fastifyInstance.close();
         });
 
     });

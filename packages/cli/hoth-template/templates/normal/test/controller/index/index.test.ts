@@ -29,10 +29,10 @@ describe('Controller: AppController', () => {
                     fastify.decorateRequest('$appConfig', {get: jest.fn()});
                     fastify.register(pointOfView, {
                         engine: {nunjucks},
-                        root: path.resolve(__dirname, '../../../src/view')
+                        root: path.resolve(__dirname, '../../../src/view'),
                     });
-                })
-            ]
+                }),
+            ],
         });
     });
     afterEach(() => jest.restoreAllMocks());

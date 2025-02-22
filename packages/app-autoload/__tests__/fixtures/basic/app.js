@@ -1,7 +1,7 @@
 module.exports = async function main(fastify) {
     fastify.decorateRequest('foo', 'ok');
 
-    fastify.register(require('fastify-multipart'), {
+    fastify.register(require('@fastify/multipart'), {
         limits: {
             fieldNameSize: 100, // Max field name size in bytes
             fieldSize: 100,     // Max field value size in bytes

@@ -32,10 +32,10 @@ const pkg: Record<string, unknown> = fs.readJsonSync(path.resolve(__dirname, '..
 const notifier = updateNotifier({
     pkg,
     updateCheckInterval: 1000 * 60 * 60 * 24 * 3,
-    shouldNotifyInNpmScript: true
+    shouldNotifyInNpmScript: true,
 });
 notifier.notify({
-    defer: false
+    defer: false,
 });
 
 const res = commander.parse(process.argv.splice(2));

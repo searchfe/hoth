@@ -31,7 +31,7 @@
     "@baidu/hoth-quickstart-node-ui": "link:",
     "@hoth/app-autoload": "^1.1.15",
     "@hoth/cli": "workspace:^",
-    "@hoth/decorators": "workspace:^1.1.6",
+    "@hoth/decorators": "workspace:^",
     "@hoth/logger": "^1.3.0",
     "@hoth/utils": "^1.1.4",
     "@hoth/view": "^1.3.2",

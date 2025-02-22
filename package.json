@@ -22,7 +22,7 @@
     "build:example": "pnpm --filter hoth-quickstart run build",
     "build": "pnpm run -r build",
     "dev": "nodemon",
-    "release": "semantic-release",
+    "release": "pnpm run -r release",
     "test": "SUPPRESS_STRICTNESS_CHECK=1 pnpm jest",
     "clean": "pnpm run -r clean",
     "prepare": "is-ci || husky install",
@@ -89,19 +89,6 @@
   },
   "packageManager": "pnpm@9.x",
   "publishConfig": {
-    "registry": "https://registry.npmmirror.com",
     "access": "public"
-  },
-  "release": {
-    "extends": "semantic-release-monorepo",
-    "branches": ["main"],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      "@semantic-release/git",
-      "@semantic-release/github"
-    ]
   }
 }

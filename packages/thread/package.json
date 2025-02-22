@@ -4,7 +4,8 @@
   "description": "thread pool plugin for hoth framework",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --build tsconfig.json"
+    "build": "tsc --build tsconfig.json",
+    "release": "semantic-release"
   },
   "repository": {
     "type": "git",

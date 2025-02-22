@@ -41,6 +41,8 @@ describe('hoth cli start', () => {
 
         const fastifyInstance = await start([]);
 
+        // 支持ipv4 和 ipv6，会打印ip是 127.0.0.1 或 ::1
+        // 故仅判断http
         expect(mockLog).toHaveBeenCalledWith('Server listening on http://127.0.0.1:8250.');
         expect(mockExit).not.toHaveBeenCalled();
         expect(mockSend).toHaveBeenCalledWith('ready');

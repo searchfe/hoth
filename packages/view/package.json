@@ -33,6 +33,7 @@
     "dist"
   ],
   "devDependencies": {
-    "@types/lru-cache": "^5.1.0"
+    "@types/lru-cache": "^5.1.0",
+    "ejs": "^3.1.10"
   }
 }

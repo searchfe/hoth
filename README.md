@@ -58,6 +58,7 @@ cd example/hoth-quickstart
 # link to packages
 pnpm i ./
 
+# run dev
 pnpm run dev
 ```
 

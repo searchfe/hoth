@@ -8,10 +8,12 @@ import {pathToFileURL} from 'url';
 
 export function exit(message?: string | Error) {
     if (message instanceof Error) {
+        // eslint-disable-next-line no-console
         console.log(message.stack);
         return process.exit(1);
     }
     if (message) {
+        // eslint-disable-next-line no-console
         console.log(`Warn: ${message}`);
         return process.exit(1);
     }

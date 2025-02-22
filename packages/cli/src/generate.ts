@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {exit, fs as utilsFs} from '@hoth/utils';
 import {existsSync, readdirSync, writeFileSync, mkdirSync} from 'fs';
 import {join} from 'path';

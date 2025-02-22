@@ -15,7 +15,8 @@ export default [
                 project: './tsconfig.json'
             },
             globals: {
-                ...globals.node
+                ...globals.node,
+                ...globals.jest
             }
         },
         plugins: {
@@ -26,7 +27,8 @@ export default [
             ...ecomfeConfig.rules,
             ...ecomfeConfigTs.rules,
             '@typescript-eslint/no-require-imports': 'off',
-            '@typescript-eslint/no-var-requires': 'off'
+            '@typescript-eslint/no-var-requires': 'off',
+            'no-unused-vars': 'off'
         }
     }
 ];

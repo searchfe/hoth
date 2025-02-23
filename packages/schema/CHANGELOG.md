@@ -1,3 +1,21 @@
+# [@hoth/schema-v2.0.0](https://github.com/searchfe/hoth/compare/@hoth/schema-v1.3.0...@hoth/schema-v2.0.0) (2025-02-23)
+
+
+### Bug Fixes
+
+* fail to release ([a29765f](https://github.com/searchfe/hoth/commit/a29765f18b440f85ef35c119e3699efbebe3c5d1))
+* test ([481d00b](https://github.com/searchfe/hoth/commit/481d00b232ee932084ca716710807c5061d31cfc))
+
+
+### Features
+
+* **cli:** migrate fastify 5 and remove molecule ([2935412](https://github.com/searchfe/hoth/commit/29354121d6b067e0cde4dfa4a2acb0ff51cd381b))
+
+
+### BREAKING CHANGES
+
+* **cli:** fastify v3 -> v5 and remove molecule
+
 # [@hoth/schema-v1.3.0](https://github.com/searchfe/hoth/compare/@hoth/schema-v1.2.0...@hoth/schema-v1.3.0) (2022-03-29)
 
 

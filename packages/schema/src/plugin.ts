@@ -10,7 +10,7 @@ export async function initSchema(fastify: FastifyInstance, options: {
 
     const schemaContent = await fs.readFile(schemaPath, 'utf-8');
 
-    // 异常不处理，直接抛出
+    // 异常不处理， 直接抛出
     const schema = JSON.parse(schemaContent);
 
     Object.keys(schema).forEach(id => {

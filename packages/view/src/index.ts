@@ -47,7 +47,7 @@ async function plugin(fastify: FastifyInstance, opts: HothViewOptions) {
     }
 
     const engine = opts.engine[type];
-    // const options = opts.options || ({} as HothViewOptions['options'])!;
+    // const options = opts.options || ({} as HothViewOptions['options'])! ;
     const viewExt = opts.viewExt || '';
     const maxCacheAge = opts.maxCacheAge || 1000 * 60 * 60;
     const maxCache = opts.maxCache || 20 * 1024 * 1024;

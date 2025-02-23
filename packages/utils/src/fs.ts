@@ -1,6 +1,6 @@
 /**
  * @file this file is supposed to replace 'fa-extra' for the reason that most
- * APIs have already been provided in Node.js v14 or newer. We can remove some
+ * APIs have already been provided in Node.js v14 or newer.  We can remove some
  * deps and progressively move to new APIs by using this file.
  */
 import fs, {promises as fsPromises} from 'fs';

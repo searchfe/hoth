@@ -11,8 +11,7 @@
         "README",
         "__tests__/*"
       ],
-      "message": "chore(release): publish",
-      "registry": "https://registry.npmmirror.com"
+      "message": "chore(release): publish"
     },
     "version": {
       "conventionalCommits": true,
@@ -20,6 +19,5 @@
     }
   },
   "npmClient": "pnpm",
-  "version": "independent",
-  "useWorkspaces": true
+  "version": "independent"
 }

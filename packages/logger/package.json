@@ -4,7 +4,8 @@
   "description": "logger plugin for hoth framework",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc --build tsconfig.json"
+    "build": "tsc --build tsconfig.json",
+    "release": "semantic-release"
   },
   "repository": {
     "type": "git",

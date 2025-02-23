@@ -19,5 +19,6 @@
     }
   },
   "npmClient": "pnpm",
-  "version": "independent"
+  "version": "independent",
+  "useWorkspaces": true
 }

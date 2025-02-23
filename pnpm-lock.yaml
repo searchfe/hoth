@@ -156,9 +156,6 @@ importers:
       '@hoth/logger':
         specifier: ^1.1.7
         version: link:../logger
-      '@hoth/molecule':
-        specifier: ^1.1.2
-        version: 1.1.5
       '@hoth/utils':
         specifier: ^1.1.4
         version: link:../utils
@@ -307,7 +304,7 @@ importers:
   packages/thread:
     dependencies:
       '@hoth/logger':
-        specifier: ^1.2.0
+        specifier: workspace:^
         version: link:../logger
       fastify-plugin:
         specifier: ^5.0.0
@@ -778,9 +775,6 @@ packages:
 
   '@fastify/proxy-addr@5.0.0':
     resolution: {integrity: sha512-37qVVA1qZ5sgH7KpHkkC4z9SK6StIsIcOmpjvMPXNb3vx2GQxhZocogVYbr2PbbeLCQxYIPDok307xEvRZOzGA==}
-
-  '@hoth/molecule@1.1.5':
-    resolution: {integrity: sha512-e33mBSulfoCMMf5RWe1v80w47y7zuhQzr1vC9/9AgHldR8OR837xygbDfNHzE//gdPtsGeqDRXXxdsr3pX+0IA==}
 
   '@hoth/typescript-to-json-schema@2.1.2':
     resolution: {integrity: sha512-cgx8fjREs5Q1SBZAyt3peC1dbdDBuuDa7uM0ubLkt5LylD6bCM+zuAUfJ0GTMuGWgquX5r11FXs4oKjztXkoog==}
@@ -6062,11 +6056,6 @@ snapshots:
     dependencies:
       '@fastify/forwarded': 3.0.0
       ipaddr.js: 2.2.0
-
-  '@hoth/molecule@1.1.5':
-    dependencies:
-      fastify-plugin: 3.0.1
-      tslib: 2.8.1
 
   '@hoth/typescript-to-json-schema@2.1.2':
     dependencies:

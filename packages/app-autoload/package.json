@@ -26,7 +26,6 @@
   "dependencies": {
     "@hoth/decorators": "^1.1.6",
     "@hoth/logger": "^1.1.7",
-    "@hoth/molecule": "^1.1.2",
     "@hoth/utils": "^1.1.4",
     "config-enhanced": "^3.3.7",
     "fastify-plugin": "^5.0.0",

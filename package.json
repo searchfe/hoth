@@ -26,8 +26,8 @@
     "test": "SUPPRESS_STRICTNESS_CHECK=1 pnpm jest",
     "clean": "pnpm run -r clean",
     "prepare": "is-ci || husky install",
-    "changeset": "changeset",
-    "version": "changeset version",
+    "changeset1": "changeset",
+    "version1": "changeset version",
     "link": "pnpm install",
     "bootstrap": "pnpm install"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@hoth/thread",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "thread pool plugin for hoth framework",
   "main": "index.js",
   "scripts": {

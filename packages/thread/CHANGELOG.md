@@ -1,3 +1,10 @@
+# [@hoth/thread-v1.0.4](https://github.com/searchfe/hoth/compare/@hoth/thread-v1.0.3...@hoth/thread-v1.0.4) (2025-02-23)
+
+
+### Bug Fixes
+
+* update deps ([17a4c00](https://github.com/searchfe/hoth/commit/17a4c005d6d49653d89ff9c076299dd8a989b488))
+
 # [@hoth/thread-v1.0.3](https://github.com/searchfe/hoth/compare/@hoth/thread-v1.0.2...@hoth/thread-v1.0.3) (2025-02-23)
 
 

@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v2.0.1](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v2.0.0...@hoth/app-autoload-v2.0.1) (2025-02-23)
+
+
+### Bug Fixes
+
+* update deps ([17a4c00](https://github.com/searchfe/hoth/commit/17a4c005d6d49653d89ff9c076299dd8a989b488))
+
 # [@hoth/app-autoload-v2.0.0](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v1.3.0...@hoth/app-autoload-v2.0.0) (2025-02-23)
 
 

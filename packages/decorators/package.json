@@ -1,6 +1,6 @@
 {
   "name": "@hoth/decorators",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "decorators for hoth framework",
   "main": "dist/index.js",
   "scripts": {

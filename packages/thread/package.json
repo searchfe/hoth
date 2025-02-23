@@ -12,7 +12,8 @@
     "url": "git+https://github.com/searchfe/hoth.git"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
     "hoth"

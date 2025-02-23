@@ -1,3 +1,10 @@
+# [@hoth/logger-v2.0.1](https://github.com/searchfe/hoth/compare/@hoth/logger-v2.0.0...@hoth/logger-v2.0.1) (2025-02-23)
+
+
+### Bug Fixes
+
+* fail to release ([7ae8bb8](https://github.com/searchfe/hoth/commit/7ae8bb8753323aad906ff3f13967f937167fdafa))
+
 # [@hoth/logger-v2.0.0](https://github.com/searchfe/hoth/compare/@hoth/logger-v1.7.0...@hoth/logger-v2.0.0) (2025-02-23)
 
 

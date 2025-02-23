@@ -1,3 +1,25 @@
+# [@hoth/cli-v2.0.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.7.0...@hoth/cli-v2.0.0) (2025-02-23)
+
+
+### Bug Fixes
+
+* fail to release ([7ae8bb8](https://github.com/searchfe/hoth/commit/7ae8bb8753323aad906ff3f13967f937167fdafa))
+* fail to release ([a29765f](https://github.com/searchfe/hoth/commit/a29765f18b440f85ef35c119e3699efbebe3c5d1))
+* lint bug ([7662b1d](https://github.com/searchfe/hoth/commit/7662b1d7fa2eab277952e140a9941f4818fc8b93))
+* lint bug ([f90121f](https://github.com/searchfe/hoth/commit/f90121f5740f03c3cbe25b124a822cfd89da7ac1))
+* test ([ae9294d](https://github.com/searchfe/hoth/commit/ae9294db4ed12ece9a0267f99c280d8d2381d158))
+* test ([481d00b](https://github.com/searchfe/hoth/commit/481d00b232ee932084ca716710807c5061d31cfc))
+
+
+### Features
+
+* **cli:** migrate fastify 5 and remove molecule ([2935412](https://github.com/searchfe/hoth/commit/29354121d6b067e0cde4dfa4a2acb0ff51cd381b))
+
+
+### BREAKING CHANGES
+
+* **cli:** fastify v3 -> v5 and remove molecule
+
 # [@hoth/cli-v1.7.0](https://github.com/searchfe/hoth/compare/@hoth/cli-v1.6.1...@hoth/cli-v1.7.0) (2023-03-11)
 
 

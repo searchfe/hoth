@@ -20,7 +20,7 @@
     "build:example": "pnpm --filter hoth-quickstart run build",
     "build": "pnpm run -r build",
     "dev": "nodemon",
-    "release": "pnpm -r run release",
+    "release": "pnpm -r --sequential run release",
     "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release",
     "test": "SUPPRESS_STRICTNESS_CHECK=1 pnpm jest",
     "clean": "pnpm -r exec rm -fr node_modules dist tsconfig.tsbuildinfo",

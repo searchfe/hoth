@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/searchfe/hoth#readme",
   "dependencies": {
-    "@hoth/decorators": "^1.3.0",
-    "fastify-plugin": "^3.0.0",
+    "@hoth/decorators": "^2.0.1",
+    "fastify-plugin": "^5.0.0",
     "lru-cache": "^6.0.0",
     "tslib": "^2.1.0"
   },

@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/searchfe/hoth#readme",
   "dependencies": {
-    "@hoth/logger": "workspace:^",
+    "@hoth/logger": "^2.0.1",
     "fastify-plugin": "^5.0.0",
     "fastify-warmup": "0.1.1",
     "piscina": "^2.2.0"

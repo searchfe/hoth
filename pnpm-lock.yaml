@@ -321,7 +321,7 @@ importers:
   packages/view:
     dependencies:
       '@hoth/decorators':
-        specifier: workspace:^1.1.6
+        specifier: ^1.3.0
         version: link:../decorators
       fastify-plugin:
         specifier: ^3.0.0

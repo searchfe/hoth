@@ -13,7 +13,8 @@ async function threadPluginInner(fastify: FastifyInstance, options: PluginOption
 }
 
 export const threadPlugin = fp(threadPluginInner, {
-    fastify: '>=5.0.0',
+    // 为了兼容 还在使用Fastify v3.x的当前线上项目，不明确声明5版本
+    // fastify: '>=5.0.0',
     name: '@hoth/thread',
 });
 

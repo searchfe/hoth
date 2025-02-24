@@ -1,3 +1,10 @@
+# [@hoth/decorators-v2.0.3](https://github.com/searchfe/hoth/compare/@hoth/decorators-v2.0.2...@hoth/decorators-v2.0.3) (2025-02-24)
+
+
+### Bug Fixes
+
+* update deps ([ac43de6](https://github.com/searchfe/hoth/commit/ac43de6cdf4c5768070b0500dfe90ac77309831b))
+
 # [@hoth/decorators-v2.0.2](https://github.com/searchfe/hoth/compare/@hoth/decorators-v2.0.1...@hoth/decorators-v2.0.2) (2025-02-24)
 
 

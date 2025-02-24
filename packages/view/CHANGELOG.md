@@ -1,3 +1,11 @@
+# [@hoth/view-v2.0.2](https://github.com/searchfe/hoth/compare/@hoth/view-v2.0.1...@hoth/view-v2.0.2) (2025-02-24)
+
+
+### Bug Fixes
+
+* update deps ([ac43de6](https://github.com/searchfe/hoth/commit/ac43de6cdf4c5768070b0500dfe90ac77309831b))
+* update deps ([e9933b5](https://github.com/searchfe/hoth/commit/e9933b580217e516af15418e8b541497b3a8954f))
+
 # [@hoth/view-v2.0.1](https://github.com/searchfe/hoth/compare/@hoth/view-v2.0.0...@hoth/view-v2.0.1) (2025-02-23)
 
 

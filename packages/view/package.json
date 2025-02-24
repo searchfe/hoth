@@ -1,6 +1,6 @@
 {
   "name": "@hoth/view",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "template engine for hoth framework",
   "main": "dist/index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/searchfe/hoth#readme",
   "dependencies": {
-    "@hoth/decorators": "^2.0.1",
+    "@hoth/decorators": "^2.0.3",
     "fastify-plugin": "^5.0.0",
     "lru-cache": "^6.0.0",
     "tslib": "^2.1.0"

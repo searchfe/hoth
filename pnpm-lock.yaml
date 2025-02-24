@@ -155,10 +155,10 @@ importers:
     dependencies:
       '@hoth/decorators':
         specifier: ^2.0.1
-        version: link:../decorators
+        version: 2.0.3(@types/node@22.13.4)(fastify@5.2.1)
       '@hoth/logger':
         specifier: ^2.0.1
-        version: link:../logger
+        version: 2.0.3
       '@hoth/utils':
         specifier: ^2.0.0
         version: link:../utils
@@ -189,10 +189,10 @@ importers:
     dependencies:
       '@hoth/app-autoload':
         specifier: ^2.0.0
-        version: link:../app-autoload
+        version: 2.0.2(@types/node@22.13.4)(fastify@5.2.1)
       '@hoth/logger':
         specifier: ^2.0.1
-        version: link:../logger
+        version: 2.0.3
       '@hoth/utils':
         specifier: ^2.0.0
         version: link:../utils
@@ -308,7 +308,7 @@ importers:
     dependencies:
       '@hoth/logger':
         specifier: ^2.0.1
-        version: link:../logger
+        version: 2.0.3
       fastify-plugin:
         specifier: ^5.0.0
         version: 5.0.1
@@ -336,7 +336,7 @@ importers:
     dependencies:
       '@hoth/decorators':
         specifier: ^2.0.1
-        version: link:../decorators
+        version: 2.0.3(@types/node@22.13.4)(fastify@5.2.1)
       fastify-plugin:
         specifier: ^5.0.0
         version: 5.0.1
@@ -779,8 +779,20 @@ packages:
   '@fastify/proxy-addr@5.0.0':
     resolution: {integrity: sha512-37qVVA1qZ5sgH7KpHkkC4z9SK6StIsIcOmpjvMPXNb3vx2GQxhZocogVYbr2PbbeLCQxYIPDok307xEvRZOzGA==}
 
+  '@hoth/app-autoload@2.0.2':
+    resolution: {integrity: sha512-Qn0Ay4KOZHoiRjdeMNpBVLWl8lqAXBfETNBuc8A+J29DrEVz4HfHs7vbFk6xxwARh8L+RXelINTG+VTU+m4kmQ==}
+
+  '@hoth/decorators@2.0.3':
+    resolution: {integrity: sha512-ET+/rr3Rn8f+qw/O9yK8hr/eKlYVPiA2r6wy5L7Wc7ErCdZujqQ7rDHxEN9OS6Uyl8FfDpLIbomdIBdLKSCOkQ==}
+
+  '@hoth/logger@2.0.3':
+    resolution: {integrity: sha512-ppJyefGBY1XuYn0JvQ/y3SeuP7g2qnZjQ+2GRufeWdTkONVWVXkPemBj9YbXIDENMJKSGJh5TPxUo/rAiqGGQg==}
+
   '@hoth/typescript-to-json-schema@2.1.2':
     resolution: {integrity: sha512-cgx8fjREs5Q1SBZAyt3peC1dbdDBuuDa7uM0ubLkt5LylD6bCM+zuAUfJ0GTMuGWgquX5r11FXs4oKjztXkoog==}
+
+  '@hoth/utils@2.0.0':
+    resolution: {integrity: sha512-iS3zABtocze7f6+Gp5HQo+T92SfnRtTpnWTfJPKBaK1w9q8ADON+uf9owvHB79YioRQUlFpUOAgNEvVv0SbuOA==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -6027,6 +6039,42 @@ snapshots:
       '@fastify/forwarded': 3.0.0
       ipaddr.js: 2.2.0
 
+  '@hoth/app-autoload@2.0.2(@types/node@22.13.4)(fastify@5.2.1)':
+    dependencies:
+      '@hoth/decorators': 2.0.3(@types/node@22.13.4)(fastify@5.2.1)
+      '@hoth/logger': 2.0.3
+      '@hoth/utils': 2.0.0
+      config-enhanced: 3.3.7
+      fastify-plugin: 5.0.1
+      fastify-warmup: 0.1.1
+      resolve-from: 5.0.0
+      tslib: 2.8.1
+      uuid-random: 1.3.2
+    transitivePeerDependencies:
+      - '@types/node'
+      - fastify
+
+  '@hoth/decorators@2.0.3(@types/node@22.13.4)(fastify@5.2.1)':
+    dependencies:
+      fastify-decorators: 3.15.1(@types/node@22.13.4)(fastify@5.2.1)
+      fastify-plugin: 5.0.1
+      reflect-metadata: 0.1.14
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - '@types/node'
+      - fastify
+
+  '@hoth/logger@2.0.3':
+    dependencies:
+      chalk: 4.1.2
+      file-stream-rotator: 0.5.7
+      flatstr: 1.0.12
+      lodash: 4.17.21
+      pino: 9.6.0
+      resolve-from: 5.0.0
+      tslib: 2.8.1
+      uuid-random: 1.3.2
+
   '@hoth/typescript-to-json-schema@2.1.2':
     dependencies:
       chalk: 4.1.2
@@ -6035,6 +6083,11 @@ snapshots:
       lodash: 4.17.21
       ts-morph: 11.0.3
       typescript: 3.8.3
+
+  '@hoth/utils@2.0.0':
+    dependencies:
+      resolve-from: 5.0.0
+      tslib: 2.8.1
 
   '@humanfs/core@0.19.1': {}
 

@@ -7,9 +7,13 @@ A Node.js framework based on fastify
 [![Coverage Status](https://coveralls.io/repos/github/searchfe/hoth/badge.svg?branch=main)](https://coveralls.io/github/searchfe/hoth?branch=main)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/searchfe/hoth)
 
-## Requirements
+## 2.0
+support Fastify v5.x
 
-Node.js v20 or later.
+## Requirements
+* 1.0: Node.js v14 or later.
+* 2.0: Node.js v20 or later.
+
 
 ## Install
 

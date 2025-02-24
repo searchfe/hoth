@@ -7,7 +7,7 @@
         "@semantic-release/changelog",
         "@semantic-release/npm",
         ["@semantic-release/exec", {
-                "prepareCmd": "pnpm install && node ../../scripts/update-deps.js ${nextRelease.version}"
+                "prepareCmd": "node ../../scripts/update-deps.js ${nextRelease.version}"
             }
         ],
         [

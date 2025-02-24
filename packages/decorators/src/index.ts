@@ -45,7 +45,7 @@ export const bootstrap = fastifyPlugin(async function (fastify: FastifyInstance,
     appFastifyInstanceTokenMap.set(appName, fastify);
     return bootstrapInner(fastify, config);
 }, {
-    // 为了兼容 还在使用Fastify v3.x的当前线上项目，不明确声明5版本
+    // 为了兼容 还在使用Fastify v3.x的当前线上项目，不明确声明>5版本
     // fastify: '>=5.0.0',
     name: '@hoth/decorators',
 });

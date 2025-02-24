@@ -1,3 +1,10 @@
+# [@hoth/decorators-v2.0.4](https://github.com/searchfe/hoth/compare/@hoth/decorators-v2.0.3...@hoth/decorators-v2.0.4) (2025-02-24)
+
+
+### Bug Fixes
+
+* **app-autoload:** compatiable ([c3c8337](https://github.com/searchfe/hoth/commit/c3c83372c1f52a9c4fd7023c33a1671009e214c2))
+
 # [@hoth/decorators-v2.0.3](https://github.com/searchfe/hoth/compare/@hoth/decorators-v2.0.2...@hoth/decorators-v2.0.3) (2025-02-24)
 
 

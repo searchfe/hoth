@@ -104,6 +104,26 @@ async function runFastify(opts: Args) {
         loggerInstance: logger as unknown as FastifyBaseLogger,
         disableRequestLogging: true,
         pluginTimeout: 60 * 1000,
+        clientErrorHandler: (err, socket) => {
+            logger.fatal(err);
+            if (err.code === 'ECONNRESET') {
+                return
+            }
+
+            const body = JSON.stringify({
+                error: 400,
+                message: 'Client Error',
+                statusCode: 400
+            })
+
+            if (socket.writable) {
+                socket.end([
+                'HTTP/1.1 400 Bad Request',
+                `Content-Length: ${body.length}`,
+                `Content-Type: application/json\r\n\r\n${body}`
+                ].join('\r\n'))
+            }
+        },
     });
 
     const routes: RouteOptions[] = [];

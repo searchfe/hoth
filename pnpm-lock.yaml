@@ -154,7 +154,7 @@ importers:
   packages/app-autoload:
     dependencies:
       '@hoth/decorators':
-        specifier: ^2.0.3
+        specifier: ^2.0.4
         version: link:../decorators
       '@hoth/logger':
         specifier: ^2.0.3
@@ -188,7 +188,7 @@ importers:
   packages/cli:
     dependencies:
       '@hoth/app-autoload':
-        specifier: ^2.0.2
+        specifier: ^2.0.3
         version: link:../app-autoload
       '@hoth/logger':
         specifier: ^2.0.3

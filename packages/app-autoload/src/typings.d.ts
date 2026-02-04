@@ -1,1 +1,1 @@
-declare module 'config-enhanced';
+declare module 'config';

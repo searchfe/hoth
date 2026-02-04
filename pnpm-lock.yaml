@@ -162,9 +162,9 @@ importers:
       '@hoth/utils':
         specifier: ^2.0.0
         version: link:../utils
-      config-enhanced:
-        specifier: ^3.3.7
-        version: 3.3.7
+      config:
+        specifier: ^4.2.0
+        version: 4.2.0
       fastify-plugin:
         specifier: ^5.0.0
         version: 5.0.1
@@ -1952,9 +1952,9 @@ packages:
   config-chain@1.1.13:
     resolution: {integrity: sha512-qj+f8APARXHrM0hraqXYb2/bOVSV4PvJQlNZ/DVj0QrmNM2q2euizkeuVckQ57J+W0mRH6Hvi+k50M4Jul2VRQ==}
 
-  config-enhanced@3.3.7:
-    resolution: {integrity: sha512-QiuABXeIg86I8e2D/FAt+TEsVHBbtyDYlBYjziM1JDYGDmSwaCiFhBznx4FrJ4fz8UbCKGiTF4WHriJwUvTByg==}
-    engines: {node: '>= 10.0.0'}
+  config@4.2.0:
+    resolution: {integrity: sha512-mk+ugmNm+BWc2YRlwmuJkORUvUyEP6w9cDUKU2sljFLYI4StXjqGDqQTA2wITi8sYaRdC/PGOuktqy7+Y4PApw==}
+    engines: {node: '>= 20.0.0'}
 
   configstore@5.0.1:
     resolution: {integrity: sha512-aMKprgk5YhBNyH25hj8wGt2+D52Sw1DRRIzqBwLp2Ya9mFmY8KPvvtvmna8SxVR9JMZ4kzMD68N22vlaRpkeFA==}
@@ -7605,7 +7605,7 @@ snapshots:
       ini: 1.3.8
       proto-list: 1.2.4
 
-  config-enhanced@3.3.7:
+  config@4.2.0:
     dependencies:
       json5: 2.2.3
 

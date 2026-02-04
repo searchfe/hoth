@@ -6,7 +6,7 @@
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 process.env.ALLOW_CONFIG_MUTATIONS = 'false';
 
-import Config from 'config-enhanced';
+import Config from 'config';
 import {resolve, join, isAbsolute} from 'path';
 import {existsSync, readdirSync} from 'fs';
 import {FastifyInstance, FastifyPluginAsync} from 'fastify';

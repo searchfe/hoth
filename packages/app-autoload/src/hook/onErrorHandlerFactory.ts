@@ -15,6 +15,6 @@ export default function (name: string) {
             app: name,
         });
 
-        reply.send(error);
+        reply.send(error.stack || error.message || error);
     };
 }

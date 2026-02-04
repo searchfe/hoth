@@ -28,7 +28,7 @@
     "@hoth/decorators": "^2.0.4",
     "@hoth/logger": "^2.0.3",
     "@hoth/utils": "^2.0.0",
-    "config-enhanced": "^3.3.7",
+    "config": "^4.2.0",
     "fastify-plugin": "^5.0.0",
     "fastify-warmup": "0.1.1",
     "resolve-from": "^5.0.0",

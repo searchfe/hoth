@@ -1,3 +1,10 @@
+# [@hoth/app-autoload-v2.0.4](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v2.0.3...@hoth/app-autoload-v2.0.4) (2026-02-27)
+
+
+### Bug Fixes
+
+* **app-autoload:** update config and support node24 ([1607601](https://github.com/searchfe/hoth/commit/16076016be9961202ae161086ee10ca7505d54b1))
+
 # [@hoth/app-autoload-v2.0.3](https://github.com/searchfe/hoth/compare/@hoth/app-autoload-v2.0.2...@hoth/app-autoload-v2.0.3) (2025-02-24)
 
 

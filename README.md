@@ -66,8 +66,15 @@ pnpm i ./
 pnpm run dev
 ```
 
+## commit
+
+commit messages must be `feat: xxx`, `fix: xxx` etc. commit message conventions.
+otherwise, it will not trigger release automatically.
+
 ### release
 
 ```sh
 pnpm release
 ```
+
+Attention: Github Action NPM_TOKEN need to be regenerated every three months.
